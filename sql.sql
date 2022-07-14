@@ -1,12 +1,13 @@
+create database CaseStudyMD3_QuanLySach;
 
-use quan_ly_sach;
+use CaseStudyMD3_QuanLySach;
 
 create table role(
                      id int not null auto_increment primary key,
                      name varchar(10) not null
 );
 
-CREATE TABLE `quan_ly_sach`.`account` (
+CREATE TABLE `CaseStudyMD3_QuanLySach`.`account` (
                                           `id` INT NOT NULL AUTO_INCREMENT,
                                           `fullname` NVARCHAR(50) NOT NULL,
                                           `username` VARCHAR(20) NOT NULL,
@@ -20,17 +21,17 @@ CREATE TABLE `quan_ly_sach`.`account` (
 );
 
 
-CREATE TABLE `quan_ly_sach`.`category` (
+CREATE TABLE `CaseStudyMD3_QuanLySach`.`category` (
                                            `id` INT NOT NULL AUTO_INCREMENT,
                                            `name` NVARCHAR(45) NOT NULL,
                                            PRIMARY KEY (`id`));
 
-CREATE TABLE `quan_ly_sach`.`order_status` (
+CREATE TABLE `CaseStudyMD3_QuanLySach`.`order_status` (
                                                `id` INT NOT NULL AUTO_INCREMENT,
                                                `name` NVARCHAR(45) NOT NULL,
                                                PRIMARY KEY (`id`));
 
-CREATE TABLE `quan_ly_sach`.`author` (
+CREATE TABLE `CaseStudyMD3_QuanLySach`.`author` (
                                          `id` INT NOT NULL AUTO_INCREMENT,
                                          `name` NVARCHAR(30) NOT NULL,
                                          `date_of_birth` DATE NOT NULL,
@@ -39,7 +40,7 @@ CREATE TABLE `quan_ly_sach`.`author` (
                                          `image` VARCHAR(255) NOT NULL,
                                          PRIMARY KEY (`id`));
 
-CREATE TABLE `quan_ly_sach`.`book` (
+CREATE TABLE `CaseStudyMD3_QuanLySach`.`book` (
                                        `id` INT NOT NULL AUTO_INCREMENT,
                                        `title` NVARCHAR(45) NOT NULL,
                                        `column` INT(10) NOT NULL,
@@ -53,7 +54,7 @@ CREATE TABLE `quan_ly_sach`.`book` (
                                        `price` DOUBLE NOT NULL,
                                        PRIMARY KEY (`id`));
 
-CREATE TABLE `quan_ly_sach`.`order` (
+CREATE TABLE `CaseStudyMD3_QuanLySach`.`order` (
                                         `id` INT NOT NULL AUTO_INCREMENT,
                                         `create_time` DATE NOT NULL,
                                         `total_price` DOUBLE NOT NULL,
@@ -61,7 +62,7 @@ CREATE TABLE `quan_ly_sach`.`order` (
                                         `order_status_id` INT(10) NOT NULL,
                                         PRIMARY KEY (`id`));
 
-CREATE TABLE `quan_ly_sach`.`order_detail` (
+CREATE TABLE `CaseStudyMD3_QuanLySach`.`order_detail` (
                                                `id` INT(10) NOT NULL AUTO_INCREMENT,
                                                `quantity` INT(10) NOT NULL,
                                                `order_id` INT(10) NOT NULL,
@@ -76,17 +77,17 @@ ALTER TABLE book ADD CONSTRAINT id FOREIGN KEY (author_id)
 ALTER TABLE book ADD CONSTRAINT id_category FOREIGN KEY (category_id)
     REFERENCES category(id);
 
-ALTER TABLE `quan_ly_sach`.`order` ADD CONSTRAINT order_orderstatus FOREIGN KEY (order_status_id)
+ALTER TABLE `CaseStudyMD3_QuanLySach`.`order` ADD CONSTRAINT order_orderstatus FOREIGN KEY (order_status_id)
     REFERENCES order_status(id);
 
-ALTER TABLE `quan_ly_sach`.`order` ADD CONSTRAINT order_account FOREIGN KEY (account_id)
+ALTER TABLE `CaseStudyMD3_QuanLySach`.`order` ADD CONSTRAINT order_account FOREIGN KEY (account_id)
     REFERENCES account(id);
 
-ALTER TABLE `quan_ly_sach`.`order_detail` ADD CONSTRAINT orderdetail_order FOREIGN KEY (order_id)
-    REFERENCES `quan_ly_sach`.`order`(id);
+ALTER TABLE `CaseStudyMD3_QuanLySach`.`order_detail` ADD CONSTRAINT orderdetail_order FOREIGN KEY (order_id)
+    REFERENCES `CaseStudyMD3_QuanLySach`.`order`(id);
 
-ALTER TABLE `quan_ly_sach`.`order_detail` ADD CONSTRAINT orderdetail_book FOREIGN KEY (book_id)
-    REFERENCES `quan_ly_sach`.`book`(id);
+ALTER TABLE `CaseStudyMD3_QuanLySach`.`order_detail` ADD CONSTRAINT orderdetail_book FOREIGN KEY (book_id)
+    REFERENCES `CaseStudyMD3_QuanLySach`.`book`(id);
 
 
 -- end--------------------
