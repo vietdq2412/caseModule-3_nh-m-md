@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>JSP - Hello World</title>
 </head>
 <body>
 
@@ -27,7 +27,7 @@
             <tr>
                 <td colspan="2" align="center">
                     <input type="submit" value="Save"/>
-                    <a href="/accounts?action=signup">SignUp</a>
+                        <a href="/accounts?action=signup">SignUp</a>
                 </td>
 
             </tr>
