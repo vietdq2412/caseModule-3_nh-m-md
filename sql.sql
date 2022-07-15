@@ -36,7 +36,7 @@ CREATE TABLE `CaseStudyMD3_QuanLySach`.`order_status` (
 drop table if exists `author` cascade;
 CREATE TABLE `CaseStudyMD3_QuanLySach`.`author` (
                                          `id` INT NOT NULL AUTO_INCREMENT,
-                                         `name` NVARCHAR(50) NOT NULL,
+                                         `name` NVARCHAR(150) NOT NULL,
                                          `date_of_birth` DATE,
                                          `number_of_arts` INT(10),
                                          `nation` NVARCHAR(45),
@@ -45,13 +45,13 @@ CREATE TABLE `CaseStudyMD3_QuanLySach`.`author` (
 drop table if exists `book` cascade;
 CREATE TABLE `CaseStudyMD3_QuanLySach`.`book` (
                                        `id` INT NOT NULL AUTO_INCREMENT,
-                                       `title` NVARCHAR(150) NOT NULL ,
+                                       `title` NVARCHAR(255) NOT NULL ,
                                        `category_id` INT(10),
                                        `author_id` INT(10),
                                        `publish_year` INT(10),
                                        `description` LONGTEXT,
                                        `image` NVARCHAR(255),
-                                       `view` INT(10),
+                                       `views` INT(10),
                                        `quantity` INT(10),
                                        `price` DOUBLE NOT NULL,
                                        PRIMARY KEY (`id`));
@@ -93,3 +93,11 @@ ALTER TABLE `CaseStudyMD3_QuanLySach`.`order_detail` ADD CONSTRAINT orderdetail_
 
 
 -- end--------------------
+-- Insert data---
+-- category---
+insert into category(name) values ('non-fiction');
+insert into category(name) values ('fiction-books');
+insert into category(name) values ('classics');
+insert into category(name) values ('children');
+insert into category(name) values ('poetry-drama');
+insert into category(name) values ('books-into-movies');
