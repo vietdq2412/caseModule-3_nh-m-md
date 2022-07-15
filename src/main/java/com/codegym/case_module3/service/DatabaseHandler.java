@@ -3,7 +3,7 @@ package com.codegym.case_module3.service;
 import java.sql.*;
 
 public class DatabaseHandler<T> {
-    final String DB_URL = "jdbc:mysql://localhost:3306/CaseStudyMD3_QuanLySach?serverTimezone=UTC";
+    final String DB_URL = "jdbc:mysql://localhost:3306/CaseModule3_BookStore?serverTimezone=UTC";
     final String jdbc_USERNAME = "viet";
     final String jdbc_PASSWORD = "root";
     private static DatabaseHandler instance;
