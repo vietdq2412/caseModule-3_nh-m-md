@@ -1,59 +1,61 @@
+drop database if exists CaseStudyMD3_QuanLySach;
 create database CaseStudyMD3_QuanLySach;
 
 use CaseStudyMD3_QuanLySach;
 
+drop table if exists `role` cascade;
 create table role(
                      id int not null auto_increment primary key,
                      name varchar(10) not null
 );
 
+drop table if exists `account` cascade;
 CREATE TABLE `CaseStudyMD3_QuanLySach`.`account` (
                                           `id` INT NOT NULL AUTO_INCREMENT,
-                                          `fullname` NVARCHAR(50) NOT NULL,
-                                          `username` VARCHAR(20) NOT NULL,
-                                          `password` VARCHAR(15) NOT NULL,
-                                          `address` VARCHAR(255) NOT NULL,
-                                          `email` VARCHAR(50) NOT NULL,
-                                          `phone_number` VARCHAR(10) NOT NULL,
+                                          `full_name` NVARCHAR(50) NOT NULL,
+                                          `username` NVARCHAR(20) NOT NULL,
+                                          `password` NVARCHAR(15) NOT NULL,
+                                          `address` NVARCHAR(255),
+                                          `email` NVARCHAR(50) NOT NULL,
+                                          `phone_number` NVARCHAR(10),
                                           `role_id` INT NOT NULL,
                                           PRIMARY KEY (`id`),
                                           FOREIGN KEY (role_id) REFERENCES role(id)
 );
 
-
+drop table if exists `category` cascade;
 CREATE TABLE `CaseStudyMD3_QuanLySach`.`category` (
                                            `id` INT NOT NULL AUTO_INCREMENT,
                                            `name` NVARCHAR(45) NOT NULL,
                                            PRIMARY KEY (`id`));
-
+drop table if exists `order_status` cascade;
 CREATE TABLE `CaseStudyMD3_QuanLySach`.`order_status` (
                                                `id` INT NOT NULL AUTO_INCREMENT,
                                                `name` NVARCHAR(45) NOT NULL,
                                                PRIMARY KEY (`id`));
-
+drop table if exists `author` cascade;
 CREATE TABLE `CaseStudyMD3_QuanLySach`.`author` (
                                          `id` INT NOT NULL AUTO_INCREMENT,
-                                         `name` NVARCHAR(30) NOT NULL,
-                                         `date_of_birth` DATE NOT NULL,
-                                         `number_of_arts` INT(10) NOT NULL,
-                                         `nation` VARCHAR(45) NOT NULL,
-                                         `image` VARCHAR(255) NOT NULL,
+                                         `name` NVARCHAR(50) NOT NULL,
+                                         `date_of_birth` DATE,
+                                         `number_of_arts` INT(10),
+                                         `nation` NVARCHAR(45),
+                                         `image` NVARCHAR(255),
                                          PRIMARY KEY (`id`));
-
+drop table if exists `book` cascade;
 CREATE TABLE `CaseStudyMD3_QuanLySach`.`book` (
                                        `id` INT NOT NULL AUTO_INCREMENT,
-                                       `title` NVARCHAR(45) NOT NULL,
-                                       `column` INT(10) NOT NULL,
-                                       `category_id` INT(10) NOT NULL,
-                                       `author_id` INT(10) NOT NULL,
-                                       `publish_year` INT(10) NOT NULL,
-                                       `description` LONGTEXT NOT NULL,
-                                       `image` VARCHAR(255) NOT NULL,
-                                       `view` INT(10) NOT NULL,
-                                       `quantity` INT(10) NOT NULL,
+                                       `title` NVARCHAR(150) NOT NULL ,
+                                       `category_id` INT(10),
+                                       `author_id` INT(10),
+                                       `publish_year` INT(10),
+                                       `description` LONGTEXT,
+                                       `image` NVARCHAR(255),
+                                       `view` INT(10),
+                                       `quantity` INT(10),
                                        `price` DOUBLE NOT NULL,
                                        PRIMARY KEY (`id`));
-
+drop table if exists `order` cascade;
 CREATE TABLE `CaseStudyMD3_QuanLySach`.`order` (
                                         `id` INT NOT NULL AUTO_INCREMENT,
                                         `create_time` DATE NOT NULL,
@@ -61,7 +63,7 @@ CREATE TABLE `CaseStudyMD3_QuanLySach`.`order` (
                                         `account_id` INT(10) NOT NULL,
                                         `order_status_id` INT(10) NOT NULL,
                                         PRIMARY KEY (`id`));
-
+drop table if exists `order_detail` cascade;
 CREATE TABLE `CaseStudyMD3_QuanLySach`.`order_detail` (
                                                `id` INT(10) NOT NULL AUTO_INCREMENT,
                                                `quantity` INT(10) NOT NULL,
