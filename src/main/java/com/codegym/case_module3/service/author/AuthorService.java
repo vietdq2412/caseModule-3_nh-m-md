@@ -3,8 +3,6 @@ package com.codegym.case_module3.service.author;
 import com.codegym.case_module3.model.Author;
 import com.codegym.case_module3.service.DatabaseHandler;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 
 public class AuthorService implements IAuthorService {
@@ -24,21 +22,20 @@ public class AuthorService implements IAuthorService {
         }
         return instance;
     }
+
     @Override
     public Boolean create(Author author) {
-        return authorDBHandler.insertData("author", author, author.getColumns());
+        return null;
     }
 
     @Override
     public HashMap<Integer, Author> find(String condition) {
-
         return null;
     }
 
     @Override
     public Author findById(int id) {
-        String condition = "Where id = " + id;
-        return find(condition).get(id);
+        return null;
     }
 
     @Override

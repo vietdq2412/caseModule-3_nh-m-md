@@ -1,4 +1,4 @@
-package com.codegym.case_module3.service.categoryService;
+package com.codegym.case_module3.service.category;
 
 import com.codegym.case_module3.model.Category;
 import com.codegym.case_module3.service.DatabaseHandler;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class CategoryService implements ICategoryService{
+public class CategoryService implements ICategoryService {
     private static CategoryService instance;
     private DatabaseHandler<Category> categoryDBHandler = DatabaseHandler.getInstance();
     private final String CATEGORY_TABLE = "category";

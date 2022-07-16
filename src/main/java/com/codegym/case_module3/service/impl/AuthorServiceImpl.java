@@ -2,12 +2,12 @@ package com.codegym.case_module3.service.impl;
 
 import com.codegym.case_module3.model.Author;
 import com.codegym.case_module3.service.DatabaseHandler;
-import com.codegym.case_module3.service.IAuthorService;
+import com.codegym.case_module3.service.IGeneralService;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class AuthorServiceImpl implements IAuthorService {
+public class AuthorServiceImpl implements IGeneralService<Author> {
     DatabaseHandler databaseHandler = DatabaseHandler.getInstance();
 
 
