@@ -11,11 +11,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(name = "AccountServlet", urlPatterns = "/accounts")
-public class AccountServlet extends HttpServlet {
+public class AccountController extends HttpServlet {
     AccountService accountService;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         accountService = new AccountService();
     }
 
@@ -154,7 +154,7 @@ public class AccountServlet extends HttpServlet {
 
         Account account = accountService.selectByEmailAndPass(email, password);
         if(account != null){
-            response.sendRedirect("/accounts");
+            response.sendRedirect("/books");
         }
         else {
             RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("index.jsp");

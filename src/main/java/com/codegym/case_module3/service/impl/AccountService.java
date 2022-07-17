@@ -12,6 +12,18 @@ public class AccountService implements IAccountService {
 
     ConnectionMySQL connectionMySQL = new ConnectionMySQL();
 
+    private PreparedStatement setPreparedStatement(PreparedStatement pre, Account account) throws SQLException {
+        pre.setString(1, account.getFullName());
+        pre.setString(2, account.getUsername());
+        pre.setString(3, account.getPassword());
+        pre.setString(4, account.getAddress());
+        pre.setString(5, account.getEmail());
+        pre.setString(6, account.getPhoneNumber());
+        pre.setInt(7, account.getRoleId());
+
+        return pre;
+    }
+
     @Override
     public void insert(Account account) throws SQLException {
         String insert = "INSERT INTO account (full_name, username, password, address, email, phone_number, role_id) " +
@@ -19,16 +31,7 @@ public class AccountService implements IAccountService {
 
         try (Connection connection = connectionMySQL.getConnection();
              PreparedStatement pre = connection.prepareStatement(insert)) {
-            pre.setString(1, account.getFullName());
-            pre.setString(2, account.getUsername());
-            pre.setString(3, account.getPassword());
-            pre.setString(4, account.getAddress());
-            pre.setString(5, account.getEmail());
-            pre.setString(6, account.getPhoneNumber());
-            pre.setInt(7, account.getRoleId());
-
-            System.out.println(pre);
-            pre.executeUpdate();
+            setPreparedStatement(pre, account).executeUpdate();
         }
 
 
@@ -123,15 +126,11 @@ public class AccountService implements IAccountService {
         boolean updateRow = false;
         try(Connection connection = connectionMySQL.getConnection();
             PreparedStatement pre = connection.prepareStatement(update);) {
-            pre.setString(1, account.getFullName());
-            pre.setString(2, account.getUsername());
-            pre.setString(3, account.getPassword());
-            pre.setString(4, account.getAddress());
-            pre.setString(5, account.getEmail());
-            pre.setString(6, account.getPhoneNumber());
-            pre.setInt(7, account.getRoleId());
-            pre.setInt(8,account.getId());
-            updateRow = pre.executeUpdate() > 0;
+            PreparedStatement preparedStatement = setPreparedStatement(pre, account);
+            preparedStatement.setInt(8, account.getId());
+
+            updateRow = preparedStatement.executeUpdate() > 0;
+
         }
         return updateRow;
     }

@@ -56,6 +56,7 @@
             <tr>
                 <td colspan="2" align="center">
                     <input type="submit" value="Save"/>
+                    <a href="/accounts?action=signup">SignUp</a>
                 </td>
             </tr>
         </table>
