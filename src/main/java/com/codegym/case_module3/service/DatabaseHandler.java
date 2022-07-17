@@ -4,8 +4,8 @@ import java.sql.*;
 
 public class DatabaseHandler<T> {
     final String DB_URL = "jdbc:mysql://localhost:3306/CaseModule3_BookStore?serverTimezone=UTC";
-    final String jdbc_USERNAME = "viet";
-    final String jdbc_PASSWORD = "root";
+    final String jdbc_USERNAME = "root";
+    final String jdbc_PASSWORD = "123123";
 
     private static DatabaseHandler instance;
 
@@ -62,7 +62,18 @@ public class DatabaseHandler<T> {
         }
     }
 
-//    public ResultSet findById(String table, String condition){
-//
-//    }
+    public boolean updateData(String sql) {
+        Connection connection = getConnection();
+        System.out.println(sql);
+        try {
+            Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+            statement.execute(sql);
+        } catch (SQLIntegrityConstraintViolationException e) {
+            String messenger = new RuntimeException(e).toString();
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
 }

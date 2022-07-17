@@ -52,12 +52,12 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public Category update(int id) {
-        return null;
+    public boolean update(Category category) {
+        return false;
     }
 
     @Override
-    public Category delete(int id) {
-        return null;
+    public boolean delete(int id) {
+        return false;
     }
 }
