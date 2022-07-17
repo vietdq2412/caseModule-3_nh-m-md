@@ -34,9 +34,9 @@ public class DatabaseHandler<T> {
         return connection;
     }
 
-    public boolean insertData(String table, T objectToInsert, String inserstColumns) {
+    public boolean insertData(String table, T objectToInsert, String insertColumns) {
         Connection connection = getConnection();
-        String sql = "insert into " + table + "(" + inserstColumns + ") values(" + objectToInsert.toString() + ")";
+        String sql = "insert into " + table + "(" + insertColumns + ") values(" + objectToInsert.toString() + ")";
         System.out.println(sql);
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
