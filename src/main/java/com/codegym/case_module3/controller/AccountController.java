@@ -1,7 +1,7 @@
 package com.codegym.case_module3.controller;
 
 import com.codegym.case_module3.model.Account;
-import com.codegym.case_module3.service.account.AccountService;
+import com.codegym.case_module3.service.impl.AccountService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,7 +15,7 @@ public class AccountController extends HttpServlet {
     AccountService accountService;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         accountService = new AccountService();
     }
 
@@ -62,7 +62,7 @@ public class AccountController extends HttpServlet {
     private void showFormEdit(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Account u = accountService.selectById(id);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("account/edit.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/account/edit.jsp");
         request.setAttribute("account", u);
         requestDispatcher.forward(request, response);
     }
@@ -74,14 +74,14 @@ public class AccountController extends HttpServlet {
     }
 
     private void showFormCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("account/create.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/account/create.jsp");
         requestDispatcher.forward(request, response);
     }
 
     private void showAllAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Account> accounts = accountService.selectAll();
         request.setAttribute("listAccount", accounts);
-        RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("account/list.jsp");
+        RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("views/account/list.jsp");
         resRequestDispatcher.forward(request, response);
     }
 
@@ -154,7 +154,7 @@ public class AccountController extends HttpServlet {
 
         Account account = accountService.selectByEmailAndPass(email, password);
         if(account != null){
-            response.sendRedirect("/accounts");
+            response.sendRedirect("/books");
         }
         else {
             RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("index.jsp");

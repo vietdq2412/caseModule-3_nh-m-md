@@ -60,8 +60,8 @@ public class Main {
             int quantity = 30;
             int views = 0;
 
-            Book bookToInsert = new Book(title, authorId, catID, image, price, description, quantity, views);
-            databaseHandler.insertData("book", bookToInsert, bookToInsert.getColumns());
+//            Book bookToInsert = new Book(title, authorId, catID, image, price, description, quantity, views);
+//            databaseHandler.insertData("book", bookToInsert, bookToInsert.getColumns());
         });
 
         //System.out.println(bookDetail.getElementsByTag("img").attr("href"));
