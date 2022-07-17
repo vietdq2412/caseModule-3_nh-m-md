@@ -1,8 +1,8 @@
-package com.codegym.case_module3.service.impl;
+package com.codegym.case_module3.service.account;
 
 import com.codegym.case_module3.Connect.ConnectionMySQL;
 import com.codegym.case_module3.model.Account;
-import com.codegym.case_module3.service.IAccountService;
+import com.codegym.case_module3.service.account.IAccountService;
 
 import java.sql.*;
 import java.util.ArrayList;

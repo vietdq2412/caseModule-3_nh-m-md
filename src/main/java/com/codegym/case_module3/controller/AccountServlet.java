@@ -1,7 +1,7 @@
 package com.codegym.case_module3.controller;
 
 import com.codegym.case_module3.model.Account;
-import com.codegym.case_module3.service.impl.AccountService;
+import com.codegym.case_module3.service.account.AccountService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
