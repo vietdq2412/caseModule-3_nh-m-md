@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "AuthorServlet", value = "/author")
+@WebServlet(name = "AuthorServlet", value = "/authors")
 public class AuthorController extends HttpServlet {
     private IAuthorService authorService = AuthorService.getInstance();
 
@@ -28,7 +28,7 @@ public class AuthorController extends HttpServlet {
                 showList(request, response);
                 break;
             default:
-                request.getRequestDispatcher("views/test.jsp").forward(request, response);
+                showList(request, response);
 
         }
     }
