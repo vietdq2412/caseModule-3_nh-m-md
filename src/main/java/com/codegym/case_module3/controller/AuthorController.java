@@ -20,6 +20,10 @@ public class AuthorController extends HttpServlet {
         String action = "";
         action = request.getParameter("action");
 
+        if(action == null) {
+            action = "";
+        }
+
         switch (action) {
             case "create":
                 createForm(request, response);

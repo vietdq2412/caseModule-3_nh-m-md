@@ -52,7 +52,7 @@ public class DatabaseHandler<T> {
 
     public ResultSet findAllByCondition(String table, String condition) {
         Connection connection = getConnection();
-        String sql = "select  * from " + table + " " + condition;
+        String sql = "select * from " + table + " " + condition;
         System.out.println(sql);
         try {
             Statement statement = connection.createStatement();

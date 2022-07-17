@@ -40,8 +40,8 @@ public class AuthorService implements IAuthorService {
             while (rs.next()){
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
-                Date dateOfBirth = rs.getDate("dateOfBirth");
-                int numberOfArts = rs.getInt("numberOfArts");
+                Date dateOfBirth = rs.getDate("date_of_birth");
+                int numberOfArts = rs.getInt("number_of_arts");
                 String nation = rs.getString("nation");
                 String image = rs.getString("image");
                 Author author = new Author(id, name, dateOfBirth, numberOfArts, nation, image);
