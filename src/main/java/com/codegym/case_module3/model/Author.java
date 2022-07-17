@@ -84,10 +84,10 @@ public class Author {
 
     @Override
     public String toString() {
-        return "'" + name + "'";
+        return "'" + name + "', '" + dateOfBirth + "', '" + numberOfArts + "', " + nation + "', " + image + "'";
     }
 
     public String getColumns() {
-        return "name";
+        return "name, date_of_birth, number_of_arts, nation, image";
     }
 }

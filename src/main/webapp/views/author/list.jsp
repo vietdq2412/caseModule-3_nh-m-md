@@ -12,6 +12,7 @@
     <title>Title</title>
 </head>
 <body>
+<h2><a href="authors?action=create">Tao moi</a></h2>
 <h1>Danh sach tac gia</h1>
 <c:forEach var="author" items="${authorList}">
     <h3>${author.id}, ${author.name}, ${author.dateOfBirth}, ${author.numberOfArts}, ${author.nation}, ${author.image}</h3>
