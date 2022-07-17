@@ -61,14 +61,18 @@ public class AuthorService implements IAuthorService {
 
     @Override
     public boolean update(Author author) {
-        String sql = "update account set full_name = ?, username = ?, password = ?, address = ?," +
-                " email = ?, phone_number = ?, role_id = ? where (id = ?);";
+        String sql = "update " + AUTHOR_TABLE + " set name = '" + author.getName() +
+                "', date_of_birth = '" + author.getDateOfBirth() +
+                "', number_of_arts = " + author.getNumberOfArts() +
+                ", nation = '" + author.getNation() +
+                "', image = '" + author.getImage()+
+                "' where id = " + author.getId() + ";";
         return authorDBHandler.updateData(sql);
     }
 
-
     @Override
     public boolean delete(int id) {
-        return false;
+        String sql = "delete from " + AUTHOR_TABLE + " where id = " + id;
+        return authorDBHandler.deleteData(sql);
     }
 }

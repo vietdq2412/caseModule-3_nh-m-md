@@ -15,7 +15,8 @@
 <h2><a href="authors?action=create">Tao moi</a></h2>
 <h1>Danh sach tac gia</h1>
 <c:forEach var="author" items="${authorList}">
-    <h3>${author.id}, ${author.name}, ${author.dateOfBirth}, ${author.numberOfArts}, ${author.nation}, ${author.image}</h3>
+    <h3>${author.id}, ${author.name}, ${author.dateOfBirth}, ${author.numberOfArts}, ${author.nation}, ${author.image}
+        <a href="/authors?action=edit&id=${author.id}">Edit</a> <a href="/authors?action=delete&id=${author.id}">Delete</a></h3>
 </c:forEach>
 </body>
 </html>

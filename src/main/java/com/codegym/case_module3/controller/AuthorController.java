@@ -33,22 +33,18 @@ public class AuthorController extends HttpServlet {
             case "edit":
                 editForm(request, response);
                 break;
+            case "delete":
+                doDeleteAuthor(request, response);
+                break;
             default:
                 showList(request, response);
-
         }
     }
 
-    private void showList(HttpServletRequest request, HttpServletResponse response) {
+    private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/author/list.jsp");
         request.setAttribute("authorList", authorService.find("").values());
-        try {
-            requestDispatcher.forward(request,response);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        requestDispatcher.forward(request, response);
     }
 
     private void createForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,7 +54,16 @@ public class AuthorController extends HttpServlet {
 
     private void editForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/author/edit.jsp");
+        int id = Integer.parseInt(request.getParameter("id"));
+        Author author = authorService.findById(id);
+        request.setAttribute("author", author);
         requestDispatcher.forward(request, response);
+    }
+
+    private void doDeleteAuthor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        authorService.delete(id);
+        response.sendRedirect("/authors");
     }
 
     @Override
@@ -71,6 +76,7 @@ public class AuthorController extends HttpServlet {
                 createAuthor(request, response);
                 break;
             case "edit":
+                editAuthor(request, response);
                 break;
             default:
                 request.getRequestDispatcher("views/test.jsp").forward(request, response);
@@ -84,6 +90,17 @@ public class AuthorController extends HttpServlet {
         String nation = request.getParameter("nation");
         String image = request.getParameter("image");
         authorService.create(new Author(name, date_of_birth, number_of_arts, nation, image));
+        response.sendRedirect("/authors");
+    }
+
+    private void editAuthor(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        Date date_of_birth = Date.valueOf(request.getParameter("date_of_birth"));
+        int number_of_arts = Integer.parseInt(request.getParameter("number_of_arts"));
+        String nation = request.getParameter("nation");
+        String image = request.getParameter("image");
+        authorService.update(new Author(id, name, date_of_birth, number_of_arts, nation, image));
         response.sendRedirect("/authors");
     }
 }

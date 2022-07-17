@@ -76,4 +76,19 @@ public class DatabaseHandler<T> {
         }
         return true;
     }
+
+    public boolean deleteData(String sql) {
+        Connection connection = getConnection();
+        System.out.println(sql);
+        try {
+            Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+            statement.execute(sql);
+        } catch (SQLIntegrityConstraintViolationException e) {
+            String messenger = new RuntimeException(e).toString();
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
 }
