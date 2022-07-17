@@ -1,8 +1,8 @@
 package com.codegym.case_module3.controller;
 
 import com.codegym.case_module3.model.Category;
-import com.codegym.case_module3.service.categoryService.CategoryService;
-import com.codegym.case_module3.service.categoryService.ICategoryService;
+import com.codegym.case_module3.service.category.CategoryService;
+import com.codegym.case_module3.service.category.ICategoryService;
 import com.google.gson.Gson;
 
 import javax.servlet.RequestDispatcher;

@@ -1,4 +1,4 @@
-package com.codegym.case_module3.service;
+package com.codegym.case_module3.service.account;
 
 import com.codegym.case_module3.model.Account;
 

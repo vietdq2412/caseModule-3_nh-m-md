@@ -1,4 +1,4 @@
-package com.codegym.case_module3.service.categoryService;
+package com.codegym.case_module3.service.category;
 
 import com.codegym.case_module3.model.Category;
 import com.codegym.case_module3.service.DatabaseHandler;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class CategoryService implements ICategoryService{
+public class CategoryService implements ICategoryService {
     private static CategoryService instance;
     private DatabaseHandler<Category> categoryDBHandler = DatabaseHandler.getInstance();
     private final String CATEGORY_TABLE = "category";
@@ -52,12 +52,12 @@ public class CategoryService implements ICategoryService{
     }
 
     @Override
-    public Category update(int id) {
-        return null;
+    public boolean update(Category category) {
+        return false;
     }
 
     @Override
-    public Category delete(int id) {
-        return null;
+    public boolean delete(int id) {
+        return false;
     }
 }

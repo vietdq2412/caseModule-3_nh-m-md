@@ -6,6 +6,6 @@ public interface IService<T> {
     Boolean create(T t);
     HashMap<Integer, T> find(String condition);
     T findById(int id);
-    T update(int id);
-    T delete(int id);
+    boolean update(T t);
+    boolean delete(int id);
 }
