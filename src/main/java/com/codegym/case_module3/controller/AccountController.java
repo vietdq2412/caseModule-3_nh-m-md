@@ -1,13 +1,14 @@
 package com.codegym.case_module3.controller;
 
 import com.codegym.case_module3.model.Account;
-import com.codegym.case_module3.service.impl.AccountService;
+import com.codegym.case_module3.service.account.AccountService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 @WebServlet(name = "AccountServlet", urlPatterns = "/accounts")
@@ -61,7 +62,7 @@ public class AccountController extends HttpServlet {
 
     private void showFormEdit(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Account u = accountService.selectById(id);
+        Account u = accountService.findById(id);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/account/edit.jsp");
         request.setAttribute("account", u);
         requestDispatcher.forward(request, response);
@@ -79,8 +80,8 @@ public class AccountController extends HttpServlet {
     }
 
     private void showAllAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Account> accounts = accountService.selectAll();
-        request.setAttribute("listAccount", accounts);
+        HashMap<Integer, Account> accounts = accountService.find("");
+        request.setAttribute("listAccount", accounts.values());
         RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("views/account/list.jsp");
         resRequestDispatcher.forward(request, response);
     }
@@ -114,7 +115,7 @@ public class AccountController extends HttpServlet {
 
     private void signupAccount(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         Account Account = getAccount(request, response);
-        accountService.insert(Account);
+        accountService.create(Account);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
         requestDispatcher.forward(request, response);
     }
@@ -133,7 +134,7 @@ public class AccountController extends HttpServlet {
 
     private void createAccount(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         Account Account = getAccount(request, response);
-        accountService.insert(Account);
+        accountService.create(Account);
         response.sendRedirect("/accounts");
     }
 
@@ -149,10 +150,10 @@ public class AccountController extends HttpServlet {
     }
 
     private void loginAcount(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String email = request.getParameter("_email");
+        String password = request.getParameter("_password");
 
-        Account account = accountService.selectByEmailAndPass(email, password);
+        Account account = accountService.findByEmailAndPass(email, password);
         if(account != null){
             response.sendRedirect("/books");
         }

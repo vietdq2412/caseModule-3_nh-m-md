@@ -28,7 +28,7 @@ public class AuthorService implements IAuthorService {
     }
 
     @Override
-    public Boolean create(Author author) {
+    public boolean create(Author author) {
         return authorDBHandler.insertData(AUTHOR_TABLE, author, author.getColumns());
     }
 

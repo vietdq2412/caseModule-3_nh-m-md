@@ -24,7 +24,7 @@ public class CategoryService implements ICategoryService {
         return instance;
     }
     @Override
-    public Boolean create(Category category) {
+    public boolean create(Category category) {
         return categoryDBHandler.insertData(CATEGORY_TABLE, category, category.getColumns());
     }
 

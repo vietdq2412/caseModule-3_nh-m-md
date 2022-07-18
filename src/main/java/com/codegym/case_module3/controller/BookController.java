@@ -1,15 +1,13 @@
 package com.codegym.case_module3.controller;
 
-import com.codegym.case_module3.model.Account;
 import com.codegym.case_module3.model.Book;
-import com.codegym.case_module3.service.impl.BookServiec;
+import com.codegym.case_module3.service.book.BookServiec;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,7 +54,7 @@ public class BookController extends HttpServlet {
 
     private void showFormEdit(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Book book = bookServiec.selectById(id);
+        Book book = bookServiec.findById(id);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/book/edit.jsp");
         request.setAttribute("book", book);
         requestDispatcher.forward(request, response);
@@ -68,8 +66,8 @@ public class BookController extends HttpServlet {
     }
 
     private void showAllBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Book> books = bookServiec.selectAll();
-        request.setAttribute("listBook", books);
+        HashMap<Integer, Book> books = bookServiec.find("");
+        request.setAttribute("listBook", books.values());
         RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("views/book/list.jsp");
         resRequestDispatcher.forward(request, response);
 
@@ -119,7 +117,7 @@ public class BookController extends HttpServlet {
 
     private void createBook(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         Book book = getAllBook(request, response);
-        bookServiec.insert(book);
+        bookServiec.create(book);
         response.sendRedirect("/books");
 
     }

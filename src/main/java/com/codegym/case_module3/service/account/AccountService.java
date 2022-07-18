@@ -1,11 +1,11 @@
-package com.codegym.case_module3.service.impl;
+package com.codegym.case_module3.service.account;
 
 import com.codegym.case_module3.connect.ConnectionMySQL;
 import com.codegym.case_module3.model.Account;
-import com.codegym.case_module3.service.IAccountService;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class AccountService implements IAccountService {
@@ -25,20 +25,23 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public void insert(Account account) throws SQLException {
+    public boolean create(Account account) {
+        boolean createRow = false;
         String insert = "INSERT INTO account (full_name, username, password, address, email, phone_number, role_id) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
         try (Connection connection = connectionMySQL.getConnection();
              PreparedStatement pre = connection.prepareStatement(insert)) {
-            setPreparedStatement(pre, account).executeUpdate();
+            createRow = setPreparedStatement(pre, account).executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
+        return createRow;
 
     }
 
     @Override
-    public Account selectById(int id) throws SQLException {
+    public Account findById(int id) {
         String selectById = "select * from account where id = ?";
         Account account = null;
         try(Connection connection = connectionMySQL.getConnection();
@@ -49,6 +52,8 @@ public class AccountService implements IAccountService {
             while (rs.next()){
                 account = getAllAccount(rs);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return account;
     }
@@ -68,7 +73,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public Account selectByEmailAndPass(String email, String password) {
+    public Account findByEmailAndPass(String email, String password) {
         String selectAccount = "select * from account where email = ? and password = ?; ";
         Account account = null;
         try(Connection con = connectionMySQL.getConnection();
@@ -84,14 +89,15 @@ public class AccountService implements IAccountService {
                 return account;
             }
         }catch (SQLException e){
+            throw new RuntimeException(e);
         }
         return account;
     }
 
     @Override
-    public List<Account> selectAll() {
+    public HashMap<Integer, Account> find(String condition) {
         String selectAll = "select * from account;";
-        List<Account> accounts = new ArrayList<>();
+        HashMap<Integer, Account> accounts = new HashMap<>();
         try (Connection connection = connectionMySQL.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(selectAll)) {
             System.out.println(preparedStatement);
@@ -99,7 +105,7 @@ public class AccountService implements IAccountService {
 
             while (rs.next()) {
                Account account = getAllAccount(rs);
-                accounts.add(account);
+                accounts.put(account.getId(),account);
             }
         } catch (SQLException e) {
         }
@@ -107,20 +113,22 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public boolean delete(int id) throws SQLException {
+    public boolean delete(int id) {
         String delete = "delete from account WHERE id = ?;";
         boolean rowDelete = false;
         try(Connection connection = connectionMySQL.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(delete)) {
             preparedStatement.setInt(1, id);
             rowDelete = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return rowDelete;
     }
 
     @Override
-    public boolean update(Account account) throws SQLException {
+    public boolean update(Account account) {
         String update = "update account set full_name = ?, username = ?, password = ?, address = ?," +
                 " email = ?, phone_number = ?, role_id = ? where (id = ?);";
         boolean updateRow = false;
@@ -131,6 +139,8 @@ public class AccountService implements IAccountService {
 
             updateRow = preparedStatement.executeUpdate() > 0;
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return updateRow;
     }
