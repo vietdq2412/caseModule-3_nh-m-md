@@ -74,7 +74,7 @@
                             <li class="active"><a href="./shop.html">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
-                                    <li><a href="product-details.jsp">Product Details</a></li>
+                                    <li><a href="book-details.jsp">Product Details</a></li>
                                     <li><a href="shop-cart.jsp">Shop Cart</a></li>
                                     <li><a href="checkout.jsp">Checkout</a></li>
                                     <li><a href="blog-details.jsp">Blog Details</a></li>
