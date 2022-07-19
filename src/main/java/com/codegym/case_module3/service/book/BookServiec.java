@@ -1,7 +1,11 @@
 package com.codegym.case_module3.service.book;
 
 import com.codegym.case_module3.connect.ConnectionMySQL;
+import com.codegym.case_module3.model.Author;
 import com.codegym.case_module3.model.Book;
+import com.codegym.case_module3.model.Category;
+import com.codegym.case_module3.service.author.AuthorService;
+import com.codegym.case_module3.service.category.CategoryService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,12 +16,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class BookServiec implements IBookService {
+    AuthorService authorService = new AuthorService();
+    CategoryService categoryService = new CategoryService();
     ConnectionMySQL connectionMySQL = new ConnectionMySQL();
 
     private PreparedStatement setPreparedStatement(PreparedStatement pre, Book book) throws SQLException {
         pre.setString(1, book.getTitle());
-        pre.setInt(2, book.getCategoryId());
-        pre.setInt(3, book.getAuthorId());
+        pre.setInt(2, book.getCategoryId().getId());
+        pre.setInt(3, book.getAuthorId().getId());
         pre.setInt(4, book.getPublishYear());
         pre.setString(5, book.getDescription());
         pre.setString(6, book.getImage());
@@ -63,7 +69,7 @@ public class BookServiec implements IBookService {
 
     @Override
     public Book findById(int id) {
-        String selectById = "select * from account where id = ?";
+        String selectById = "select * from book where id = ?";
         Book book = null;
         try(Connection connection = connectionMySQL.getConnection();
         PreparedStatement pre = connection.prepareStatement(selectById)) {
@@ -91,7 +97,9 @@ public class BookServiec implements IBookService {
         int views = rs.getInt("views");
         int quantity = rs.getInt("quantity");
         double price = rs.getDouble("price");
-        book = new Book(id,title, author_id, category_id, publish_year, image, description, price, views, quantity);
+        Author author = authorService.findById(author_id);
+        Category category = categoryService.findById(category_id);
+        book = new Book(id,title, author, category, publish_year, image, description, price, views, quantity);
         return book;
 
     }

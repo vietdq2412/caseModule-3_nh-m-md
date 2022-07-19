@@ -32,8 +32,8 @@
             <tr>
                 <td><c:out value="${book.id}"/></td>
                 <td><c:out value="${book.title}"/></td>
-                <td><c:out value="${book.categoryId}"/></td>
-                <td><c:out value="${book.authorId}"/></td>
+                <td><c:out value="${book.categoryId.name}"/></td>
+                <td><c:out value="${book.authorId.name}"/></td>
                 <td><c:out value="${book.publishYear}"/></td>
                 <td><c:out value="${book.description}"/></td>
                 <td><c:out value="${book.image}"/></td>

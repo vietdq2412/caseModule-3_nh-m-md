@@ -12,7 +12,7 @@ public class CategoryService implements ICategoryService {
     private DatabaseHandler<Category> categoryDBHandler = DatabaseHandler.getInstance();
     private final String CATEGORY_TABLE = "category";
 
-    private CategoryService() {
+    public CategoryService() {
 
     }
 

@@ -31,15 +31,22 @@
             <tr>
                 <th>CategoryID:</th>
                 <td>
-                    <input type="text" name="categoryId" id="categoryId" size="45"
-                           value="<c:out value='${book.categoryId}'/>"/>
+                    <select name="categoryId" id="categoryId">
+                        <option value="${book.categoryId.id}"><c:out value='${book.categoryId.name}'/></option>
+                    </select>
+<%--                    <input type="text" name="categoryId" id="categoryId" size="45"--%>
+<%--                           value="<c:out value='${book.categoryId}'/>"/>--%>
+
                 </td>
             </tr>
             <tr>
                 <th>AuthorID:</th>
                 <td>
-                    <input type="text" name="authorId" id="authorId" size="45"
-                           value="<c:out value='${book.authorId}'/>"/>
+                    <select name="authorId" id="authorId">
+                        <option value="${book.authorId.id}"><c:out value='${book.authorId.name}'/></option>
+                    </select>
+<%--                    <input type="text" name="authorId" id="authorId" size="45"--%>
+<%--                           value="<c:out value='${book.authorId}'/>"/>--%>
                 </td>
             </tr>
             <tr>
