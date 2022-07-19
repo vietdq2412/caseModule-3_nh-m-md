@@ -1,7 +1,7 @@
 package com.codegym.case_module3.controller;
 
 import com.codegym.case_module3.model.Book;
-import com.codegym.case_module3.service.book.BookServiec;
+import com.codegym.case_module3.service.book.BookService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -9,15 +9,14 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 
 @WebServlet(name = "BookServlet", urlPatterns = "/books")
 public class BookController extends HttpServlet {
-    BookServiec bookServiec;
+    BookService bookService;
 
     @Override
     public void init() {
-        bookServiec = new BookServiec();
+        bookService = new BookService();
     }
 
     @Override
@@ -47,14 +46,14 @@ public class BookController extends HttpServlet {
 
     private void deleteBooks(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        bookServiec.delete(id);
+        bookService.delete(id);
         response.sendRedirect("/books");
 
     }
 
     private void showFormEdit(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Book book = bookServiec.findById(id);
+        Book book = bookService.findById(id);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/book/edit.jsp");
         request.setAttribute("book", book);
         requestDispatcher.forward(request, response);
@@ -66,7 +65,7 @@ public class BookController extends HttpServlet {
     }
 
     private void showAllBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HashMap<Integer, Book> books = bookServiec.find("");
+        HashMap<Integer, Book> books = bookService.find("");
         request.setAttribute("listBook", books.values());
         RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("views/book/list.jsp");
         resRequestDispatcher.forward(request, response);
@@ -111,13 +110,13 @@ public class BookController extends HttpServlet {
         Book book = getAllBook(request, response);
         int id = Integer.parseInt(request.getParameter("id"));
         book.setId(id);
-        bookServiec.update(book);
+        bookService.update(book);
         response.sendRedirect("/books");
     }
 
     private void createBook(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         Book book = getAllBook(request, response);
-        bookServiec.create(book);
+        bookService.create(book);
         response.sendRedirect("/books");
 
     }

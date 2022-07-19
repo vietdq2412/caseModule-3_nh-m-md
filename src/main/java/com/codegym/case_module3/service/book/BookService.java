@@ -7,11 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class BookServiec implements IBookService {
+public class BookService implements IBookService {
     ConnectionMySQL connectionMySQL = new ConnectionMySQL();
 
     private PreparedStatement setPreparedStatement(PreparedStatement pre, Book book) throws SQLException {
@@ -63,7 +61,7 @@ public class BookServiec implements IBookService {
 
     @Override
     public Book findById(int id) {
-        String selectById = "select * from account where id = ?";
+        String selectById = "select * from book where id = ?";
         Book book = null;
         try(Connection connection = connectionMySQL.getConnection();
         PreparedStatement pre = connection.prepareStatement(selectById)) {

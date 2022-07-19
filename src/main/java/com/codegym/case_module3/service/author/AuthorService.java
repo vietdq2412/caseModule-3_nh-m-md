@@ -15,7 +15,7 @@ public class AuthorService implements IAuthorService {
     private DatabaseHandler<Author> authorDBHandler = DatabaseHandler.getInstance();
     private static AuthorService instance;
 
-    private AuthorService() {
+    public AuthorService() {
 
     }
 
