@@ -39,7 +39,7 @@ public class CategoryController extends HttpServlet {
     }
 
     private void testView(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("ashion-master/index.html");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("ashion-master/index.jsp");
         try {
             requestDispatcher.forward(request, response);
         } catch (ServletException e) {
