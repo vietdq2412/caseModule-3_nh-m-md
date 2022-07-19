@@ -26,7 +26,7 @@ public class Main {
         String cat5 = "poetry-drama";
         String cat6 = "books-into-movies";
 
-        crawAuthor(databaseHandler);
+        //crawAuthor(databaseHandler);
 
         for (int i = 1; i < 10; i++) {
             crawBook(databaseHandler, cat1, i, 1);
@@ -59,9 +59,9 @@ public class Main {
             String description = documentDetail.getElementsByClass("rte").text().replace("\"", "\\\"").replace("'", "\\'");
             int quantity = 30;
             int views = 0;
-
-//            Book bookToInsert = new Book(title, authorId, catID, image, price, description, quantity, views);
-//            databaseHandler.insertData("book", bookToInsert, bookToInsert.getColumns());
+            int publishYear = 2022;
+            Book bookToInsert = new Book(title, authorId, catID, publishYear, image, description, price, views, quantity);
+            databaseHandler.insertData("book", bookToInsert, bookToInsert.getColumns());
         });
 
         //System.out.println(bookDetail.getElementsByTag("img").attr("href"));
@@ -85,7 +85,8 @@ public class Main {
         Document document = getConnect("https://boabookstore.com/collections/all");
         Elements authors = document.getElementsByClass("aside-content filter-group");
         for (Element a : authors.get(1).getElementsByTag("input")) {
-            String authorName = a.attr("data-text");
+            String authorName = a.attr("data-text").replace("\"", "\\\"").replace("'", "\\'");
+            ;
             Author author = new Author(authorName);
             databaseHandler.insertData("author", author, author.getColumns());
         }

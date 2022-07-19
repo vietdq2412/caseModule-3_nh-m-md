@@ -37,7 +37,7 @@ drop table if exists `author` cascade;
 CREATE TABLE `CaseModule3_BookStore`.`author` (
                                          `id` INT NOT NULL AUTO_INCREMENT,
                                          `name` NVARCHAR(150) NOT NULL,
-                                         `date_of_birth` DATE,
+                                         `date_of_birth` DATE default null,
                                          `number_of_arts` INT(10),
                                          `nation` NVARCHAR(45),
                                          `image` NVARCHAR(255),

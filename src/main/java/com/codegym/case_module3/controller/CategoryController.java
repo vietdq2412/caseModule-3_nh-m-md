@@ -27,11 +27,25 @@ public class CategoryController extends HttpServlet {
             case "create":
                 createForm(request, response);
                 break;
+            case "test":
+                testView(request, response);
+                break;
             case "list":
                 showList(request, response, "");
                 break;
             default:
                 request.getRequestDispatcher("views/test.jsp").forward(request, response);
+        }
+    }
+
+    private void testView(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("ashion-master/index.html");
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
