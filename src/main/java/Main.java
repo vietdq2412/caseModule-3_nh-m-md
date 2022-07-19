@@ -1,3 +1,4 @@
+import com.codegym.case_module3.connect.ConnectionMySQL;
 import com.codegym.case_module3.model.Author;
 import com.codegym.case_module3.model.Book;
 import com.codegym.case_module3.service.DatabaseHandler;
@@ -26,7 +27,7 @@ public class Main {
         String cat5 = "poetry-drama";
         String cat6 = "books-into-movies";
 
-        //crawAuthor(databaseHandler);
+        crawAuthor(databaseHandler);
 
         for (int i = 1; i < 10; i++) {
             crawBook(databaseHandler, cat1, i, 1);

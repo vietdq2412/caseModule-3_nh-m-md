@@ -1,12 +1,17 @@
 package com.codegym.case_module3.service;
 
+import com.codegym.case_module3.connect.ConnectionMySQL;
+
 import java.sql.*;
 
 public class DatabaseHandler<T> {
     final String DB_URL = "jdbc:mysql://localhost:3306/casemodule3_bookstore?serverTimezone=UTC";
-    final String jdbc_USERNAME = "viet";
-    final String jdbc_PASSWORD = "root";
+    final String jdbc_USERNAME = "root";
+    final String jdbc_PASSWORD = "123456";
 
+//    ConnectionMySQL connectionMySQL = new ConnectionMySQL();
+
+    Connection connection = getConnection();
     private static DatabaseHandler instance;
 
     private DatabaseHandler() {
@@ -22,7 +27,7 @@ public class DatabaseHandler<T> {
     }
 
     public Connection getConnection() {
-        Connection connection = null;
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(DB_URL, jdbc_USERNAME, jdbc_PASSWORD);
@@ -35,7 +40,7 @@ public class DatabaseHandler<T> {
     }
 
     public boolean insertData(String table, T objectToInsert, String insertColumns) {
-        Connection connection = getConnection();
+
         String sql = "insert into " + table + "(" + insertColumns + ") values(" + objectToInsert.toString() + ")";
         System.out.println(sql);
         try {
@@ -51,7 +56,7 @@ public class DatabaseHandler<T> {
     }
 
     public ResultSet findAllByCondition(String table, String condition) {
-        Connection connection = getConnection();
+
         String sql = "select * from " + table + " " + condition;
         System.out.println(sql);
         try {
@@ -63,7 +68,7 @@ public class DatabaseHandler<T> {
     }
 
     public boolean updateData(String sql) {
-        Connection connection = getConnection();
+
         System.out.println(sql);
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
@@ -78,7 +83,7 @@ public class DatabaseHandler<T> {
     }
 
     public boolean deleteData(String sql) {
-        Connection connection = getConnection();
+
         System.out.println(sql);
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
