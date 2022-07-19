@@ -11,11 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class BookServiec implements IBookService {
+public class BookService implements IBookService{
     AuthorService authorService = new AuthorService();
     CategoryService categoryService = new CategoryService();
     ConnectionMySQL connectionMySQL = new ConnectionMySQL();
@@ -31,7 +29,7 @@ public class BookServiec implements IBookService {
         pre.setInt(8, book.getQuantity());
         pre.setDouble(9, book.getPrice());
 
-         return pre;
+        return pre;
     }
     @Override
     public boolean create(Book book) {
@@ -40,7 +38,7 @@ public class BookServiec implements IBookService {
                 " publish_year, description, image, views, quantity, price) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try (Connection connection = connectionMySQL.getConnection();
-        PreparedStatement pre = connection.prepareStatement(insert)){
+             PreparedStatement pre = connection.prepareStatement(insert)){
             createRow = setPreparedStatement(pre, book).executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -72,7 +70,7 @@ public class BookServiec implements IBookService {
         String selectById = "select * from book where id = ?";
         Book book = null;
         try(Connection connection = connectionMySQL.getConnection();
-        PreparedStatement pre = connection.prepareStatement(selectById)) {
+            PreparedStatement pre = connection.prepareStatement(selectById)) {
             pre.setInt(1, id);
             ResultSet rs =pre.executeQuery();
             while (rs.next()){
@@ -109,7 +107,7 @@ public class BookServiec implements IBookService {
         String delete = "delete from book where (id = ?);";
         boolean deleteRow = false;
         try(Connection connection = connectionMySQL.getConnection();
-        PreparedStatement pre = connection.prepareStatement(delete)) {
+            PreparedStatement pre = connection.prepareStatement(delete)) {
             pre.setInt(1,id);
             deleteRow = pre.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -124,11 +122,11 @@ public class BookServiec implements IBookService {
                 " description = ?, image = ?, views = ?, quantity = ?, price = ? where (id = ?);";
         boolean updateRow = false;
         try(Connection connection = connectionMySQL.getConnection();
-        PreparedStatement pre = connection.prepareStatement(update)){
+            PreparedStatement pre = connection.prepareStatement(update)){
             PreparedStatement preparedStatement = setPreparedStatement(pre, book);
             preparedStatement.setInt(10, book.getId());
 
-           updateRow = preparedStatement.executeUpdate() > 0;
+            updateRow = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

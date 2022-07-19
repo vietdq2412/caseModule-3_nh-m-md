@@ -4,7 +4,7 @@ import com.codegym.case_module3.model.Author;
 import com.codegym.case_module3.model.Book;
 import com.codegym.case_module3.model.Category;
 import com.codegym.case_module3.service.author.AuthorService;
-import com.codegym.case_module3.service.book.BookServiec;
+import com.codegym.case_module3.service.book.BookService;
 import com.codegym.case_module3.service.category.CategoryService;
 import com.codegym.case_module3.service.category.ICategoryService;
 
@@ -18,13 +18,13 @@ import java.util.List;
 
 @WebServlet(name = "BookServlet", urlPatterns = "/books")
 public class BookController extends HttpServlet {
-    BookServiec bookServiec;
+    BookService bookServiec;
     CategoryService categoryService;
     AuthorService authorService;
 
     @Override
     public void init() {
-        bookServiec = new BookServiec();
+        bookServiec = new BookService();
         categoryService = new CategoryService();
         authorService = new AuthorService();
     }
