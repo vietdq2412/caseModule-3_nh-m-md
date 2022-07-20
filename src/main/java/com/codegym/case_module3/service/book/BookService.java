@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 
 public class BookService implements IBookService {
     AuthorService authorService = new AuthorService();
@@ -64,6 +63,7 @@ public class BookService implements IBookService {
         }
         return createRow;
     }
+
     @Override
     public HashMap<Integer, Book> find(String condition) {
         ResultSet rs = bookDBHandler.findAllByCondition(BOOK_TABLE, condition);
@@ -95,12 +95,6 @@ public class BookService implements IBookService {
     public Book findById(int id) {
         String condition = "Where id = " + id;
         return find(condition).get(id);
-    }
-
-
-    public HashMap<Integer, Book> findTop4ByCategory(int catId) {
-        String condition = "Where category_id = " + catId +" ORDER BY id DESC LIMIT 0,4";
-        return  find(condition);
     }
 
     private Book getAllBook(ResultSet rs) throws SQLException {

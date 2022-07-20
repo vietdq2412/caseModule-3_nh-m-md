@@ -6,7 +6,8 @@ import com.codegym.case_module3.service.DatabaseHandler;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.*;
 
 public class OrderService implements IOrderService{
     private final String ORDER_TABLE = "`order`";
@@ -50,6 +51,24 @@ public class OrderService implements IOrderService{
         return orderHashMap;
     }
 
+    public int findOrder(String condition) {
+        ResultSet rs = orderDBHandler.findAllByCondition(ORDER_TABLE,condition);
+        List<Integer> list = new ArrayList<>();
+        try {
+            while (rs.next()){
+                int id = rs.getInt("id");
+                Date createTime = rs.getDate("create_time");
+                double totalPrice = rs.getDouble("total_price");
+                int accountId = rs.getInt("account_id");
+                int orderStatusId = rs.getInt("order_status_id");
+                return id;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
     @Override
     public Order findById(int id) {
         String condition = "Where id = " + id;
@@ -70,4 +89,10 @@ public class OrderService implements IOrderService{
         String sql = "delete from " + ORDER_TABLE + " where id = " + id;
         return orderDBHandler.deleteData(sql);
     }
+
+    public int findAllByUserId(int userId) {
+        String condition = "where account_id = " + userId + " and order_status_id = 1";
+        return findOrder(condition);
+    }
+
 }

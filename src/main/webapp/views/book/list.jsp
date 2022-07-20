@@ -130,16 +130,24 @@
                         <li class="dropdown nav-item">
                             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                                 <i class="nc-icon nc-planet"></i>
-                                <span class="notification">6</span>
+                                <span class="notification">5</span>
                                 <span class="d-lg-none">Notification</span>
                             </a>
                             <ul class="dropdown-menu">
+<<<<<<< HEAD
                                 <c:forEach var="category" items="${categories}">
 <%--                                    <option value="${category.id}"></option>--%>
                                     <a class="dropdown-item" href="/books?action=categoryID&id=${category.id}">
                                         <c:out value="${category.name}"/>
                                     </a>
                                 </c:forEach>
+=======
+                                <a class="dropdown-item" href="/accounts?action=admin">1</a>
+                                <a class="dropdown-item" href="/accounts?action=user">2</a>
+                                <a class="dropdown-item" href="/accounts?action=user">3</a>
+                                <a class="dropdown-item" href="/accounts?action=user">4</a>
+                                <a class="dropdown-item" href="/accounts?action=user">5</a>
+>>>>>>> f3bc8847b9d5edf77977219f6f3ea82ef57833f8
                                 <a class="dropdown-item" href="/books">All</a>
                             </ul>
                         </li>
@@ -254,7 +262,7 @@
                             <div class="card-body table-full-width table-responsive">
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                    <th style="height: 50px;">Title</th>
+                                    <th>Title</th>
                                     <th>Author</th>
                                     <th>Category</th>
                                     <th>Image</th>
@@ -265,10 +273,10 @@
                                     <tbody>
                                     <c:forEach var="book" items="${listBook}">
                                         <tr>
-                                            <td style="height: 50px;"><c:out value="${book.title}"/></td>
+                                            <td><c:out value="${book.title}"/></td>
                                             <td><c:out value="${book.authorId.name}"/></td>
                                             <td><c:out value="${book.categoryId.name}"/></td>
-                                            <td><img style="height: 100px; width: 70px;" src="<c:out value="${book.image}"/>" alt="image"></td>
+                                            <td><img src="<c:out value="${book.image}"/>" alt="image"></td>
                                             <td><c:out value="${book.price}"/></td>
                                             <td><c:out value="${book.quantity}"/></td>
                                             <td>

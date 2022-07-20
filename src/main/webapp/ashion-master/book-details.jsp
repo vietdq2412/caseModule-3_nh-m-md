@@ -25,8 +25,6 @@
     <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="../css/style.css" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-8
 </head>
 
 <body>
@@ -154,19 +152,22 @@
                         <span>( 138 reviews )</span>
                     </div>
                     <div class="product__details__price">$ ${book.price}</div>
+                    <form action="/shop-carts" method="post">
                     <div class="product__details__button">
                         <div class="quantity">
                             <span>Quantity:</span>
                             <div class="pro-qty">
-                                <input type="text" value="1">
+                                <input type="text" value="1" name="quantity">
+                                <input type="hidden" value="${book.id}" name="bookId">
                             </div>
                         </div>
-                        <a href="/shop-carts" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
+                        <button class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</button>
                         <ul>
                             <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                             <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
                         </ul>
                     </div>
+                    </form>
                 </div>
             </div>
             <div class="col-lg-12">
@@ -211,7 +212,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="related__title">
-                    <h5>NEW PRODUCTS</h5>
+                    <h5>RELATED PRODUCTS</h5>
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6">
