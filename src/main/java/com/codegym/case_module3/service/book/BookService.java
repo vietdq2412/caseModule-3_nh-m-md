@@ -2,17 +2,32 @@ package com.codegym.case_module3.service.book;
 
 import com.codegym.case_module3.connect.ConnectionMySQL;
 import com.codegym.case_module3.model.Book;
-
+import com.codegym.case_module3.model.Category;
+import com.codegym.case_module3.service.DatabaseHandler;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class BookServiec implements IBookService {
+public class BookService implements IBookService {
     ConnectionMySQL connectionMySQL = new ConnectionMySQL();
+
+    private static BookService instance;
+    private DatabaseHandler<Category> bookDBHandler = DatabaseHandler.getInstance();
+    private final String BOOK_TABLE = "book";
+
+    private BookService() {
+
+    }
+
+    public static BookService getInstance() {
+        if (instance == null) {
+            instance = new BookService();
+            return instance;
+        }
+        return instance;
+    }
 
     private PreparedStatement setPreparedStatement(PreparedStatement pre, Book book) throws SQLException {
         pre.setString(1, book.getTitle());
@@ -44,21 +59,28 @@ public class BookServiec implements IBookService {
 
     @Override
     public HashMap<Integer, Book> find(String condition) {
-        String selectAll = "select * from book;";
-        HashMap<Integer, Book> books = new HashMap<>();
-        try (Connection connection = connectionMySQL.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(selectAll);) {
-            System.out.println(preparedStatement);
-            ResultSet rs = preparedStatement.executeQuery();
+        ResultSet rs = bookDBHandler.findAllByCondition(BOOK_TABLE,condition);
+        HashMap<Integer, Book> bookHashMap = new HashMap<>();
+        try {
+            while (rs.next()){
+                int id = rs.getInt("id");
+                int catId = rs.getInt("category_id");
+                int authorId = rs.getInt("author_id");
+                int publishYear = rs.getInt("publish_year");
+                int views = rs.getInt("views");
+                int quantity = rs.getInt("quantity");
+                int price = rs.getInt("price");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                String image = rs.getString("image");
 
-            while (rs.next()) {
-                Book book = getAllBook(rs);
-                books.put(book.getId(), book);
+                Book book = new Book(id, title, authorId, catId, publishYear, image, description, price, views, quantity);
+                bookHashMap.put(id, book);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return books;
+        return bookHashMap;
     }
 
     @Override
