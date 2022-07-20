@@ -69,9 +69,7 @@ public class CategoryController extends HttpServlet {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/category/create.jsp");
         try {
             requestDispatcher.forward(request, response);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }
     }

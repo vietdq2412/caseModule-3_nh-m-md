@@ -135,8 +135,8 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <c:forEach var="category" items="${categories}">
-                                    <option value="${category.id}"></option>
-                                    <a class="dropdown-item" href="/books?action=category&name=${category.id}">
+<%--                                    <option value="${category.id}"></option>--%>
+                                    <a class="dropdown-item" href="/books?action=categoryID&id=${category.id}">
                                         <c:out value="${category.name}"/>
                                     </a>
                                 </c:forEach>
@@ -272,97 +272,129 @@
                                             <td><c:out value="${book.price}"/></td>
                                             <td><c:out value="${book.quantity}"/></td>
                                             <td>
-                                                <a>
-                                                    <div>
-                                                        <!-- Button trigger modal -->
-                                                        <a type="button" class="close" data-toggle="modal"
-                                                           data-target="#${book.id}">
-                                                            <span style="color: #0059B3; " aria-hidden="true"><i class="fa fa-plus"></i></span>
-                                                        </a>
+                                                <div style="margin: 40px;">
+                                                    <!-- Button trigger modal -->
+                                                    <a type="button" class="close" data-toggle="modal"
+                                                       data-target="#${book.id}">
+                                                        <span style="color: #0059B3; " aria-hidden="true"><i class="fa fa-edit"></i></span>
+                                                    </a>
 
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="${book.id}" tabindex="-1" role="dialog"
-                                                             aria-labelledby="exampleModalLabel1" aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel1">CREATE ACCOUNT</h5>
-                                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                                aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="${book.id}" tabindex="-1" role="dialog"
+                                                         aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel1">CREATE ACCOUNT</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal"
+                                                                            aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
 
-                                                                        <form action="/books?action=edit&id=${book.id}" method="POST">
-                                                                            <c:if test="${book != null}">
-                                                                                <input type="hidden" name="id" value="<c:out value='${book.id}' />"/>
-                                                                            </c:if>
-                                                                            <div class="form-group">
-                                                                                <label for="titleEdit">Title</label>
-                                                                                <input type="text" id="titleEdit" name="titleEdit" class="form-control"
-                                                                                       value="<c:out value='${book.title}'/>">
-                                                                            </div>
+                                                                    <form action="/books?action=edit&id=${book.id}" method="POST">
+                                                                        <c:if test="${book != null}">
+                                                                            <input type="hidden" name="id" value="<c:out value='${book.id}' />"/>
+                                                                        </c:if>
+                                                                        <div class="form-group">
+                                                                            <label for="titleEdit">Title</label>
+                                                                            <input type="text" id="titleEdit" name="titleEdit" class="form-control"
+                                                                                   value="<c:out value='${book.title}'/>">
+                                                                        </div>
 
-                                                                            <div class="form-group">
-                                                                                <label for="categoryIdEdit">Category</label>
-                                                                                <select name="categoryIdEdit" id="categoryIdEdit">
-                                                                                    <c:forEach var="category" items="${categories}">
-                                                                                        <option value="${category.id}"><c:out value="${category.name}"/></option>
-                                                                                    </c:forEach>
-                                                                                </select>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="authorIdEdit">Author</label>
-                                                                                <select name="authorIdEdit" id="authorIdEdit">
-                                                                                    <c:forEach var="author" items="${authors}">
-                                                                                        <option value="${author.id}"><c:out value="${author.name}"/></option>
-                                                                                    </c:forEach>
-                                                                                </select>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="publishYearEdit">Publish Year:</label>
-                                                                                <input type="text" id="publishYearEdit" name="publishYearEdit" class="form-control"
-                                                                                       value="<c:out value='${book.publishYear}'/>">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="descriptionEdit">Description</label>
-                                                                                <input type="text" id="descriptionEdit" name="descriptionEdit" class="form-control"
-                                                                                       value="<c:out value='${book.description}'/>">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="imageEdit">Image</label>
-                                                                                <input type="text" id="imageEdit" name="imageEdit" class="form-control"
-                                                                                       value="<c:out value='${book.image}'/>">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="viewsEdit">Views</label>
-                                                                                <input type="text" id="viewsEdit" name="viewsEdit" class="form-control"
-                                                                                       value="<c:out value='${book.views}'/>">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="imageEdit">Quantity</label>
-                                                                                <input type="text" id="quantityEdit" name="quantityEdit" class="form-control"
-                                                                                       value="<c:out value='${book.quantity}'/>">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label for="priceEdit">Price</label>
-                                                                                <input type="text" id="priceEdit" name="priceEdit" class="form-control"
-                                                                                       value="<c:out value='${book.price}'/>">
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                <button type="submit" class="btn btn-primary">Save</button>
-                                                                            </div>
-                                                                        </form>
-
-                                                                    </div>
+                                                                        <div class="form-group">
+                                                                            <label for="categoryIdEdit">Category</label>
+                                                                            <select name="categoryIdEdit" id="categoryIdEdit" style="height: 40px; width: 350px;">
+                                                                                <c:forEach var="category" items="${categories}">
+                                                                                    <option value="${category.id}"><c:out value="${category.name}"/></option>
+                                                                                </c:forEach>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="authorIdEdit">Author</label>
+                                                                            <select name="authorIdEdit" id="authorIdEdit" style="height: 40px; width: 350px;">
+                                                                                <c:forEach var="author" items="${authors}">
+                                                                                    <option value="${author.id}"><c:out value="${author.name}"/></option>
+                                                                                </c:forEach>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="publishYearEdit">Publish Year:</label>
+                                                                            <input type="text" id="publishYearEdit" name="publishYearEdit" class="form-control"
+                                                                                   value="<c:out value='${book.publishYear}'/>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="descriptionEdit">Description</label>
+                                                                            <input type="text" id="descriptionEdit" name="descriptionEdit" class="form-control"
+                                                                                   value="<c:out value='${book.description}'/>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="imageEdit">Image</label>
+                                                                            <input type="text" id="imageEdit" name="imageEdit" class="form-control"
+                                                                                   value="<c:out value='${book.image}'/>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="viewsEdit">Views</label>
+                                                                            <input type="text" id="viewsEdit" name="viewsEdit" class="form-control"
+                                                                                   value="<c:out value='${book.views}'/>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="imageEdit">Quantity</label>
+                                                                            <input type="text" id="quantityEdit" name="quantityEdit" class="form-control"
+                                                                                   value="<c:out value='${book.quantity}'/>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="priceEdit">Price</label>
+                                                                            <input type="text" id="priceEdit" name="priceEdit" class="form-control"
+                                                                                   value="<c:out value='${book.price}'/>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                                        </div>
+                                                                    </form>
 
                                                                 </div>
+
                                                             </div>
                                                         </div>
-                                                    </div></a>
-                                                <a href="/books?action=delete&id=${book.id}">Delete</a>
+                                                    </div>
+                                                </div>
+                                                <div style="margin: 40px;">
+                                                    <a type="button" class="close" data-toggle="modal"
+                                                       data-target="#delete-${book.id}">
+                                                        <span style="color: #0059B3;" aria-hidden="true"><i class="fa fa-close"></i></span>
+                                                    </a>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="delete-${book.id}" tabindex="-1" role="dialog"
+                                                         aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel2">Do you want to delete now?</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal"
+                                                                            aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+
+                                                                    <form action="/books?action=delete&id=${book.id}" method="post">
+                                                                        <div class="form-group">
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                                                                            <button type="submit" class="btn btn-primary">DELETE</button>
+                                                                        </div>
+                                                                    </form>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+<%--                                                <a href="/books?action=delete&id=${book.id}">Delete</a>--%>
                                             </td>
                                         </tr>
                                     </c:forEach>

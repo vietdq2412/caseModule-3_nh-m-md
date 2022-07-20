@@ -97,6 +97,6 @@
         </div>
     </div>
 </div>
-<script src="js/main.js"></script>
+<script src="js1/main1.js"></script>
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.codegym.case_module3.service.account;
 
 import com.codegym.case_module3.connect.ConnectionMySQL;
 import com.codegym.case_module3.model.Account;
+import com.codegym.case_module3.model.Role;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class AccountService implements IAccountService {
         pre.setString(4, account.getAddress());
         pre.setString(5, account.getEmail());
         pre.setString(6, account.getPhoneNumber());
-        pre.setInt(7, account.getRoleId());
+        pre.setInt(7, account.getRoleId().getId());
 
         return pre;
     }
@@ -86,7 +87,14 @@ public class AccountService implements IAccountService {
         String email = rs.getString("email");
         String phone = rs.getString("phone_number");
         int roleId = rs.getInt("role_id");
-        account = new Account(id, fullName, username, pass, address, email, phone, roleId);
+        Role role;
+        if(roleId == 1){
+            role = new Role(1,"ROLE_ADMIN");
+        }
+        else {
+            role = new Role(2, "ROLE_USER");
+        }
+        account = new Account(id, fullName, username, pass, address, email, phone, role);
         return account;
     }
 

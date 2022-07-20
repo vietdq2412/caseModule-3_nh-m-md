@@ -1,6 +1,7 @@
 package com.codegym.case_module3.controller;
 
 import com.codegym.case_module3.model.Account;
+import com.codegym.case_module3.model.Role;
 import com.codegym.case_module3.service.account.AccountService;
 
 import javax.servlet.*;
@@ -38,9 +39,6 @@ public class AccountController extends HttpServlet {
                     break;
                 case "edit":
                     showFormEdit(request, response);
-                    break;
-                case "delete":
-                    deleteAccount(request, response);
                     break;
                 case "login":
                     fromLogin(request, response);
@@ -127,6 +125,9 @@ public class AccountController extends HttpServlet {
                 case "edit":
                     editAccount(request, response);
                     break;
+                case "delete":
+                    deleteAccount(request, response);
+                    break;
                 default:
             }
         } catch (SQLException e) {
@@ -145,8 +146,15 @@ public class AccountController extends HttpServlet {
         Account account = getAccount(request, response, "edit");
         int id = Integer.parseInt(request.getParameter("id"));
         int roleID = Integer.parseInt(request.getParameter("role"));
+        Role role;
+        if(roleID == 1){
+            role = new Role(1,"Admin");
+        }
+        else {
+            role = new Role(2, "User");
+        }
         account.setId(id);
-        account.setRoleId(roleID);
+        account.setRoleId(role);
         System.out.println(account);
         accountService.update(account);
         response.sendRedirect("/accounts");
@@ -167,7 +175,7 @@ public class AccountController extends HttpServlet {
         String address = request.getParameter(name+"address");
         String phoneNumber = request.getParameter(name+"phoneNumber");
 
-        return new Account(fullName, username, email, password, address, phoneNumber, 2);
+        return new Account(fullName, username, email, password, address, phoneNumber, new Role(2, "User"));
     }
 
     private void loginAcount(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException, ServletException {
@@ -183,7 +191,13 @@ public class AccountController extends HttpServlet {
             session.setAttribute("name" , account.getFullName());
             session.setAttribute("roleId", account.getRoleId());
             session.setAttribute("email", account.getEmail());
-            response.sendRedirect("/books");
+            if(account.getRoleId().getId() == 1){
+                response.sendRedirect("/books");
+            }
+            else {
+                response.sendRedirect("/books?action=shop");
+            }
+
         }
         else {
             RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("index.jsp");
