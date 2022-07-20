@@ -3,8 +3,8 @@ package com.codegym.case_module3.model;
 public class Book {
     private int id;
     private String title;
-    private int authorId;
-    private int categoryId;
+    private Author authorId;
+    private Category categoryId;
     private int publishYear;
     private String image;
     private String description;
@@ -15,7 +15,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(int id, String title, int authorId, int categoryId, int publishYear, String image, String description, double price, int views, int quantity) {
+    public Book(int id, String title, Author authorId, Category categoryId, int publishYear, String image, String description, double price, int views, int quantity) {
         this.id = id;
         this.title = title;
         this.authorId = authorId;
@@ -28,7 +28,7 @@ public class Book {
         this.quantity = quantity;
     }
 
-    public Book(String title, int authorId, int categoryId, int publishYear, String image, String description, double price, int views, int quantity) {
+    public Book(String title, Author authorId, Category categoryId, int publishYear, String image, String description, double price, int views, int quantity) {
         this.title = title;
         this.authorId = authorId;
         this.categoryId = categoryId;
@@ -56,19 +56,19 @@ public class Book {
         this.title = title;
     }
 
-    public int getAuthorId() {
+    public Author getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(int authorId) {
+    public void setAuthorId(Author authorId) {
         this.authorId = authorId;
     }
 
-    public int getCategoryId() {
+    public Category getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Category categoryId) {
         this.categoryId = categoryId;
     }
 

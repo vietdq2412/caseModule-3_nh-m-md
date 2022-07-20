@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Create Book</title>
@@ -30,15 +31,25 @@
                 </td>
             </tr>
             <tr>
-                <th>CategoryID:</th>
+                <th>Category:</th>
                 <td>
-                    <input type="text" name="categoryId" id="categoryId" size="45"/>
+                    <select name="categoryId" id="categoryId">
+                        <c:forEach var="category" items="${categories}">
+                            <option value="${category.id}"><c:out value="${category.name}"/></option>
+                        </c:forEach>
+                    </select>
+<%--                    <input type="text" name="categoryId" id="categoryId" size="45"/>--%>
                 </td>
             </tr>
             <tr>
-                <th>AuthorID:</th>
+                <th>Author:</th>
                 <td>
-                    <input type="text" name="authorId" id="authorId" size="45"/>
+                    <select name="categoryId" id="categoryId">
+                        <c:forEach var="author" items="${authors}">
+                            <option value="${author.id}"><c:out value="${author.name}"/></option>
+                        </c:forEach>
+                    </select>
+<%--                    <input type="text" name="authorId" id="authorId" size="45"/>--%>
                 </td>
             </tr>
             <tr>
