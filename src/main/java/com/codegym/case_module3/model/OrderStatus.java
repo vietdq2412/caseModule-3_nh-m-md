@@ -24,7 +24,7 @@ public class OrderStatus {
         this.id = id;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
