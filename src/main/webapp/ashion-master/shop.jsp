@@ -359,7 +359,7 @@
 <!-- Search End -->
 <script>
     $(document).ready(function () {
-        let getBooksUrl= 'http://localhost:8080/books?action=get_books_API&page=';
+        let getBooksUrl= 'http://localhost:8082/books?action=get_books_API&page=';
         getBooksDataAPI(getBooksUrl,1);
         getCategoriesDataAPI();
     })
@@ -367,14 +367,14 @@
     function findByPriceRange(){
         let minp = document.getElementById("minamount").value;
         let maxp = document.getElementById("maxamount").value;
-        let getBooksUrl= 'http://localhost:8080/books?action=get_books_API' +
+        let getBooksUrl= 'http://localhost:8082/books?action=get_books_API' +
              '&minp=' + minp
             +'&maxp=' + maxp
             +'&page=';
         getBooksDataAPI(getBooksUrl,1);
     }
     function findByCategory(id) {
-        let getBooksUrl= 'http://localhost:8080/books?action=get_books_API' +
+        let getBooksUrl= 'http://localhost:8082/books?action=get_books_API' +
             '&catId=' + id
             +'&page=';
         getBooksDataAPI(getBooksUrl,1);
@@ -382,7 +382,7 @@
 
     function getCategoriesDataAPI(url) {
         let getListAjax = $.ajax({
-            url: 'http://localhost:8080/category?action=list',
+            url: 'http://localhost:8082/category?action=list',
             contentType: 'application/json; charset=utf-8',
             method: 'GET',
             success: function (data) {

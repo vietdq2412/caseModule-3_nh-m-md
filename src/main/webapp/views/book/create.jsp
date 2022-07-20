@@ -44,7 +44,7 @@
             <tr>
                 <th>Author:</th>
                 <td>
-                    <select name="categoryId" id="categoryId">
+                    <select name="authorId" id="authorId">
                         <c:forEach var="author" items="${authors}">
                             <option value="${author.id}"><c:out value="${author.name}"/></option>
                         </c:forEach>
