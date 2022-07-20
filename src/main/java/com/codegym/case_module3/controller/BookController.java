@@ -55,12 +55,31 @@ public class BookController extends HttpServlet {
                 case "get_books_API":
                     getBookAPI(request, response);
                     break;
+                case "getTop4ByCategory":
+                    getTop4ByCategory(request, response);
+                    break;
                 default:
                     showAllBook(request, response);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void getTop4ByCategory(HttpServletRequest request, HttpServletResponse response) {
+        String catId = request.getParameter("catId");
+        HashMap<Integer, Book> bookHashMap = bookService.findTop4ByCategory(Integer.parseInt(catId));
+        String bookData = gson.toJson(bookHashMap.values());
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        out.print(bookData);
+        out.flush();
     }
 
     private void shopPage(HttpServletRequest request, HttpServletResponse response) {
