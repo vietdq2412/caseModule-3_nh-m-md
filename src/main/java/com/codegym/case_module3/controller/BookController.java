@@ -35,9 +35,9 @@ public class BookController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         String pageStr = request.getParameter("page");
-        int page = 1;
+        int page = 0;
         if (pageStr != null) {
-            page = Integer.parseInt(pageStr);
+            page = Integer.parseInt(pageStr) - 1;
         }
         if (action == null) {
             action = "";
@@ -57,7 +57,7 @@ public class BookController extends HttpServlet {
                     shopPage(request, response);
                     break;
                 case "get_books_API":
-                    String condition = "LIMIT " + page + ", " + page * 9;
+                    String condition = "LIMIT " + page * 9 + ", " + 9;
                     getBookAPI(request, response, condition);
                     break;
                 default:
@@ -82,7 +82,6 @@ public class BookController extends HttpServlet {
     private void getBookAPI(HttpServletRequest request, HttpServletResponse response, String condition) {
         HashMap<Integer, Book> bookHashMap = bookService.find(condition);
         String bookData = gson.toJson(bookHashMap.values());
-        System.out.println(bookData);
         PrintWriter out = null;
         try {
             out = response.getWriter();

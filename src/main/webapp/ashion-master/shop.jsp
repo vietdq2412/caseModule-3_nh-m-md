@@ -49,7 +49,7 @@
         </a></li>
     </ul>
     <div class="offcanvas__logo">
-        <a href="index.jsp"><img src="img/logo.png" alt=""></a>
+        <a href="./index.html"><img src="img/logo.png" alt=""></a>
     </div>
     <div id="mobile-menu-wrap"></div>
     <div class="offcanvas__auth">
@@ -65,35 +65,32 @@
         <div class="row">
             <div class="col-xl-3 col-lg-2">
                 <div class="header__logo">
-                    <a href="index.jsp"><img src="img/logo.png" alt=""></a>
+                    <a href="./index.html"><img src="img/logo.png" alt=""></a>
                 </div>
-
-                <div class="col-xl-6 col-lg-7">
-                    <nav class="header__menu">
-                        <ul>
-                            <li><a href="index.jsp">Home</a></li>
-                            <li><a href="#">Women’s</a></li>
-                            <li><a href="#">Men’s</a></li>
-                            <li class="active"><a href="./shop.html">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="book-details.jsp">Product Details</a></li>
-                                    <li><a href="shop-cart.jsp">Shop Cart</a></li>
-                                    <li><a href="checkout.jsp">Checkout</a></li>
-                                    <li><a href="blog-details.jsp">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="blog.jsp">Blog</a></li>
-                            <li><a href="contact.jsp">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="header__right">
-                        <div class="header__right__auth">
-                            <a href="#">Login</a>
-                            <a href="#">Register</a>
-                        </div>
+            </div>
+            <div class="col-xl-6 col-lg-7">
+                <nav class="header__menu">
+                    <ul>
+                        <li><a href="./index.html">Home</a></li>
+                        <li class="active"><a href="./shop.html">Shop</a></li>
+                        <li><a href="#">Pages</a>
+                            <ul class="dropdown">
+                                <li><a href="./product-details.html">Product Details</a></li>
+                                <li><a href="./shop-cart.html">Shop Cart</a></li>
+                                <li><a href="./checkout.html">Checkout</a></li>
+                                <li><a href="./blog-details.html">Blog Details</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="./blog.html">Blog</a></li>
+                        <li><a href="./contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="header__right">
+                    <div class="header__right__auth">
+                        <a href="#">Login</a>
+                        <a href="#">Register</a>
                     </div>
                     <ul class="header__right__widget">
                         <li><span class="icon_search search-switch"></span></li>
@@ -120,7 +117,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb__links">
-                    <a href="index.jsp"><i class="fa fa-home"></i> Home</a>
+                    <a href="./index.html"><i class="fa fa-home"></i> Home</a>
                     <span>Shop</span>
                 </div>
             </div>
@@ -246,100 +243,6 @@
                         </div>
                         <a href="#">Filter</a>
                     </div>
-                    <div class="sidebar__sizes">
-                        <div class="section-title">
-                            <h4>Shop by size</h4>
-                        </div>
-                        <div class="size__list">
-                            <label for="xxs">
-                                xxs
-                                <input type="checkbox" id="xxs">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="xs">
-                                xs
-                                <input type="checkbox" id="xs">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="xss">
-                                xs-s
-                                <input type="checkbox" id="xss">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="s">
-                                s
-                                <input type="checkbox" id="s">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="m">
-                                m
-                                <input type="checkbox" id="m">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="ml">
-                                m-l
-                                <input type="checkbox" id="ml">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="l">
-                                l
-                                <input type="checkbox" id="l">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="xl">
-                                xl
-                                <input type="checkbox" id="xl">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="sidebar__color">
-                        <div class="section-title">
-                            <h4>Shop by size</h4>
-                        </div>
-                        <div class="size__list color__list">
-                            <label for="black">
-                                Blacks
-                                <input type="checkbox" id="black">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="whites">
-                                Whites
-                                <input type="checkbox" id="whites">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="reds">
-                                Reds
-                                <input type="checkbox" id="reds">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="greys">
-                                Greys
-                                <input type="checkbox" id="greys">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="blues">
-                                Blues
-                                <input type="checkbox" id="blues">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="beige">
-                                Beige Tones
-                                <input type="checkbox" id="beige">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="greens">
-                                Greens
-                                <input type="checkbox" id="greens">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="yellows">
-                                Yellows
-                                <input type="checkbox" id="yellows">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="col-lg-9 col-md-9">
@@ -349,8 +252,7 @@
                             <div class="product__item__pic set-bg" data-setbg="img/shop/shop-1.jpg">
                                 <div class="label new">New</div>
                                 <ul class="product__hover">
-                                    <li><a href="img/shop/shop-1.jpg" class="image-popup"><span
-                                            class="arrow_expand"></span></a></li>
+                                    <li><a href="img/shop/shop-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
                                     <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                     <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                 </ul>
@@ -368,14 +270,14 @@
                             </div>
                         </div>
                     </div>
-                    <%--                    <div class="col-lg-12 text-center">--%>
-                    <%--                        <div class="pagination__option">--%>
-                    <%--                            <a href="#">1</a>--%>
-                    <%--                            <a href="#">2</a>--%>
-                    <%--                            <a href="#">3</a>--%>
-                    <%--                            <a href="#"><i class="fa fa-angle-right"></i></a>--%>
-                    <%--                        </div>--%>
-                    <%--                    </div>--%>
+<%--                    <div class="col-lg-12 text-center">--%>
+<%--                        <div class="pagination__option">--%>
+<%--                            <a href="#">1</a>--%>
+<%--                            <a href="#">2</a>--%>
+<%--                            <a href="#">3</a>--%>
+<%--                            <a href="#"><i class="fa fa-angle-right"></i></a>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
                 </div>
             </div>
         </div>
@@ -447,7 +349,7 @@
             <div class="col-lg-4 col-md-6 col-sm-7">
                 <div class="footer__about">
                     <div class="footer__logo">
-                        <a href="index.jsp"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                         cilisis.</p>
@@ -503,10 +405,7 @@
             <div class="col-lg-12">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 <div class="footer__copyright__text">
-                    <p>Copyright &copy;
-                        <script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
-                        by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
                 </div>
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </div>
@@ -525,15 +424,14 @@
     </div>
 </div>
 <!-- Search End -->
-
 <script>
     $(document).ready(function () {
-        getDataAPI();
+        getDataAPI(1);
     })
 
-    function getDataAPI() {
+    function getDataAPI(page) {
         let getListAjax = $.ajax({
-            url: 'http://localhost:8080/books?action=get_books_API&page=1',
+            url: 'http://localhost:8080/books?action=get_books_API&page='+ page,
             contentType: 'application/json; charset=utf-8',
             method: 'GET',
             success: function (data) {
@@ -550,11 +448,11 @@
 
         let content = "";
         for (let i = 0; i < data.length; i++) {
-            let img = data[i].image;
-            console.log(img)
+            const img = data[i].image;
             content += `<div class="col-lg-4 col-md-6">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" onclick="setBG(this, `+img+`)">
+                            <div class="product__item__pic set-bg" id="`+ data[i].id +`"
+                                 style="background-image: url("/`+ img +`")">
                                 <div class="label new">New</div>
                                 <ul class="product__hover">
                                     <li><a href="img/shop/shop-1.jpg" class="image-popup"><span
@@ -576,22 +474,29 @@
                             </div>
                         </div>
                     </div>`
+            //setBG(document.getElementById(data[i].id), img);
         }
         content += `<div class="col-lg-12 text-center">
         <div class="pagination__option">
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">3</a>
+            <a href="#" onclick="getDataAPI(1)">1</a>
+            <a href="#" onclick="getDataAPI(2)">2</a>
+            <a href="#" onclick="getDataAPI(3)">3</a>
+            <a href="#" onclick="getDataAPI(4)">4</a>
             <a href="#"><i class="fa fa-angle-right"></i></a>
         </div>
     </div>`
         document.getElementById("book-item").innerHTML = content;
+
+        for (let i = 0; i < data.length; i++){
+            let ele = document.getElementById(data[i].id);
+            setBG(ele, data[i].image)
+        }
     }
 
-    function setBG(ele, src){
+    function setBG(ele, src) {
         console.log(src)
-        ele.style.backgroundImage = src;
+        console.log(ele)
+        ele.style.backgroundImage = "url('" + src + "')";
     }
 </script>
 
