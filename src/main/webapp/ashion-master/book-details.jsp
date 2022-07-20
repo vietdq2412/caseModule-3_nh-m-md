@@ -61,49 +61,8 @@
 <!-- Header Section Begin -->
 <header class="header">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-3 col-lg-2">
-                <div class="header__logo">
-                    <a href="./index.jsp"><img src="img/logo.png" alt=""></a>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-7">
-                <nav class="header__menu">
-                    <ul>
-                        <li><a href="./index.jsp">Home</a></li>
-                        <li><a href="#">Women’s</a></li>
-                        <li><a href="#">Men’s</a></li>
-                        <li class="active"><a href="./shop.jsp">Shop</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="dropdown">
-                                <li><a href="book-details.jsp">Product Details</a></li>
-                                <li><a href="./shop-cart.jsp">Shop Cart</a></li>
-                                <li><a href="./checkout.jsp">Checkout</a></li>
-                                <li><a href="./blog-details.jsp">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="./blog.jsp">Blog</a></li>
-                        <li><a href="./contact.jsp">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-lg-3">
-                <div class="header__right">
-                    <div class="header__right__auth">
-                        <a href="#">Login</a>
-                        <a href="#">Register</a>
-                    </div>
-                    <ul class="header__right__widget">
-                        <li><span class="icon_search search-switch"></span></li>
-                        <li><a href="#"><span class="icon_heart_alt"></span>
-                            <div class="tip">2</div>
-                        </a></li>
-                        <li><a href="#"><span class="icon_bag_alt"></span>
-                            <div class="tip">2</div>
-                        </a></li>
-                    </ul>
-                </div>
-            </div>
+        <div class="row" id="header">
+
         </div>
         <div class="canvas__open">
             <i class="fa fa-bars"></i>
@@ -304,7 +263,9 @@
 </div>
 <!-- Search End -->
 <input type="text" id="catId" value="${category.id}" hidden>
+<script src="../js/header.js"></script>
 <script>
+    setHeader();
     let catId = document.getElementById("catId").value;
     $(document).ready(function () {
         let getBooksUrl = 'http://localhost:8080/books?action=getTop4ByCategory&catId=' + catId;
