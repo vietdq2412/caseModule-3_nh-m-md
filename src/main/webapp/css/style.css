@@ -1456,15 +1456,15 @@ ol {
 	left: 81px;
 	top: 12px;
 	height: 1px;
-	width: 5px;
+
 	background: #0d0d0d;
 	content: "";
 }
 
 .filter-range-wrap .range-slider .price-input input {
 	font-size: 16px;
+	max-width: 100%;
 	color: #0d0d0d;
-	max-width: 16%;
 	border: none;
 }
 
@@ -3204,7 +3204,7 @@ ol {
 		bottom: 0;
 	}
 	.filter-range-wrap .range-slider .price-input input {
-		max-width: 27%;
+
 	}
 	.filter-range-wrap .range-slider .price-input {
 		margin-bottom: 20px;

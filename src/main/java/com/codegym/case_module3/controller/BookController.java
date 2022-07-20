@@ -75,20 +75,22 @@ public class BookController extends HttpServlet {
     }
 
     private void getBookAPI(HttpServletRequest request, HttpServletResponse response) {
+        String condition = "";
         String pageStr = request.getParameter("page");
         int page = 0;
         if (pageStr != null) {
             page = Integer.parseInt(pageStr) - 1;
         }
-        String condition = "";
         String minpStr = request.getParameter("minp");
         String maxpStr = request.getParameter("maxp");
-        int minp = 0;
-        int maxp = 0;
         if (minpStr != null && maxpStr != null) {
-            minp = Integer.parseInt(minpStr.replace("$", ""));
-            maxp = Integer.parseInt(maxpStr.replace("$", ""));
-            condition += "WHERE price BETWEEN " + minp + " and " + maxp;
+            int minp = Integer.parseInt(minpStr.replace("$", ""));
+            int maxp = Integer.parseInt(maxpStr.replace("$", ""));
+            condition = "WHERE price BETWEEN " + minp + " and " + maxp;
+        }
+        String catId = request.getParameter("catId");
+        if (catId != null) {
+            condition = "WHERE category_id = " + catId;
         }
         condition += " LIMIT " + page * 9 + ", " + 9;
         HashMap<Integer, Book> bookHashMap = bookService.find(condition);

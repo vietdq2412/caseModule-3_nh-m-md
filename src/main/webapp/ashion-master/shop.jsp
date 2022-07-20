@@ -167,12 +167,13 @@
                                  data-min="10000" data-max="1000000"></div>
                             <div class="range-slider">
                                 <div class="price-input">
-                                    <p>Price:</p>
-                                    <input type="text" id="minamount">
-                                    <input type="text" id="maxamount">
+
+                                    <input type="text" id="minamount" style="width: 70px">
+                                    <input type="text" id="maxamount" style="width: 70px">
                                 </div>
                             </div>
                         </div>
+                        <br><br>
                         <a href="#" onclick="findByPriceRange()">Filter</a>
                     </div>
                 </div>
@@ -366,10 +367,15 @@
     function findByPriceRange(){
         let minp = document.getElementById("minamount").value;
         let maxp = document.getElementById("maxamount").value;
-        console.log(minp,"--", maxp)
         let getBooksUrl= 'http://localhost:8080/books?action=get_books_API' +
              '&minp=' + minp
             +'&maxp=' + maxp
+            +'&page=';
+        getBooksDataAPI(getBooksUrl,1);
+    }
+    function findByCategory(id) {
+        let getBooksUrl= 'http://localhost:8080/books?action=get_books_API' +
+            '&catId=' + id
             +'&page=';
         getBooksDataAPI(getBooksUrl,1);
     }
@@ -388,6 +394,7 @@
     }
 
     function getBooksDataAPI(url, page) {
+        console.log(url)
         let getListAjax = $.ajax({
             url: url + page,
             contentType: 'application/json; charset=utf-8',
@@ -406,7 +413,7 @@
         for (let i = 0; i < data.length; i++) {
             content += `<div class="card">
             <div class="card-heading active">
-                <a data-toggle="collapse" data-target="#collapseOne">`+data[i].name+`</a>
+                <a onclick="findByCategory(`+data[i].id+`)" data-toggle="collapse" data-target="#collapseOne">`+data[i].name+`</a>
             </div>
         </div>`
         }
