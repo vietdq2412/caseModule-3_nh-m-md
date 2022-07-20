@@ -141,29 +141,31 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="cart__product__item">
-                                <img src="${book.image}" alt="">
-                                <div class="cart__product__item__title">
-                                    <h6>${book.title}</h6>
-                                    <div class="rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                        <c:forEach var="orderDetail" items="${orderDetailList}">
+                            <tr>
+                                <td class="cart__product__item">
+                                    <img src="${orderDetail.id}" alt="">
+                                    <div class="cart__product__item__title">
+                                        <h6>${orderDetail.book_id}</h6>
+                                        <div class="rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="cart__price">$ ${book.price}</td>
-                            <td class="cart__quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
-                                </div>
-                            </td>
-                            <td class="cart__total price">$ 0</td>
-                            <td class="cart__close"><span class="icon_close"></span></td>
-                        </tr>
+                                </td>
+                                <td class="cart__price">$ ${orderDetail.total_price}</td>
+                                <td class="cart__quantity">
+                                    <div class="pro-qty">
+                                        <input type="text" value="1">
+                                    </div>
+                                </td>
+                                <td class="cart__total price">$ ${orderDetail.total_price}</td>
+                                <td class="cart__close"><span class="icon_close"></span></td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

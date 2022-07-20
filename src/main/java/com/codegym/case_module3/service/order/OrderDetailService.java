@@ -6,9 +6,10 @@ import com.codegym.case_module3.service.DatabaseHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.*;
 
 public class OrderDetailService implements IOrderDetailService {
-    private final String ORDER_DETAIL_TABLE = "order-detail";
+    private final String ORDER_DETAIL_TABLE = "order_detail";
     private DatabaseHandler<OrderDetail> orderDetailDBHandler = DatabaseHandler.getInstance();
     private static OrderDetailService instance;
 
@@ -37,11 +38,11 @@ public class OrderDetailService implements IOrderDetailService {
             while (rs.next()){
                 int id = rs.getInt("id");
                 int quantity = rs.getInt("quantity");
-                int orderId = rs.getInt("orderId");
-                double totalPrice = rs.getDouble("totalPrice");
-                int bookId = rs.getInt("bookId");
-                OrderDetail order = new OrderDetail(id, quantity, orderId, totalPrice, bookId);
-                orderDetailHashMap.put(id, order);
+                int orderId = rs.getInt("order_id");
+                double totalPrice = rs.getDouble("total_price");
+                int bookId = rs.getInt("book_id");
+                OrderDetail orderDetail = new OrderDetail(id, quantity, orderId, totalPrice, bookId);
+                orderDetailHashMap.put(id, orderDetail);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -68,5 +69,24 @@ public class OrderDetailService implements IOrderDetailService {
     public boolean delete(int id) {
         String sql = "delete from " + ORDER_DETAIL_TABLE + " where id = " + id;
         return orderDetailDBHandler.deleteData(sql);
+    }
+
+    public List<OrderDetail> findByOrderId(int orderId) {
+        List<OrderDetail> orderDetailList = new ArrayList<>();
+        String sql = "where order_id = " + orderId;
+        ResultSet rs = orderDetailDBHandler.findAllByCondition(ORDER_DETAIL_TABLE,sql);
+        try {
+            while (rs.next()){
+                int id = rs.getInt("id");
+                int quantity = rs.getInt("quantity");
+                double totalPrice = rs.getDouble("total_price");
+                int bookId = rs.getInt("book_id");
+                OrderDetail orderDetail = new OrderDetail(id, quantity, orderId, totalPrice, bookId);
+                orderDetailList.add(orderDetail);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orderDetailList;
     }
 }

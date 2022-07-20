@@ -9,6 +9,7 @@ public class ConnectionMySQL {
     private String JDBC_USERNAME = "viet";
     private String JDBC_PASSWORD = "root";
 
+
     public Connection getConnection() {
         Connection connection = null;
         try {

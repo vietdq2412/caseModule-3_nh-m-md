@@ -6,8 +6,8 @@ import java.sql.*;
 
 public class DatabaseHandler<T> {
     final String DB_URL = "jdbc:mysql://localhost:3306/casemodule3_bookstore?serverTimezone=UTC";
-    final String jdbc_USERNAME = "viet";
-    final String jdbc_PASSWORD = "root";
+    final String jdbc_USERNAME = "root";
+    final String jdbc_PASSWORD = "123123";
 
 //    ConnectionMySQL connectionMySQL = new ConnectionMySQL();
 
@@ -67,6 +67,8 @@ public class DatabaseHandler<T> {
         }
     }
 
+
+
     public boolean updateData(String sql) {
 
         System.out.println(sql);
@@ -83,7 +85,6 @@ public class DatabaseHandler<T> {
     }
 
     public boolean deleteData(String sql) {
-
         System.out.println(sql);
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);

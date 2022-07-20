@@ -34,12 +34,9 @@ public class BookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        String name = request.getParameter("name");
+
         if (action == null) {
             action = "";
-        }
-        if(name == null){
-            name = "";
         }
         try {
             switch (action) {
@@ -58,31 +55,12 @@ public class BookController extends HttpServlet {
                 case "get_books_API":
                     getBookAPI(request, response);
                     break;
-                case "getTop4ByCategory":
-                    getTop4ByCategory(request, response);
-                case "category":
-                    getBookByCategory(request, response, name);
-                    break;
                 default:
                     showAllBook(request, response);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void getTop4ByCategory(HttpServletRequest request, HttpServletResponse response) {}
-
-
-    private void getBookByCategory(HttpServletRequest request, HttpServletResponse response, String name) throws ServletException, IOException {
-        HashMap<Integer, Book> books = bookService.findByCategory(name);
-        HashMap<Integer, Category> categories = categoryService.find("");
-        HashMap<Integer, Author> authors = authorService.find("");
-        request.setAttribute("categories", categories.values());
-        request.setAttribute("authors", authors.values());
-        request.setAttribute("listBook", books.values());
-        RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("views/book/list.jsp");
-        resRequestDispatcher.forward(request, response);
     }
 
     private void shopPage(HttpServletRequest request, HttpServletResponse response) {
