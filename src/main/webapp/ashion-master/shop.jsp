@@ -367,9 +367,10 @@
         let minp = document.getElementById("minamount").value;
         let maxp = document.getElementById("maxamount").value;
         console.log(minp,"--", maxp)
-        let getBooksUrl= 'http://localhost:8080/books?action=get_books_API&minp='
-            + minp +'&maxp='
-            + maxp+'&page=';
+        let getBooksUrl= 'http://localhost:8080/books?action=get_books_API' +
+             '&minp=' + minp
+            +'&maxp=' + maxp
+            +'&page=';
         getBooksDataAPI(getBooksUrl,1);
     }
 
@@ -419,8 +420,7 @@
             const img = data[i].image;
             content += `<div class="col-lg-4 col-md-6">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" id="`+ data[i].id +`"
-                                 style="background-image: url("/`+ img +`")">
+                            <div class="product__item__pic set-bg" id="`+ data[i].id +`">
                                 <div class="label new">New</div>
                                 <ul class="product__hover">
                                     <li><a href="img/shop/shop-1.jpg" class="image-popup"><span
@@ -438,17 +438,17 @@
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                 </div>
-                                <div class="product__price">$ 59.0</div>
+                                <div class="product__price">`+data[i].price+`VND</div>
                             </div>
                         </div>
                     </div>`
         }
         content += `<div class="col-lg-12 text-center">
         <div class="pagination__option">
-            <a href="#" onclick="getBooksDataAPI(`+url+`,1)">1</a>
-            <a href="#" onclick="getBooksDataAPI(`+url+`,2)">2</a>
-            <a href="#" onclick="getBooksDataAPI(`+url+`,3)">3</a>
-            <a href="#" onclick="getBooksDataAPI(`+url+`,4)">4</a>
+            <a href="#" onclick="getBooksDataAPI('`+url+`',1)">1</a>
+            <a href="#" onclick="getBooksDataAPI('`+url+`',2)">2</a>
+            <a href="#" onclick="getBooksDataAPI('`+url+`',3)">3</a>
+            <a href="#" onclick="getBooksDataAPI('`+url+`', 4)">4</a>
             <a href="#"><i class="fa fa-angle-right"></i></a>
         </div>
     </div>`
