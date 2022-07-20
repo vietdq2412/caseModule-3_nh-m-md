@@ -72,7 +72,7 @@
                 <nav class="header__menu">
                     <ul>
                         <li><a href="./index.html">Home</a></li>
-                        <li class="active"><a href="./shop.html">Shop</a></li>
+                        <li class="active"><a href="/books?action=shop">Shop</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="dropdown">
                                 <li><a href="./product-details.html">Product Details</a></li>
@@ -155,74 +155,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
-                                    <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseTwo">Men</a>
-                                    </div>
-                                    <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <ul>
-                                                <li><a href="#">Coats</a></li>
-                                                <li><a href="#">Jackets</a></li>
-                                                <li><a href="#">Dresses</a></li>
-                                                <li><a href="#">Shirts</a></li>
-                                                <li><a href="#">T-shirts</a></li>
-                                                <li><a href="#">Jeans</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseThree">Kids</a>
-                                    </div>
-                                    <div id="collapseThree" class="collapse" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <ul>
-                                                <li><a href="#">Coats</a></li>
-                                                <li><a href="#">Jackets</a></li>
-                                                <li><a href="#">Dresses</a></li>
-                                                <li><a href="#">Shirts</a></li>
-                                                <li><a href="#">T-shirts</a></li>
-                                                <li><a href="#">Jeans</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseFour">Accessories</a>
-                                    </div>
-                                    <div id="collapseFour" class="collapse" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <ul>
-                                                <li><a href="#">Coats</a></li>
-                                                <li><a href="#">Jackets</a></li>
-                                                <li><a href="#">Dresses</a></li>
-                                                <li><a href="#">Shirts</a></li>
-                                                <li><a href="#">T-shirts</a></li>
-                                                <li><a href="#">Jeans</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseFive">Cosmetic</a>
-                                    </div>
-                                    <div id="collapseFive" class="collapse" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <ul>
-                                                <li><a href="#">Coats</a></li>
-                                                <li><a href="#">Jackets</a></li>
-                                                <li><a href="#">Dresses</a></li>
-                                                <li><a href="#">Shirts</a></li>
-                                                <li><a href="#">T-shirts</a></li>
-                                                <li><a href="#">Jeans</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -232,16 +164,17 @@
                         </div>
                         <div class="filter-range-wrap">
                             <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                 data-min="33" data-max="99"></div>
+                                 data-min="10000" data-max="1000000"></div>
                             <div class="range-slider">
                                 <div class="price-input">
-                                    <p>Price:</p>
-                                    <input type="text" id="minamount">
-                                    <input type="text" id="maxamount">
+
+                                    <input type="text" id="minamount" style="width: 70px">
+                                    <input type="text" id="maxamount" style="width: 70px">
                                 </div>
                             </div>
                         </div>
-                        <a href="#">Filter</a>
+                        <br><br>
+                        <a href="#" onclick="findByPriceRange()">Filter</a>
                     </div>
                 </div>
             </div>
@@ -426,33 +359,75 @@
 <!-- Search End -->
 <script>
     $(document).ready(function () {
-        getDataAPI(1);
+        let getBooksUrl= 'http://localhost:8080/books?action=get_books_API&page=';
+        getBooksDataAPI(getBooksUrl,1);
+        getCategoriesDataAPI();
     })
 
-    function getDataAPI(page) {
+    function findByPriceRange(){
+        let minp = document.getElementById("minamount").value;
+        let maxp = document.getElementById("maxamount").value;
+        let getBooksUrl= 'http://localhost:8080/books?action=get_books_API' +
+             '&minp=' + minp
+            +'&maxp=' + maxp
+            +'&page=';
+        getBooksDataAPI(getBooksUrl,1);
+    }
+    function findByCategory(id) {
+        let getBooksUrl= 'http://localhost:8080/books?action=get_books_API' +
+            '&catId=' + id
+            +'&page=';
+        getBooksDataAPI(getBooksUrl,1);
+    }
+
+    function getCategoriesDataAPI(url) {
         let getListAjax = $.ajax({
-            url: 'http://localhost:8080/books?action=get_books_API&page='+ page,
+            url: 'http://localhost:8080/category?action=list',
             contentType: 'application/json; charset=utf-8',
             method: 'GET',
             success: function (data) {
-                printData(data)
+                printCategoriesData(data)
             },
             error: function () {
             }
         });
     }
 
-    function printData(d) {
-        let data = Object.values(d)
-        console.log(data[1].image)
+    function getBooksDataAPI(url, page) {
+        console.log(url)
+        let getListAjax = $.ajax({
+            url: url + page,
+            contentType: 'application/json; charset=utf-8',
+            method: 'GET',
+            success: function (data) {
+                printBooksData(url,data)
+            },
+            error: function () {
+            }
+        });
+    }
 
+    function printCategoriesData(d) {
+        let data = Object.values(d)
+        let content = "";
+        for (let i = 0; i < data.length; i++) {
+            content += `<div class="card">
+            <div class="card-heading active">
+                <a onclick="findByCategory(`+data[i].id+`)" data-toggle="collapse" data-target="#collapseOne">`+data[i].name+`</a>
+            </div>
+        </div>`
+        }
+        document.getElementById("accordionExample").innerHTML = content;
+    }
+
+    function printBooksData(url,d) {
+        let data = Object.values(d)
         let content = "";
         for (let i = 0; i < data.length; i++) {
             const img = data[i].image;
             content += `<div class="col-lg-4 col-md-6">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" id="`+ data[i].id +`"
-                                 style="background-image: url("/`+ img +`")">
+                            <div class="product__item__pic set-bg" id="`+ data[i].id +`">
                                 <div class="label new">New</div>
                                 <ul class="product__hover">
                                     <li><a href="img/shop/shop-1.jpg" class="image-popup"><span
@@ -462,7 +437,7 @@
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6><a href="#">Furry hooded parka</a></h6>
+                                <h6><a href="/book-details?id=`+data[i].id+`">`+data[i].title+`</a></h6>
                                 <div class="rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -470,34 +445,31 @@
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                 </div>
-                                <div class="product__price">$ 59.0</div>
+                                <div class="product__price">`+data[i].price+`VND</div>
                             </div>
                         </div>
                     </div>`
-            //setBG(document.getElementById(data[i].id), img);
         }
         content += `<div class="col-lg-12 text-center">
         <div class="pagination__option">
-            <a href="#" onclick="getDataAPI(1)">1</a>
-            <a href="#" onclick="getDataAPI(2)">2</a>
-            <a href="#" onclick="getDataAPI(3)">3</a>
-            <a href="#" onclick="getDataAPI(4)">4</a>
+            <a href="#" onclick="getBooksDataAPI('`+url+`',1)">1</a>
+            <a href="#" onclick="getBooksDataAPI('`+url+`',2)">2</a>
+            <a href="#" onclick="getBooksDataAPI('`+url+`',3)">3</a>
+            <a href="#" onclick="getBooksDataAPI('`+url+`', 4)">4</a>
             <a href="#"><i class="fa fa-angle-right"></i></a>
         </div>
     </div>`
         document.getElementById("book-item").innerHTML = content;
-
         for (let i = 0; i < data.length; i++){
             let ele = document.getElementById(data[i].id);
-            setBG(ele, data[i].image)
+            setBooksItemBGImg(ele, data[i].image)
         }
     }
-
-    function setBG(ele, src) {
-        console.log(src)
-        console.log(ele)
+    function setBooksItemBGImg(ele, src) {
         ele.style.backgroundImage = "url('" + src + "')";
     }
+
+
 </script>
 
 <!-- Js Plugins -->
