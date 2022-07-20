@@ -9,16 +9,12 @@ public class DatabaseHandler<T> {
     final String jdbc_USERNAME = "root";
     final String jdbc_PASSWORD = "123456";
 
-
 //    ConnectionMySQL connectionMySQL = new ConnectionMySQL();
-
     Connection connection = getConnection();
     private static DatabaseHandler instance;
-
     private DatabaseHandler() {
 
     }
-
     public static DatabaseHandler getInstance() {
         if (instance == null) {
             instance = new DatabaseHandler();
@@ -26,16 +22,12 @@ public class DatabaseHandler<T> {
         }
         return instance;
     }
-
     public Connection getConnection() {
-
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(DB_URL, jdbc_USERNAME, jdbc_PASSWORD);
+            connection = ConnectionMySQL.getInstance().getConnection();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
         return connection;
     }

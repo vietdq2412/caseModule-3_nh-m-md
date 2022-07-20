@@ -276,7 +276,7 @@
                                             <td><c:out value="${book.title}"/></td>
                                             <td><c:out value="${book.authorId.name}"/></td>
                                             <td><c:out value="${book.categoryId.name}"/></td>
-                                            <td><img src="<c:out value="${book.image}"/>" alt="image"></td>
+                                            <td><img style="height: 100px; width: 70px;" src="<c:out value="${book.image}"/>" alt="image"></td>
                                             <td><c:out value="${book.price}"/></td>
                                             <td><c:out value="${book.quantity}"/></td>
                                             <td>
