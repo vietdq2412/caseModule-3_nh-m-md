@@ -150,4 +150,24 @@ public class BookService implements IBookService {
         }
         return updateRow;
     }
+
+    @Override
+    public HashMap<Integer, Book> findByCategory(int id) {
+        String findByCate = "select * from book where category_id = 1;";
+
+        HashMap<Integer, Book> bookHashMap = new HashMap<>();
+        try(Connection connection = connectionMySQL.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(findByCate)) {
+//            preparedStatement.setInt(1, id);
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Book book = getAllBook(rs);
+                bookHashMap.put(book.getId(), book);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return bookHashMap;
+    }
 }
