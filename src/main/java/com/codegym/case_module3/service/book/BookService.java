@@ -93,20 +93,8 @@ public class BookService implements IBookService {
 
     @Override
     public Book findById(int id) {
-        String selectById = "select * from book where id = ?";
-        Book book = null;
-        try (Connection connection = connectionMySQL.getConnection();
-             PreparedStatement pre = connection.prepareStatement(selectById)) {
-            pre.setInt(1, id);
-            ResultSet rs = pre.executeQuery();
-            while (rs.next()) {
-                book = getAllBook(rs);
-//                book.setId(id);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return book;
+        String condition = "Where id = " + id;
+        return find(condition).get(id);
     }
 
     private Book getAllBook(ResultSet rs) throws SQLException {
