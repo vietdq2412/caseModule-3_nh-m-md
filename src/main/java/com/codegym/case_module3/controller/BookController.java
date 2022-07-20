@@ -1,5 +1,6 @@
 package com.codegym.case_module3.controller;
 
+import com.codegym.case_module3.model.Account;
 import com.codegym.case_module3.model.Author;
 import com.codegym.case_module3.model.Book;
 import com.codegym.case_module3.model.Category;
@@ -163,7 +164,11 @@ public class BookController extends HttpServlet {
     }
 
     private void showAllBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HashMap<Integer, Book> books = bookService.find("");
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("user");
+        System.out.println(account);
+
+        HashMap<Integer, Book> books = bookService.find(" limit 0,20");
         HashMap<Integer, Category> categories = categoryService.find("");
         HashMap<Integer, Author> authors = authorService.find("");
         request.setAttribute("categories", categories.values());

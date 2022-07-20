@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -99,32 +101,8 @@
                             <th></th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <c:forEach var="orderDetail" items="${orderDetailList}">
-                            <tr>
-                                <td class="cart__product__item">
-                                    <img src="${orderDetail.id}" alt="">
-                                    <div class="cart__product__item__title">
-                                        <h6>${orderDetail.book_id}</h6>
-                                        <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="cart__price">$ ${orderDetail.total_price}</td>
-                                <td class="cart__quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="1">
-                                    </div>
-                                </td>
-                                <td class="cart__total price">$ ${orderDetail.total_price}</td>
-                                <td class="cart__close"><span class="icon_close"></span></td>
-                            </tr>
-                        </c:forEach>
+                        <tbody id="cart-item">
+
                         </tbody>
                     </table>
                 </div>
@@ -296,6 +274,55 @@
 <script src="../js/header.js"></script>
 <script>
     setHeader();
+    $(document).ready(function () {
+        let getItemsUrl = 'http://localhost:8080/shop-carts?action=getCartData';
+        getItemsDataAPI(getItemsUrl);
+    })
+
+    function getItemsDataAPI(url) {
+        console.log(url)
+        let getListAjax = $.ajax({
+            url: url,
+            contentType: 'application/json; charset=utf-8',
+            method: 'GET',
+            success: function (data) {
+                printItemsData(data)
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function printItemsData(data){
+        console.log(data)
+        let content = ``
+        for (let i = 0; i < data.length; i++){
+            content += `<tr>
+                                <td class="cart__product__item">
+                                    <img src="`+ data[i].book.image+`" alt="" width="70px" height="70px">
+                                    <div class="cart__product__item__title">
+                                        <h6></h6>
+                                        <div class="rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="cart__price">$</td>
+                                <td class="cart__quantity">
+                                    <div class="pro-qty">
+                                        <input type="text" value="1">
+                                    </div>
+                                </td>
+                                <td class="cart__total price">$</td>
+                                <td class="cart__close"><span class="icon_close"></span></td>
+                            </tr>`
+        }
+        document.getElementById("cart-item").innerHTML = content;
+    }
 </script>
 <!-- Js Plugins -->
 <script src="../js/jquery-3.3.1.min.js"></script>

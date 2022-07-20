@@ -113,7 +113,7 @@
                         <span>( 138 reviews )</span>
                     </div>
                     <div class="product__details__price">$ ${book.price}</div>
-                    <form action="/shop-carts" method="post">
+                    <form action="/shop-carts?action=addToCart&bookId=${book.id}" method="post">
                         <div class="product__details__button">
                             <div class="quantity">
                                 <span>Quantity:</span>
@@ -319,9 +319,7 @@
                         </div>
                     </div>`
         }
-        console.log(d)
-        console.log(document.getElementById("related-pro"));
-        console.log("content: \n"+ content)
+
         document.getElementById("related-pro").innerHTML = content;
         for (let i = 0; i < data.length; i++) {
             let ele = document.getElementById(data[i].id);
