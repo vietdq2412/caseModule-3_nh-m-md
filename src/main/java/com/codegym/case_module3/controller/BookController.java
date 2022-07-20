@@ -120,6 +120,10 @@ public class BookController extends HttpServlet {
 
     private void showAllBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HashMap<Integer, Book> books = bookService.find("");
+        HashMap<Integer, Category> categories = categoryService.find("");
+        HashMap<Integer, Author> authors = authorService.find("");
+        request.setAttribute("categories", categories.values());
+        request.setAttribute("authors", authors.values());
         request.setAttribute("listBook", books.values());
         RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("views/book/list.jsp");
         resRequestDispatcher.forward(request, response);

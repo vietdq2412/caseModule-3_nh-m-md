@@ -57,6 +57,24 @@ public class AccountService implements IAccountService {
         }
         return account;
     }
+    @Override
+    public HashMap<Integer, Account> findByRole(int role) {
+        String selectByRole = "select * from account where role_id = ?;";
+        HashMap<Integer, Account> accounts = new HashMap<>();
+        try (Connection connection = connectionMySQL.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(selectByRole)) {
+            preparedStatement.setInt(1, role);
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Account account = getAllAccount(rs);
+                accounts.put(account.getId(),account);
+            }
+        } catch (SQLException e) {
+        }
+        return accounts;
+    }
 
     private Account getAllAccount(ResultSet rs) throws SQLException {
         Account account = null;
@@ -96,7 +114,7 @@ public class AccountService implements IAccountService {
 
     @Override
     public HashMap<Integer, Account> find(String condition) {
-        String selectAll = "select * from account;";
+        String selectAll = "select * from account order by id asc;";
         HashMap<Integer, Account> accounts = new HashMap<>();
         try (Connection connection = connectionMySQL.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(selectAll)) {

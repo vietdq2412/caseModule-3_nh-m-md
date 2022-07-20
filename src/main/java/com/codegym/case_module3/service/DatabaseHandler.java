@@ -5,9 +5,9 @@ import com.codegym.case_module3.connect.ConnectionMySQL;
 import java.sql.*;
 
 public class DatabaseHandler<T> {
-    final String DB_URL = "jdbc:mysql://localhost:3306/casemodule3_bookstore?serverTimezone=UTC";
+    final String DB_URL = "jdbc:mysql://localhost:3306/casestudymd3_bookmanagement?serverTimezone=UTC";
     final String jdbc_USERNAME = "root";
-    final String jdbc_PASSWORD = "123123";
+    final String jdbc_PASSWORD = "123456";
 
 //    ConnectionMySQL connectionMySQL = new ConnectionMySQL();
 
