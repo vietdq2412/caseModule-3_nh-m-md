@@ -34,11 +34,7 @@ public class BookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        String pageStr = request.getParameter("page");
-        int page = 0;
-        if (pageStr != null) {
-            page = Integer.parseInt(pageStr) - 1;
-        }
+
         if (action == null) {
             action = "";
         }
@@ -57,8 +53,7 @@ public class BookController extends HttpServlet {
                     shopPage(request, response);
                     break;
                 case "get_books_API":
-                    String condition = "LIMIT " + page * 9 + ", " + 9;
-                    getBookAPI(request, response, condition);
+                    getBookAPI(request, response);
                     break;
                 default:
                     showAllBook(request, response);
@@ -79,7 +74,25 @@ public class BookController extends HttpServlet {
         }
     }
 
-    private void getBookAPI(HttpServletRequest request, HttpServletResponse response, String condition) {
+    private void getBookAPI(HttpServletRequest request, HttpServletResponse response) {
+        String condition = "";
+        String pageStr = request.getParameter("page");
+        int page = 0;
+        if (pageStr != null) {
+            page = Integer.parseInt(pageStr) - 1;
+        }
+        String minpStr = request.getParameter("minp");
+        String maxpStr = request.getParameter("maxp");
+        if (minpStr != null && maxpStr != null) {
+            int minp = Integer.parseInt(minpStr.replace("$", ""));
+            int maxp = Integer.parseInt(maxpStr.replace("$", ""));
+            condition = "WHERE price BETWEEN " + minp + " and " + maxp;
+        }
+        String catId = request.getParameter("catId");
+        if (catId != null) {
+            condition = "WHERE category_id = " + catId;
+        }
+        condition += " LIMIT " + page * 9 + ", " + 9;
         HashMap<Integer, Book> bookHashMap = bookService.find(condition);
         String bookData = gson.toJson(bookHashMap.values());
         PrintWriter out = null;

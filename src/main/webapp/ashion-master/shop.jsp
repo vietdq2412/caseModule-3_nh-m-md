@@ -167,12 +167,13 @@
                                  data-min="10000" data-max="1000000"></div>
                             <div class="range-slider">
                                 <div class="price-input">
-                                    <p>Price:</p>
-                                    <input type="text" id="minamount">
-                                    <input type="text" id="maxamount">
+
+                                    <input type="text" id="minamount" style="width: 70px">
+                                    <input type="text" id="maxamount" style="width: 70px">
                                 </div>
                             </div>
                         </div>
+                        <br><br>
                         <a href="#" onclick="findByPriceRange()">Filter</a>
                     </div>
                 </div>
@@ -358,7 +359,7 @@
 <!-- Search End -->
 <script>
     $(document).ready(function () {
-        let getBooksUrl= 'http://localhost:8080/books?action=get_books_API&page=';
+        let getBooksUrl= 'http://localhost:8082/books?action=get_books_API&page=';
         getBooksDataAPI(getBooksUrl,1);
         getCategoriesDataAPI();
     })
@@ -366,16 +367,22 @@
     function findByPriceRange(){
         let minp = document.getElementById("minamount").value;
         let maxp = document.getElementById("maxamount").value;
-        console.log(minp,"--", maxp)
-        let getBooksUrl= 'http://localhost:8080/books?action=get_books_API&minp='
-            + minp +'&maxp='
-            + maxp+'&page=';
+        let getBooksUrl= 'http://localhost:8082/books?action=get_books_API' +
+             '&minp=' + minp
+            +'&maxp=' + maxp
+            +'&page=';
+        getBooksDataAPI(getBooksUrl,1);
+    }
+    function findByCategory(id) {
+        let getBooksUrl= 'http://localhost:8082/books?action=get_books_API' +
+            '&catId=' + id
+            +'&page=';
         getBooksDataAPI(getBooksUrl,1);
     }
 
     function getCategoriesDataAPI(url) {
         let getListAjax = $.ajax({
-            url: 'http://localhost:8080/category?action=list',
+            url: 'http://localhost:8082/category?action=list',
             contentType: 'application/json; charset=utf-8',
             method: 'GET',
             success: function (data) {
@@ -387,6 +394,7 @@
     }
 
     function getBooksDataAPI(url, page) {
+        console.log(url)
         let getListAjax = $.ajax({
             url: url + page,
             contentType: 'application/json; charset=utf-8',
@@ -405,7 +413,7 @@
         for (let i = 0; i < data.length; i++) {
             content += `<div class="card">
             <div class="card-heading active">
-                <a data-toggle="collapse" data-target="#collapseOne">`+data[i].name+`</a>
+                <a onclick="findByCategory(`+data[i].id+`)" data-toggle="collapse" data-target="#collapseOne">`+data[i].name+`</a>
             </div>
         </div>`
         }
@@ -419,8 +427,7 @@
             const img = data[i].image;
             content += `<div class="col-lg-4 col-md-6">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" id="`+ data[i].id +`"
-                                 style="background-image: url("/`+ img +`")">
+                            <div class="product__item__pic set-bg" id="`+ data[i].id +`">
                                 <div class="label new">New</div>
                                 <ul class="product__hover">
                                     <li><a href="img/shop/shop-1.jpg" class="image-popup"><span
@@ -438,17 +445,17 @@
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                 </div>
-                                <div class="product__price">$ 59.0</div>
+                                <div class="product__price">`+data[i].price+`VND</div>
                             </div>
                         </div>
                     </div>`
         }
         content += `<div class="col-lg-12 text-center">
         <div class="pagination__option">
-            <a href="#" onclick="getBooksDataAPI(`+url+`,1)">1</a>
-            <a href="#" onclick="getBooksDataAPI(`+url+`,2)">2</a>
-            <a href="#" onclick="getBooksDataAPI(`+url+`,3)">3</a>
-            <a href="#" onclick="getBooksDataAPI(`+url+`,4)">4</a>
+            <a href="#" onclick="getBooksDataAPI('`+url+`',1)">1</a>
+            <a href="#" onclick="getBooksDataAPI('`+url+`',2)">2</a>
+            <a href="#" onclick="getBooksDataAPI('`+url+`',3)">3</a>
+            <a href="#" onclick="getBooksDataAPI('`+url+`', 4)">4</a>
             <a href="#"><i class="fa fa-angle-right"></i></a>
         </div>
     </div>`
