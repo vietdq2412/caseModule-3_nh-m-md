@@ -30,7 +30,6 @@ public class ShopCartController extends HttpServlet {
 
     private void showShopCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ashion-master/shop-cart.jsp");
-        int id = Integer.parseInt(request.getParameter("id"));
 
         requestDispatcher.forward(request, response);
     }
