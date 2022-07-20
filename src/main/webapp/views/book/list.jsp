@@ -98,7 +98,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/category">
                         <i class="nc-icon nc-atom"></i>
                         <p>Category</p>
                     </a>
@@ -134,28 +134,49 @@
                                 <span class="d-lg-none">Notification</span>
                             </a>
                             <ul class="dropdown-menu">
-<<<<<<< HEAD
                                 <c:forEach var="category" items="${categories}">
 <%--                                    <option value="${category.id}"></option>--%>
                                     <a class="dropdown-item" href="/books?action=categoryID&id=${category.id}">
                                         <c:out value="${category.name}"/>
                                     </a>
                                 </c:forEach>
-=======
-                                <a class="dropdown-item" href="/accounts?action=admin">1</a>
-                                <a class="dropdown-item" href="/accounts?action=user">2</a>
-                                <a class="dropdown-item" href="/accounts?action=user">3</a>
-                                <a class="dropdown-item" href="/accounts?action=user">4</a>
-                                <a class="dropdown-item" href="/accounts?action=user">5</a>
->>>>>>> f3bc8847b9d5edf77977219f6f3ea82ef57833f8
                                 <a class="dropdown-item" href="/books">All</a>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a type="button" data-toggle="modal" class="nav-link" data-target="#search-book">
                                 <i class="nc-icon nc-zoom-split"></i>
                                 <span class="d-lg-block">&nbsp;Search</span>
                             </a>
+                            <div class="modal fade" id="search-book" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel3" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5></h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <form action="/books?action=search" method="post">
+                                                <div class="form-group">
+                                                    <input type="text" id="searchBook" name="searchBook" class="form-control"
+                                                           placeholder="Search name book .....">
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+                                                    <button type="submit" class="btn btn-primary">SEARCH</button>
+                                                </div>
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -402,7 +423,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-<%--                                                <a href="/books?action=delete&id=${book.id}">Delete</a>--%>
                                             </td>
                                         </tr>
                                     </c:forEach>

@@ -8,4 +8,5 @@ import java.util.HashMap;
 public interface IBookService extends IService<Book> {
 
     HashMap<Integer, Book> findByCategory(int id);
+    HashMap<Integer, Book> findNameBook(String name);
 }

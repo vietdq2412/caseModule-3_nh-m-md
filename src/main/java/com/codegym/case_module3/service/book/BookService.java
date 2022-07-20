@@ -149,12 +149,43 @@ public class BookService implements IBookService {
 
     @Override
     public HashMap<Integer, Book> findByCategory(int id) {
-        String findByCate = "select * from book where category_id = 1;";
+        String findByCate = "select * from book where category_id = ?;";
+        HashMap<Integer, Book> bookHashMap = new HashMap<>();
+        try(Connection connection = connectionMySQL.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(findByCate)) {
+            preparedStatement.setInt(1, id);
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int idBook = rs.getInt("id");
+                int catId = rs.getInt("category_id");
+                int authorId = rs.getInt("author_id");
+                int publishYear = rs.getInt("publish_year");
+                int views = rs.getInt("views");
+                int quantity = rs.getInt("quantity");
+                int price = rs.getInt("price");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                String image = rs.getString("image");
+                Author author = AuthorService.getInstance().findById(authorId);
+                Category category = CategoryService.getInstance().findById(catId);
+                Book book = new Book(idBook, title, author, category, publishYear, image, description, price, views, quantity);
+                bookHashMap.put(idBook, book);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return bookHashMap;
+    }
+
+    @Override
+    public HashMap<Integer, Book> findNameBook(String name) {
+        String findName = "select * from book where title like ?;";
 
         HashMap<Integer, Book> bookHashMap = new HashMap<>();
         try(Connection connection = connectionMySQL.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(findByCate)) {
-//            preparedStatement.setInt(1, id);
+            PreparedStatement preparedStatement = connection.prepareStatement(findName)) {
+            preparedStatement.setString(1, name);
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {

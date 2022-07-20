@@ -1,5 +1,7 @@
 package com.codegym.case_module3.controller;
 
+import com.codegym.case_module3.model.Author;
+import com.codegym.case_module3.model.Book;
 import com.codegym.case_module3.model.Category;
 import com.codegym.case_module3.service.category.CategoryService;
 import com.codegym.case_module3.service.category.ICategoryService;
@@ -21,8 +23,10 @@ public class CategoryController extends HttpServlet {
     private Gson gson = new Gson();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = "";
-        action = request.getParameter("action");
+        String action = request.getParameter("action");
+        if(action == null){
+            action = "";
+        }
         switch (action) {
             case "create":
                 createForm(request, response);
@@ -34,8 +38,17 @@ public class CategoryController extends HttpServlet {
                 showList(request, response, "");
                 break;
             default:
-                request.getRequestDispatcher("views/test.jsp").forward(request, response);
+                showAll(request, response);
+
         }
+    }
+
+    private void showAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HashMap<Integer, Category> categories = categoryService.find("");
+        HashMap<Integer, Integer> quantity = categoryService.findQuantity();
+        request.setAttribute("categories", categories.values());
+        request.setAttribute("quantity", quantity);
+        request.getRequestDispatcher("views/category/list.jsp").forward(request, response);
     }
 
     private void testView(HttpServletRequest request, HttpServletResponse response) {
@@ -82,11 +95,19 @@ public class CategoryController extends HttpServlet {
             case "create":
                 createCategory(request, response);
                 break;
+
             case "edit":
                 break;
-            default:
-                request.getRequestDispatcher("views/test.jsp").forward(request, response);
+            case "delete":
+            deleteCategory(request, response);
+            break;
         }
+    }
+
+    private void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        categoryService.delete(id);
+        response.sendRedirect("/category");
     }
 
     private void createCategory(HttpServletRequest request, HttpServletResponse response) {
@@ -94,7 +115,7 @@ public class CategoryController extends HttpServlet {
         Category category = new Category(name);
         try {
             categoryService.create(category);
-            response.sendRedirect("/category?action=list");
+            response.sendRedirect("/category");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
