@@ -35,7 +35,7 @@ public class ShopCartController extends HttpServlet {
     private void showShopCart(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ashion-master/shop-cart.jsp");
         if(session.getAttribute("userId") != null) {
-            int id = (int) session.getAttribute("userId");
+            int userId = (int) session.getAttribute("userId");
         }
 
         requestDispatcher.forward(request, response);
