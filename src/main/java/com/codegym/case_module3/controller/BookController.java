@@ -55,12 +55,20 @@ public class BookController extends HttpServlet {
                 case "get_books_API":
                     getBookAPI(request, response);
                     break;
+                case "getTop4ByCategory":
+                    getTop4ByCategory(request, response);
+                    break;
                 default:
                     showAllBook(request, response);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void getTop4ByCategory(HttpServletRequest request, HttpServletResponse response) {
+
+
     }
 
     private void shopPage(HttpServletRequest request, HttpServletResponse response) {
