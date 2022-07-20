@@ -1,32 +1,49 @@
 package com.codegym.case_module3.controller;
 
+import com.codegym.case_module3.model.Author;
 import com.codegym.case_module3.model.Book;
+import com.codegym.case_module3.model.Category;
 import com.codegym.case_module3.service.book.BookService;
+import com.google.gson.Gson;
+import com.codegym.case_module3.service.author.AuthorService;
+import com.codegym.case_module3.service.category.CategoryService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 
 @WebServlet(name = "BookServlet", urlPatterns = "/books")
 public class BookController extends HttpServlet {
     BookService bookService;
+    CategoryService categoryService;
+    AuthorService authorService;
+    private Gson gson = new Gson();
 
     @Override
     public void init() {
-        bookService = new BookService();
+        bookService = BookService.getInstance();
+        categoryService = CategoryService.getInstance();
+        authorService = AuthorService.getInstance();
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if(action == null){
+        String pageStr = request.getParameter("page");
+        int page = 1;
+        if (pageStr != null) {
+            page = Integer.parseInt(pageStr);
+        }
+        if (action == null) {
             action = "";
         }
         try {
-            switch (action){
+            switch (action) {
                 case "create":
                     showFormCreate(request, response);
                     break;
@@ -34,7 +51,14 @@ public class BookController extends HttpServlet {
                     showFormEdit(request, response);
                     break;
                 case "delete":
-                        deleteBooks(request, response);
+                    deleteBooks(request, response);
+                    break;
+                case "shop":
+                    shopPage(request, response);
+                    break;
+                case "get_books_API":
+                    String condition = "LIMIT " + page + ", " + page * 9;
+                    getBookAPI(request, response, condition);
                     break;
                 default:
                     showAllBook(request, response);
@@ -42,6 +66,33 @@ public class BookController extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void shopPage(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("ashion-master/shop.jsp");
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void getBookAPI(HttpServletRequest request, HttpServletResponse response, String condition) {
+        HashMap<Integer, Book> bookHashMap = bookService.find(condition);
+        String bookData = gson.toJson(bookHashMap.values());
+        System.out.println(bookData);
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        out.print(bookData);
+        out.flush();
     }
 
     private void deleteBooks(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
@@ -60,8 +111,12 @@ public class BookController extends HttpServlet {
     }
 
     private void showFormCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HashMap<Integer, Category> categories = categoryService.find("");
+        HashMap<Integer, Author> authors = authorService.find("");
+        request.setAttribute("categories", categories.values());
+        request.setAttribute("authors", authors.values());
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/book/create.jsp");
-        requestDispatcher.forward(request,response);
+        requestDispatcher.forward(request, response);
     }
 
     private void showAllBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -75,11 +130,11 @@ public class BookController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if(action == null){
+        if (action == null) {
             action = "";
         }
         try {
-            switch (action){
+            switch (action) {
                 case "create":
                     createBook(request, response);
                     break;
@@ -93,6 +148,7 @@ public class BookController extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+
     private Book getAllBook(HttpServletRequest request, HttpServletResponse response) {
         String title = request.getParameter("title");
         int categoryId = Integer.parseInt(request.getParameter("categoryId"));
@@ -103,9 +159,11 @@ public class BookController extends HttpServlet {
         int views = Integer.parseInt(request.getParameter("views"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         double price = Double.parseDouble(request.getParameter("price"));
-
-        return new Book(title, categoryId, authorId, publishYear,image, description, price, views, quantity);
+        Category category = categoryService.findById(categoryId);
+        Author author = authorService.findById(authorId);
+        return new Book(title, author, category, publishYear, image, description, price, views, quantity);
     }
+
     private void editBook(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         Book book = getAllBook(request, response);
         int id = Integer.parseInt(request.getParameter("id"));

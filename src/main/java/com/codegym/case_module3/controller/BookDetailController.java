@@ -17,7 +17,7 @@ import java.io.IOException;
 
 @WebServlet(name = "BookDetailServlet", value = "/book-details")
 public class BookDetailController extends HttpServlet {
-    BookService bookService = new BookService();
+    BookService bookService = BookService.getInstance();
     AuthorService authorService = new AuthorService();
     CategoryService categoryService = new CategoryService();
     @Override
@@ -39,8 +39,8 @@ public class BookDetailController extends HttpServlet {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ashion-master/book-details.jsp");
         int id = Integer.parseInt(request.getParameter("id"));
         Book book = bookService.findById(id);
-        Author author = authorService.findById(book.getAuthorId());
-        Category category = categoryService.findById(book.getCategoryId());
+        Author author = authorService.findById(book.getAuthorId().getId());
+        Category category = categoryService.findById(book.getCategoryId().getId());
         request.setAttribute("book",book);
         request.setAttribute("category",category);
         request.setAttribute("author",author);
