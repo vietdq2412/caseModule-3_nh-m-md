@@ -22,7 +22,10 @@ public class AccountController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action =request.getParameter("action");
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        HttpSession session = request.getSession();
+        String action = request.getParameter("action");
         if(action == null){
             action = "";
         }
@@ -88,14 +91,17 @@ public class AccountController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         String action = request.getParameter("action");
+        HttpSession session = request.getSession();
         if(action == null){
             action = "";
         }
         try {
             switch (action) {
                 case "login":
-                    loginAcount(request, response);
+                    loginAcount(request, response, session);
                     break;
                 case "signup":
                     signupAccount(request, response);
@@ -149,12 +155,19 @@ public class AccountController extends HttpServlet {
         return new Account(fullName, username, email, password, address, phoneNumber, 2);
     }
 
-    private void loginAcount(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void loginAcount(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException, ServletException {
         String email = request.getParameter("_email");
         String password = request.getParameter("_password");
 
         Account account = accountService.findByEmailAndPass(email, password);
         if(account != null){
+            session.setAttribute("userId", account.getId());
+            session.setAttribute("username", account.getUsername());
+            session.setAttribute("password", account.getPassword());
+            session.setAttribute("phone", account.getPhoneNumber());
+            session.setAttribute("name" , account.getFullName());
+            session.setAttribute("roleId", account.getRoleId());
+            session.setAttribute("email", account.getEmail());
             response.sendRedirect("/books");
         }
         else {
