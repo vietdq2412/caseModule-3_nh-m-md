@@ -64,7 +64,6 @@ public class BookService implements IBookService {
         }
         return createRow;
     }
-
     @Override
     public HashMap<Integer, Book> find(String condition) {
         ResultSet rs = bookDBHandler.findAllByCondition(BOOK_TABLE, condition);
@@ -152,5 +151,23 @@ public class BookService implements IBookService {
             throw new RuntimeException(e);
         }
         return updateRow;
+    }
+
+    @Override
+    public HashMap<Integer, Book> findByCategory(String id) {
+        String findByCate = "select * from book where category_id = ?;";
+        HashMap<Integer, Book> bookHashMap = new HashMap<>();
+        try(Connection connection = connectionMySQL.getConnection();
+        PreparedStatement pre = connection.prepareStatement(findByCate)) {
+            pre.setString(1, id);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                Book book = getAllBook(rs);
+                bookHashMap.put(book.getId(), book);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return bookHashMap;
     }
 }

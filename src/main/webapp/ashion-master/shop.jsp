@@ -60,7 +60,7 @@
 <!-- Offcanvas Menu End -->
 
 <!-- Header Section Begin -->
-<header class="header">
+<header class="header" id="header">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-3 col-lg-2">

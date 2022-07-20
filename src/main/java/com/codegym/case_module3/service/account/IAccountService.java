@@ -19,5 +19,6 @@ public interface IAccountService extends IService<Account> {
     @Override
     boolean update(Account account);
     Account findByEmailAndPass(String email, String password);
+    HashMap<Integer, Account> findByRole(int id);
 
 }

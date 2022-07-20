@@ -44,6 +44,13 @@ public class AccountController extends HttpServlet {
                     break;
                 case "login":
                     fromLogin(request, response);
+                    break;
+                case "admin":
+                    showAccountByRole(request, response, 1);
+                    break;
+                case "user":
+                    showAccountByRole(request, response, 2);
+                    break;
                 default:
                     showAllAccount(request, response);
             }
@@ -51,6 +58,14 @@ public class AccountController extends HttpServlet {
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void showAccountByRole(HttpServletRequest request, HttpServletResponse response, int role) throws ServletException, IOException {
+        HashMap<Integer, Account> accounts = accountService.findByRole(role);
+        request.setAttribute("listAccount", accounts.values());
+        RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("views/account/list.jsp");
+        resRequestDispatcher.forward(request, response);
+
     }
 
     private void fromLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -66,8 +81,8 @@ public class AccountController extends HttpServlet {
     private void showFormEdit(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Account u = accountService.findById(id);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/account/edit.jsp");
-        request.setAttribute("account", u);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/account/list.jsp");
+        request.setAttribute("accountEdit", u);
         requestDispatcher.forward(request, response);
     }
 
@@ -120,14 +135,14 @@ public class AccountController extends HttpServlet {
     }
 
     private void signupAccount(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        Account Account = getAccount(request, response);
+        Account Account = getAccount(request, response,"");
         accountService.create(Account);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
         requestDispatcher.forward(request, response);
     }
 
     private void editAccount(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        Account account = getAccount(request, response);
+        Account account = getAccount(request, response, "edit");
         int id = Integer.parseInt(request.getParameter("id"));
         int roleID = Integer.parseInt(request.getParameter("role"));
         account.setId(id);
@@ -139,18 +154,18 @@ public class AccountController extends HttpServlet {
     }
 
     private void createAccount(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
-        Account Account = getAccount(request, response);
+        Account Account = getAccount(request, response,"");
         accountService.create(Account);
         response.sendRedirect("/accounts");
     }
 
-    private Account getAccount(HttpServletRequest request, HttpServletResponse response) {
-        String fullName = request.getParameter("fullName");
-        String username = request.getParameter("username");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String address = request.getParameter("address");
-        String phoneNumber = request.getParameter("phoneNumber");
+    private Account getAccount(HttpServletRequest request, HttpServletResponse response, String name) {
+        String fullName = request.getParameter(name+"fullName");
+        String username = request.getParameter(name+"username");
+        String email = request.getParameter(name+"email");
+        String password = request.getParameter(name+"password");
+        String address = request.getParameter(name+"address");
+        String phoneNumber = request.getParameter(name+"phoneNumber");
 
         return new Account(fullName, username, email, password, address, phoneNumber, 2);
     }
