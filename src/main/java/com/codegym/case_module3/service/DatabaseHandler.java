@@ -6,18 +6,15 @@ import java.sql.*;
 
 public class DatabaseHandler<T> {
     final String DB_URL = "jdbc:mysql://localhost:3306/casemodule3_bookstore?serverTimezone=UTC";
-    final String jdbc_USERNAME = "root";
-    final String jdbc_PASSWORD = "123123";
+    final String jdbc_USERNAME = "viet";
+    final String jdbc_PASSWORD = "root";
 
 //    ConnectionMySQL connectionMySQL = new ConnectionMySQL();
-
     Connection connection = getConnection();
     private static DatabaseHandler instance;
-
     private DatabaseHandler() {
 
     }
-
     public static DatabaseHandler getInstance() {
         if (instance == null) {
             instance = new DatabaseHandler();
@@ -25,16 +22,12 @@ public class DatabaseHandler<T> {
         }
         return instance;
     }
-
     public Connection getConnection() {
-
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(DB_URL, jdbc_USERNAME, jdbc_PASSWORD);
+            connection = ConnectionMySQL.getInstance().getConnection();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
         return connection;
     }

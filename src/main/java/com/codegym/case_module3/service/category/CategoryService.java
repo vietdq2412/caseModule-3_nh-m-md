@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 public class CategoryService implements ICategoryService {
-    private static CategoryService instance;
     private DatabaseHandler<Category> categoryDBHandler = DatabaseHandler.getInstance();
     private final String CATEGORY_TABLE = "category";
+    private static CategoryService instance;
 
     public CategoryService() {
 
