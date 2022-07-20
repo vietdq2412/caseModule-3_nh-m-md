@@ -8,12 +8,12 @@ public class Account {
     private String address;
     private String email;
     private String phoneNumber;
-    private int roleId;
+    private Role roleId;
 
     public Account() {
     }
 
-    public Account(int id, String fullName, String username, String password, String address, String email, String phoneNumber, int roleId) {
+    public Account(int id, String fullName, String username, String password, String address, String email, String phoneNumber, Role roleId) {
         this.id = id;
         this.fullName = fullName;
         this.username = username;
@@ -24,7 +24,7 @@ public class Account {
         this.roleId = roleId;
     }
 
-    public Account(String fullName, String username, String password, String address, String email, String phoneNumber, int roleId) {
+    public Account(String fullName, String username, String password, String address, String email, String phoneNumber, Role roleId) {
         this.fullName = fullName;
         this.username = username;
         this.password = password;
@@ -90,11 +90,11 @@ public class Account {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getRoleId() {
+    public Role getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(Role roleId) {
         this.roleId = roleId;
     }
 
