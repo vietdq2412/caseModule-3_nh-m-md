@@ -152,19 +152,22 @@
                         <span>( 138 reviews )</span>
                     </div>
                     <div class="product__details__price">$ ${book.price}</div>
+                    <form action="/shop-carts" method="post">
                     <div class="product__details__button">
                         <div class="quantity">
                             <span>Quantity:</span>
                             <div class="pro-qty">
-                                <input type="text" value="1">
+                                <input type="text" value="1" name="quantity">
+                                <input type="hidden" value="${book.id}" name="bookId">
                             </div>
                         </div>
-                        <a href="/shop-carts" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
+                        <button class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</button>
                         <ul>
                             <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                             <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
                         </ul>
                     </div>
+                    </form>
                 </div>
             </div>
             <div class="col-lg-12">

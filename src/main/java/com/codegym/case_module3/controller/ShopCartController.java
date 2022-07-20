@@ -1,8 +1,9 @@
 package com.codegym.case_module3.controller;
 
-import com.codegym.case_module3.model.Author;
-import com.codegym.case_module3.model.Book;
-import com.codegym.case_module3.model.Category;
+import com.codegym.case_module3.model.OrderDetail;
+import com.codegym.case_module3.service.order.OrderDetailService;
+import com.codegym.case_module3.service.order.OrderService;
+import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +16,8 @@ import java.io.IOException;
 
 @WebServlet(name = "ShopCartServlet", value = "/shop-carts")
 public class ShopCartController extends HttpServlet {
+    OrderService orderService = new OrderService();
+    OrderDetailService orderDetailService = new OrderDetailService();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
@@ -42,5 +45,33 @@ public class ShopCartController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        HttpSession session = request.getSession();
+        String action = "";
+        action = request.getParameter("action");
+
+        if(action == null) {
+            action = "";
+        }
+
+        switch (action) {
+            default:
+                showAddShopCart(request, response, session);
+        }
+    }
+
+    private void showAddShopCart(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException, ServletException {
+        if(session.getAttribute("userId") != null) {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ashion-master/shop-cart.jsp");
+            int userId = (int) session.getAttribute("userId");
+            int orderId = orderService.findAllByUserId(userId);
+            List<OrderDetail> orderDetailList = orderDetailService.findByOrderId(orderId);
+            request.setAttribute("orderDetailList", orderDetailList);
+            requestDispatcher.forward(request, response);
+        }
+        else {
+            response.sendRedirect("/");
+        }
     }
 }

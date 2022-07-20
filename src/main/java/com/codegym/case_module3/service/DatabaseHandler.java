@@ -67,6 +67,8 @@ public class DatabaseHandler<T> {
         }
     }
 
+
+
     public boolean updateData(String sql) {
 
         System.out.println(sql);
@@ -83,7 +85,6 @@ public class DatabaseHandler<T> {
     }
 
     public boolean deleteData(String sql) {
-
         System.out.println(sql);
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
