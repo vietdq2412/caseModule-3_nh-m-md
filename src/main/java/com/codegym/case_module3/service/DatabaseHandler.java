@@ -33,7 +33,7 @@ public class DatabaseHandler<T> {
     }
 
     public boolean insertData(String table, T objectToInsert, String insertColumns) {
-
+        connection = getConnection();
         String sql = "insert into " + table + "(" + insertColumns + ") values(" + objectToInsert.toString() + ")";
         System.out.println(sql);
         try {
@@ -49,6 +49,7 @@ public class DatabaseHandler<T> {
     }
 
     public ResultSet findAllByCondition(String table, String condition) {
+        connection = getConnection();
 
         String sql = "select * from " + table + " " + condition;
         System.out.println(sql);
@@ -63,7 +64,7 @@ public class DatabaseHandler<T> {
 
 
     public boolean updateData(String sql) {
-
+        connection = getConnection();
         System.out.println(sql);
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
@@ -78,6 +79,7 @@ public class DatabaseHandler<T> {
     }
 
     public boolean deleteData(String sql) {
+        connection = getConnection();
         System.out.println(sql);
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);

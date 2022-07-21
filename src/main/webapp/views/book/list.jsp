@@ -90,7 +90,8 @@
                         <i class="nc-icon nc-notes"></i>
                         <p>Shop</p>
                     </a>
-                </li><li >
+                </li>
+                <li >
                     <a class="nav-link" href="/accounts">
                         <i class="nc-icon nc-notes"></i>
                         <p>Accounts</p>
@@ -109,7 +110,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/authors">
                         <i class="nc-icon nc-album-2"></i>
                         <p>Author</p>
                     </a>
@@ -231,7 +232,7 @@
 
                                                                 <div class="form-group">
                                                                     <label for="categoryId">Category</label>
-                                                                    <select name="categoryId" id="categoryId">
+                                                                    <select name="categoryId" id="categoryId" style="height: 40px; width: 350px;">
                                                                         <c:forEach var="category" items="${categories}">
                                                                             <option value="${category.id}"><c:out value="${category.name}"/></option>
                                                                         </c:forEach>
@@ -239,7 +240,7 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="authorId">Author</label>
-                                                                    <select name="authorId" id="authorId">
+                                                                    <select name="authorId" id="authorId" style="height: 40px; width: 350px;">
                                                                         <c:forEach var="author" items="${authors}">
                                                                             <option value="${author.id}"><c:out value="${author.name}"/></option>
                                                                         </c:forEach>
