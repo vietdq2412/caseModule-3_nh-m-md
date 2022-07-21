@@ -107,10 +107,14 @@ public class ShopCartController extends HttpServlet {
 
     private void addBookToCart(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        if (session.getAttribute("userId") != null) {
+        if (session.getAttribute("user") != null) {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ashion-master/shop-cart.jsp");
-            int userId = (int) session.getAttribute("userId");
-            int orderId = orderService.findAllByUserId(userId);
+            Account user = (Account) session.getAttribute("user");
+            Order cart = orderService.findOrderInCart(user.getId());
+            HashMap<Integer,OrderDetail> orderDetailHashMap = orderDetailService.findByOrderId(cart.getId());
+            System.out.println(orderDetailHashMap);
+
+            int bookId = Integer.parseInt(request.getParameter("bookId"));
             try {
                 requestDispatcher.forward(request, response);
             } catch (ServletException e) {
