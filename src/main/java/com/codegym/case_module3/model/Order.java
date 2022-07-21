@@ -74,10 +74,10 @@ public class Order {
 
     @Override
     public String toString() {
-        return "'" + createTime + "', " + totalPrice + ", '" + accountId + "', '" + orderStatusId + "'";
+        return "" + createTime + ", " + totalPrice + ", '" + accountId + "', " + orderStatusId ;
     }
 
     public String getColumns() {
-        return "createTime, totalPrice, accountId, orderStatusId";
+        return "create_time, total_price, account_id, order_status_id";
     }
 }

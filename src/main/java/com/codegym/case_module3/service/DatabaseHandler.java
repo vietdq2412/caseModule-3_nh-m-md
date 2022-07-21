@@ -6,14 +6,14 @@ import java.sql.*;
 
 public class DatabaseHandler<T> {
     final String DB_URL = "jdbc:mysql://localhost:3306/casemodule3_bookstore?serverTimezone=UTC";
-    final String jdbc_USERNAME = "root";
-    final String jdbc_PASSWORD = "123456";
+    final String jdbc_USERNAME = "viet";
+    final String jdbc_PASSWORD = "root";
 
-//    ConnectionMySQL connectionMySQL = new ConnectionMySQL();
+   ConnectionMySQL connectionMySQL = new ConnectionMySQL();
     Connection connection = getConnection();
     private static DatabaseHandler instance;
     private DatabaseHandler() {
-
+        connection = getConnection();
     }
     public static DatabaseHandler getInstance() {
         if (instance == null) {
@@ -49,7 +49,7 @@ public class DatabaseHandler<T> {
     }
 
     public ResultSet findAllByCondition(String table, String condition) {
-
+        connection = getConnection();
         String sql = "select * from " + table + " " + condition;
         System.out.println(sql);
         try {
@@ -63,7 +63,7 @@ public class DatabaseHandler<T> {
 
 
     public boolean updateData(String sql) {
-
+        connection = getConnection();
         System.out.println(sql);
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);

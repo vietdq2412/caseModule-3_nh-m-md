@@ -88,6 +88,7 @@
 <!-- Shop Cart Section Begin -->
 <section class="shop-cart spad">
     <div class="container">
+        <h5 id="message">${message}</h5>
         <div class="row">
             <div class="col-lg-12">
                 <div class="shop__cart__table">
@@ -124,7 +125,8 @@
                     <ul>
                         <li>Total <span id="totalPrice">$ 0</span></li>
                     </ul>
-                    <a href="/shop-carts?action=checkout" class="primary-btn">Proceed to checkout</a>
+<%--                    <a href="/shop-carts?action=checkout" class="primary-btn">Checkout</a>--%>
+                    <a href="/shop-carts?action=sentOrder" class="primary-btn">Checkout</a>
                 </div>
             </div>
         </div>
@@ -134,7 +136,7 @@
 
 <!-- Instagram Begin -->
 <div class="instagram">
-    <div class="container-fluid">order
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-2 col-md-4 col-sm-4 p-0">
                 <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">
@@ -286,7 +288,6 @@
     })
 
     function getItemsDataAPI(url) {
-        console.log(url)
         let getListAjax = $.ajax({
             url: url,
             contentType: 'application/json; charset=utf-8',
@@ -329,6 +330,7 @@
         }
         document.getElementById("cart-item").innerHTML = content;
     }
+
 </script>
 <!-- Js Plugins -->
 <script src="../js/jquery-3.3.1.min.js"></script>

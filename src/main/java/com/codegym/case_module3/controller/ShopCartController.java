@@ -50,13 +50,37 @@ public class ShopCartController extends HttpServlet {
             case "checkout":
                 showCheckoutPage(request, response);
                 break;
+            case "sentOrder":
+                sentOrder(request,response);
+                break;
             default:
                 showShopCart(request, response, session);
         }
     }
 
+    private void sentOrder(HttpServletRequest request, HttpServletResponse response) {
+        session = request.getSession();
+        Account account = (Account) session.getAttribute("user");
+        if (account==null){
+            try {
+                response.sendRedirect("/");
+                return;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        orderService.sentOrder(account.getId());
+        session.setAttribute("message", "sent order success!");
+        try {
+            response.sendRedirect("shop-carts");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void showCheckoutPage(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ashion-master/checkout.jsp");
+
         try {
             if (session.getAttribute("user") != null) {
                 requestDispatcher.forward(request, response);
@@ -103,6 +127,7 @@ public class ShopCartController extends HttpServlet {
     private void showShopCart(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ashion-master/shop-cart.jsp");
         if (session.getAttribute("user") != null) {
+            request.setAttribute("message", session.getAttribute("message"));
             requestDispatcher.forward(request, response);
         }else {
             response.sendRedirect("/");
