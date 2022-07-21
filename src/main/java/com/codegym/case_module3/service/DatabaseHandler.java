@@ -49,7 +49,7 @@ public class DatabaseHandler<T> {
     }
 
     public ResultSet findAllByCondition(String table, String condition) {
-
+        connection = getConnection();
         String sql = "select * from " + table + " " + condition;
         System.out.println(sql);
         try {

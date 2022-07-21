@@ -52,7 +52,7 @@ public class OrderDetailService implements IOrderDetailService {
         return orderDetailHashMap;
     }
 
-    public HashMap<Integer, OrderDetail> finItemsInCart(String condition){
+    public HashMap<Integer, OrderDetail> findItemsInCart(String condition){
         ResultSet rs = orderDetailDBHandler.findAllByCondition(ORDER_DETAIL_TABLE,condition);
         HashMap<Integer, OrderDetail> orderDetailHashMap = new HashMap<>();
         try {
@@ -79,10 +79,11 @@ public class OrderDetailService implements IOrderDetailService {
 
     @Override
     public boolean update(OrderDetail orderDetail) {
-        String sql = "update " + ORDER_DETAIL_TABLE + " set  = quantity'" + orderDetail.getQuantity() +
-                "', order_id = '" + orderDetail.getOrderId() +
+        String sql = "update " + ORDER_DETAIL_TABLE + " set quantity =" + orderDetail.getQuantity() +
+                ", order_id = '" + orderDetail.getOrderId() +
                 "', total_price = " + orderDetail.getTotalPrice() +
-                ", book_id = '" + orderDetail.getTotalPrice() + ";";
+                ", book_id = " + orderDetail.getBook().getId() +
+                " WHERE id= "+orderDetail.getId();
         return orderDetailDBHandler.updateData(sql);
     }
 
@@ -95,7 +96,7 @@ public class OrderDetailService implements IOrderDetailService {
     public HashMap<Integer, OrderDetail> findByOrderId(int orderId) {
         HashMap<Integer, OrderDetail> orderDetailList;
         String condition = "where order_id = " + orderId;
-        orderDetailList = finItemsInCart(condition);
+        orderDetailList = findItemsInCart(condition);
         return orderDetailList;
     }
 }
