@@ -311,10 +311,10 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="cart__price">$</td>
+                                <td class="cart__price">`+ data[i].book.price+`VND</td>
                                 <td class="cart__quantity">
                                     <div class="pro-qty">
-                                        <input type="text" value="1">
+                                        <input type="text" value="`+ data[i].quantity+`">
                                     </div>
                                 </td>
                                 <td class="cart__total price">$</td>

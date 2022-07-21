@@ -198,7 +198,6 @@ public class BookController extends HttpServlet {
         request.setAttribute("listBook", books.values());
         RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("views/book/list.jsp");
         resRequestDispatcher.forward(request, response);
-
     }
 
     @Override

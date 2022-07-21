@@ -205,6 +205,7 @@ public class AccountController extends HttpServlet {
 
         Account account = accountService.findByEmailAndPass(email, password);
         if(account != null){
+            account.setPassword("");
             session.setAttribute("user", account);
             if(account.getRoleId().getId() == 1){
                 response.sendRedirect("/accounts?action=edit&id="+account.getId());
