@@ -3,8 +3,7 @@ package com.codegym.case_module3.service.category;
 import com.codegym.case_module3.model.Category;
 import com.codegym.case_module3.service.DatabaseHandler;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashMap;
 
 public class CategoryService implements ICategoryService {
@@ -58,6 +57,33 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public boolean delete(int id) {
-        return false;
+        String delete = "delete from category where (id = ?);";
+        boolean deleteRow = false;
+        try (Connection connection = categoryDBHandler.getConnection();
+             PreparedStatement pre = connection.prepareStatement(delete)) {
+            pre.setInt(1, id);
+            deleteRow = pre.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return deleteRow;
+    }
+
+    @Override
+    public HashMap<Integer, Integer> findQuantity() {
+        String findQuantity = "SELECT category_id, count(id) as quantity FROM book group by category_id;";
+        HashMap<Integer, Integer> listQuantity=new HashMap<>();
+        try(Connection connection = categoryDBHandler.getConnection();
+            PreparedStatement pre = connection.prepareStatement(findQuantity)) {
+           ResultSet rs = pre.executeQuery();
+           while (rs.next()){
+               int id = rs.getInt("category_id");
+               int quantity = rs.getInt("quantity");
+               listQuantity.put(id, quantity);
+           }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listQuantity;
     }
 }

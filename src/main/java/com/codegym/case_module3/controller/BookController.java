@@ -58,6 +58,9 @@ public class BookController extends HttpServlet {
                 case "getTop4ByCategory":
                     getTop4ByCategory(request, response);
                     break;
+                case "categoryID":
+                    getBookByCategory(request, response);
+                    break;
                 default:
                     showAllBook(request, response);
             }
@@ -66,6 +69,18 @@ public class BookController extends HttpServlet {
         }
     }
 
+    private void searchByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = "%" + request.getParameter("searchBook") + "%";
+        System.out.println("--------------------------------------"+name);
+        HashMap<Integer, Book> books = bookService.findNameBook(name);
+        HashMap<Integer, Category> categories = categoryService.find("");
+        HashMap<Integer, Author> authors = authorService.find("");
+        request.setAttribute("listBook", books.values());
+        request.setAttribute("categories", categories.values());
+        request.setAttribute("authors", authors.values());
+        RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("views/book/list.jsp");
+        resRequestDispatcher.forward(request, response);
+    }
     private void getTop4ByCategory(HttpServletRequest request, HttpServletResponse response) {
         String catId = request.getParameter("catId");
         HashMap<Integer, Book> bookHashMap = bookService.findTop4ByCategory(Integer.parseInt(catId));
@@ -194,6 +209,9 @@ public class BookController extends HttpServlet {
                     break;
                 case "delete":
                     deleteBooks(request, response);
+                    break;
+                case "search":
+                    searchByName(request, response);
                     break;
                 default:
                     showAllBook(request, response);

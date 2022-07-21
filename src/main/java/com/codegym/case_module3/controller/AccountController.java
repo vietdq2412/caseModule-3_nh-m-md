@@ -79,7 +79,7 @@ public class AccountController extends HttpServlet {
     private void showFormEdit(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Account u = accountService.findById(id);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/account/list.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/account/edit.jsp");
         request.setAttribute("accountEdit", u);
         requestDispatcher.forward(request, response);
     }
@@ -125,6 +125,9 @@ public class AccountController extends HttpServlet {
                 case "edit":
                     editAccount(request, response);
                     break;
+                case "profile":
+                    editProfile(request, response);
+                    break;
                 case "delete":
                     deleteAccount(request, response);
                     break;
@@ -148,16 +151,34 @@ public class AccountController extends HttpServlet {
         int roleID = Integer.parseInt(request.getParameter("role"));
         Role role;
         if(roleID == 1){
-            role = new Role(1,"Admin");
+            role = new Role(1,"ROLE_ADMIN");
         }
         else {
-            role = new Role(2, "User");
+            role = new Role(2, "ROLE_USER");
         }
         account.setId(id);
         account.setRoleId(role);
         System.out.println(account);
         accountService.update(account);
         response.sendRedirect("/accounts");
+
+    }
+    private void editProfile(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        Account account = getAccount(request, response, "edit");
+        int id = Integer.parseInt(request.getParameter("id"));
+        int roleID = Integer.parseInt(request.getParameter("role"));
+        Role role;
+        if(roleID == 1){
+            role = new Role(1,"ROLE_ADMIN");
+        }
+        else {
+            role = new Role(2, "ROLE_USER");
+        }
+        account.setId(id);
+        account.setRoleId(role);
+        System.out.println(account);
+        accountService.update(account);
+        response.sendRedirect("/accounts?action=edit&id="+account.getId());
 
     }
 
@@ -175,7 +196,7 @@ public class AccountController extends HttpServlet {
         String address = request.getParameter(name+"address");
         String phoneNumber = request.getParameter(name+"phoneNumber");
 
-        return new Account(fullName, username, email, password, address, phoneNumber, new Role(2, "User"));
+        return new Account(fullName, username,password, address, email, phoneNumber, new Role(2, "User"));
     }
 
     private void loginAcount(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException, ServletException {
@@ -186,7 +207,7 @@ public class AccountController extends HttpServlet {
         if(account != null){
             session.setAttribute("user", account);
             if(account.getRoleId().getId() == 1){
-                response.sendRedirect("/books");
+                response.sendRedirect("/accounts?action=edit&id="+account.getId());
             }
             else {
                 response.sendRedirect("/books?action=shop");
