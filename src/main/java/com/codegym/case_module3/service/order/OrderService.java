@@ -1,5 +1,6 @@
 package com.codegym.case_module3.service.order;
 
+import com.codegym.case_module3.model.Account;
 import com.codegym.case_module3.model.Order;
 import com.codegym.case_module3.service.DatabaseHandler;
 
@@ -38,10 +39,10 @@ public class OrderService implements IOrderService{
         try {
             while (rs.next()){
                 int id = rs.getInt("id");
-                Date createTime = rs.getDate("createTime");
-                double totalPrice = rs.getDouble("totalPrice");
-                int accountId = rs.getInt("accountId");
-                int orderStatusId = rs.getInt("orderStatusId");
+                Date createTime = rs.getDate("create_time");
+                double totalPrice = rs.getDouble("total_price");
+                int accountId = rs.getInt("account_id");
+                int orderStatusId = rs.getInt("order_status_id");
                 Order order = new Order(id, createTime, totalPrice, accountId, orderStatusId);
                 orderHashMap.put(id, order);
             }
@@ -51,22 +52,13 @@ public class OrderService implements IOrderService{
         return orderHashMap;
     }
 
-    public int findOrder(String condition) {
-        ResultSet rs = orderDBHandler.findAllByCondition(ORDER_TABLE,condition);
-        List<Integer> list = new ArrayList<>();
-        try {
-            while (rs.next()){
-                int id = rs.getInt("id");
-                Date createTime = rs.getDate("create_time");
-                double totalPrice = rs.getDouble("total_price");
-                int accountId = rs.getInt("account_id");
-                int orderStatusId = rs.getInt("order_status_id");
-                return id;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return 0;
+    public Order findOrderInCart(int accountId) {
+        Order order;
+        String condition = "where account_id = "+accountId+" and order_status_id = 1";
+        HashMap<Integer, Order> orderHashMap = find(condition);
+        int id = (int) orderHashMap.keySet().toArray()[0];
+        order = orderHashMap.get(id);
+        return order;
     }
 
     @Override
@@ -92,7 +84,7 @@ public class OrderService implements IOrderService{
 
     public int findAllByUserId(int userId) {
         String condition = "where account_id = " + userId + " and order_status_id = 1";
-        return findOrder(condition);
+        return 0;
     }
 
 }

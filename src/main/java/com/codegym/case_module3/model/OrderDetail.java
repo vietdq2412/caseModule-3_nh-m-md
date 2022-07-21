@@ -5,24 +5,24 @@ public class OrderDetail {
     private int quantity;
     private int orderId;
     private double totalPrice;
-    private int bookId;
+    private Book book;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(int id, int quantity, int orderId, double totalPrice, int bookId) {
+    public OrderDetail(int id, int quantity, int orderId, double totalPrice, Book book) {
         this.id = id;
         this.quantity = quantity;
         this.orderId = orderId;
         this.totalPrice = totalPrice;
-        this.bookId = bookId;
+        this.book = book;
     }
 
-    public OrderDetail(int quantity, int orderId, double totalPrice, int bookId) {
+    public OrderDetail(int quantity, int orderId, double totalPrice, Book book) {
         this.quantity = quantity;
         this.orderId = orderId;
         this.totalPrice = totalPrice;
-        this.bookId = bookId;
+        this.book = book;
     }
 
     public int getId() {
@@ -57,17 +57,17 @@ public class OrderDetail {
         this.totalPrice = totalPrice;
     }
 
-    public int getBookId() {
-        return bookId;
+    public Book getBook() {
+        return book;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     @Override
     public String toString() {
-        return "'" + quantity + "', " + orderId + ", '" + totalPrice + "', '" + bookId + "'";
+        return "'" + quantity + "', " + orderId + ", '" + totalPrice + "', '" + book.getId() + "'";
     }
 
     public String getColumns() {

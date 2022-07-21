@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -60,49 +61,8 @@
 <!-- Header Section Begin -->
 <header class="header">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-3 col-lg-2">
-                <div class="header__logo">
-                    <a href="./index.jsp"><img src="img/logo.png" alt=""></a>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-7">
-                <nav class="header__menu">
-                    <ul>
-                        <li><a href="./index.jsp">Home</a></li>
-                        <li><a href="#">Women’s</a></li>
-                        <li><a href="#">Men’s</a></li>
-                        <li class="active"><a href="./shop.jsp">Shop</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="dropdown">
-                                <li><a href="book-details.jsp">Product Details</a></li>
-                                <li><a href="./shop-cart.jsp">Shop Cart</a></li>
-                                <li><a href="./checkout.jsp">Checkout</a></li>
-                                <li><a href="./blog-details.jsp">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="./blog.jsp">Blog</a></li>
-                        <li><a href="./contact.jsp">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-lg-3">
-                <div class="header__right">
-                    <div class="header__right__auth">
-                        <a href="#">Login</a>
-                        <a href="#">Register</a>
-                    </div>
-                    <ul class="header__right__widget">
-                        <li><span class="icon_search search-switch"></span></li>
-                        <li><a href="#"><span class="icon_heart_alt"></span>
-                            <div class="tip">2</div>
-                        </a></li>
-                        <li><a href="#"><span class="icon_bag_alt"></span>
-                            <div class="tip">2</div>
-                        </a></li>
-                    </ul>
-                </div>
-            </div>
+        <div class="row" id="header">
+
         </div>
         <div class="canvas__open">
             <i class="fa fa-bars"></i>
@@ -142,7 +102,8 @@
             </div>
             <div class="col-lg-6">
                 <div class="product__details__text">
-                    <h3>${book.title} <span>Author: <a href="/authors?id=${author.id}">${author.name}</a></span></h3>
+                    <h3>${book.title} <span>Author: <a href="/authors?id=${author.id}">${author.name}</a></span>
+                        <span>Category: <a href="/category?id=${category.id}">${category.name}</a></span></h3>
                     <div class="rating">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -152,21 +113,21 @@
                         <span>( 138 reviews )</span>
                     </div>
                     <div class="product__details__price">$ ${book.price}</div>
-                    <form action="/shop-carts" method="post">
-                    <div class="product__details__button">
-                        <div class="quantity">
-                            <span>Quantity:</span>
-                            <div class="pro-qty">
-                                <input type="text" value="1" name="quantity">
-                                <input type="hidden" value="${book.id}" name="bookId">
+                    <form action="/shop-carts?action=addToCart&bookId=${book.id}" method="post">
+                        <div class="product__details__button">
+                            <div class="quantity">
+                                <span>Quantity:</span>
+                                <div class="pro-qty">
+                                    <input type="text" value="1" name="quantity">
+                                    <input type="hidden" value="${book.id}" name="bookId">
+                                </div>
                             </div>
+                            <button class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</button>
+                            <ul>
+                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
+                            </ul>
                         </div>
-                        <button class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</button>
-                        <ul>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
-                        </ul>
-                    </div>
                     </form>
                 </div>
             </div>
@@ -209,163 +170,12 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="related__title">
-                    <h5>RELATED PRODUCTS</h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-1.jpg">
-                        <div class="label new">New</div>
-                        <ul class="product__hover">
-                            <li><a href="img/product/related/rp-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Buttons tweed blazer</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/rFelated/rp-2.jpg">
-                        <ul class="product__hover">
-                            <li><a href="img/product/related/rp-2.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Flowy striped skirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 49.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-3.jpg">
-                        <div class="label stockout">out of stock</div>
-                        <ul class="product__hover">
-                            <li><a href="img/product/related/rp-3.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Cotton T-Shirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-4.jpg">
-                        <ul class="product__hover">
-                            <li><a href="img/product/related/rp-4.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Slim striped pocket shirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
+        <div class="row" id="related-pro">
+            <%--  ////////related item--%>
         </div>
     </div>
 </section>
 <!-- Product Details Section End -->
-
-<!-- Instagram Begin -->
-<div class="instagram">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-2.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-3.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-4.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-5.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-6.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Instagram End -->
 
 <!-- Footer Section Begin -->
 <footer class="footer">
@@ -430,7 +240,10 @@
             <div class="col-lg-12">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 <div class="footer__copyright__text">
-                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                    <p>Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script>
+                        All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
+                        by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
                 </div>
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </div>
@@ -449,7 +262,74 @@
     </div>
 </div>
 <!-- Search End -->
+<input type="text" id="catId" value="${category.id}" hidden>
+<script src="../js/header.js"></script>
+<script>
+    setHeader();
+    let catId = document.getElementById("catId").value;
+    $(document).ready(function () {
+        let getBooksUrl = 'http://localhost:8082/books?action=getTop4ByCategory&catId=' + catId;
+        getBooksDataAPI(getBooksUrl);
+    })
 
+    function getBooksDataAPI(url) {
+        console.log(url)
+        let getListAjax = $.ajax({
+            url: url,
+            contentType: 'application/json; charset=utf-8',
+            method: 'GET',
+            success: function (data) {
+                printBooksData(url, data)
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function printBooksData(url, d) {
+        let data = Object.values(d)
+        let content = `<div class="col-lg-12 text-center">
+                <div class="related__title">
+                    <h5>RELATED PRODUCTS</h5>
+                </div>
+            </div>`;
+        for (let i = 0; i < data.length; i++) {
+            content += `<div class="col-lg-4 col-md-6">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" id="` + data[i].id + `">
+                                <div class="label new">New</div>
+                                <ul class="product__hover">
+                                    <li><a href="img/shop/shop-1.jpg" class="image-popup"><span
+                                            class="arrow_expand"></span></a></li>
+                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6><a href="/book-details?id=` + data[i].id + `">` + data[i].title + `</a></h6>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product__price">` + data[i].price + `VND</div>
+                            </div>
+                        </div>
+                    </div>`
+        }
+
+        document.getElementById("related-pro").innerHTML = content;
+        for (let i = 0; i < data.length; i++) {
+            let ele = document.getElementById(data[i].id);
+            setBooksItemBGImg(ele, data[i].image)
+        }
+    }
+    function setBooksItemBGImg(ele, src) {
+        ele.style.backgroundImage = "url('" + src + "')";
+    }
+</script>
 <!-- Js Plugins -->
 <script src="../js/jquery-3.3.1.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>

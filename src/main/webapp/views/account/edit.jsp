@@ -38,9 +38,15 @@
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="accounts?action=edit&id=1">
                         <i class="nc-icon nc-circle-09"></i>
                         <p>User Profile</p>
+                    </a>
+                </li>
+                <li >
+                    <a class="nav-link" href="/books?action=shop">
+                        <i class="nc-icon nc-notes"></i>
+                        <p>Shop</p>
                     </a>
                 </li>
                 <li >
@@ -56,7 +62,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/category">
                         <i class="nc-icon nc-atom"></i>
                         <p>Category</p>
                     </a>

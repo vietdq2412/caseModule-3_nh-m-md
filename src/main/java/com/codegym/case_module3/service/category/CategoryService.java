@@ -57,6 +57,7 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public boolean delete(int id) {
+
         String delete = "delete from category where (id = ?);";
         boolean deleteRow = false;
         try (Connection connection = categoryDBHandler.getConnection();

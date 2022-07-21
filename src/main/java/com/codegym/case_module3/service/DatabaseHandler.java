@@ -10,7 +10,6 @@ public class DatabaseHandler<T> {
     final String jdbc_PASSWORD = "123456";
 
 //    ConnectionMySQL connectionMySQL = new ConnectionMySQL();
-    Connection connection = getConnection();
     private static DatabaseHandler instance;
     private DatabaseHandler() {
 
@@ -23,9 +22,12 @@ public class DatabaseHandler<T> {
         return instance;
     }
     public Connection getConnection() {
+        Connection connection = null;
         try {
+
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = ConnectionMySQL.getInstance().getConnection();
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -36,7 +38,7 @@ public class DatabaseHandler<T> {
 
         String sql = "insert into " + table + "(" + insertColumns + ") values(" + objectToInsert.toString() + ")";
         System.out.println(sql);
-        try {
+        try (Connection connection = getConnection();){
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
             statement.execute(sql);
         } catch (SQLIntegrityConstraintViolationException e) {
@@ -52,7 +54,7 @@ public class DatabaseHandler<T> {
 
         String sql = "select * from " + table + " " + condition;
         System.out.println(sql);
-        try {
+        try (Connection connection = getConnection();){
             Statement statement = connection.createStatement();
             return statement.executeQuery(sql);
         } catch (SQLException e) {
@@ -65,7 +67,7 @@ public class DatabaseHandler<T> {
     public boolean updateData(String sql) {
 
         System.out.println(sql);
-        try {
+        try (Connection connection = getConnection();){
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
             statement.execute(sql);
         } catch (SQLIntegrityConstraintViolationException e) {
@@ -79,7 +81,7 @@ public class DatabaseHandler<T> {
 
     public boolean deleteData(String sql) {
         System.out.println(sql);
-        try {
+        try (Connection connection = getConnection()){
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
             statement.execute(sql);
         } catch (SQLIntegrityConstraintViolationException e) {

@@ -91,6 +91,11 @@ public class BookService implements IBookService {
         return bookHashMap;
     }
 
+    public HashMap<Integer, Book> findTop4ByCategory(int catId) {
+        String condition = "Where category_id = " + catId + " ORDER BY id DESC LIMIT 0,6";
+        return find(condition);
+    }
+
     @Override
     public Book findById(int id) {
         String condition = "Where id = " + id;
@@ -113,7 +118,6 @@ public class BookService implements IBookService {
         Category category = categoryService.findById(category_id);
         book = new Book(id, title, author, category, publish_year, image, description, price, views, quantity);
         return book;
-
     }
 
     @Override

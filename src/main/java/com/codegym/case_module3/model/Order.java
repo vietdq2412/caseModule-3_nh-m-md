@@ -12,6 +12,11 @@ public class Order {
     public Order() {
     }
 
+    public Order(int accountId, int orderStatusId) {
+        this.accountId = accountId;
+        this.orderStatusId = orderStatusId;
+    }
+
     public Order(int id, Date createTime, double totalPrice, int accountId, int orderStatusId) {
         this.id = id;
         this.createTime = createTime;
