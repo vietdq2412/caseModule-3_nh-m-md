@@ -80,7 +80,7 @@
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/accounts?action=edit&id=1">
                         <i class="nc-icon nc-circle-09"></i>
                         <p>User Profile</p>
                     </a>
