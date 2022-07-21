@@ -86,6 +86,11 @@
                     </a>
                 </li>
                 <li >
+                    <a class="nav-link" href="/books?action=shop">
+                        <i class="nc-icon nc-notes"></i>
+                        <p>Shop</p>
+                    </a>
+                </li><li >
                     <a class="nav-link" href="/accounts">
                         <i class="nc-icon nc-notes"></i>
                         <p>Accounts</p>
@@ -134,20 +139,19 @@
                                 <span class="d-lg-none">Notification</span>
                             </a>
                             <ul class="dropdown-menu">
-<<<<<<< HEAD
                                 <c:forEach var="category" items="${categories}">
 <%--                                    <option value="${category.id}"></option>--%>
                                     <a class="dropdown-item" href="/books?action=categoryID&id=${category.id}">
                                         <c:out value="${category.name}"/>
                                     </a>
                                 </c:forEach>
-=======
+
                                 <a class="dropdown-item" href="/accounts?action=admin">1</a>
                                 <a class="dropdown-item" href="/accounts?action=user">2</a>
                                 <a class="dropdown-item" href="/accounts?action=user">3</a>
                                 <a class="dropdown-item" href="/accounts?action=user">4</a>
                                 <a class="dropdown-item" href="/accounts?action=user">5</a>
->>>>>>> f3bc8847b9d5edf77977219f6f3ea82ef57833f8
+
                                 <a class="dropdown-item" href="/books">All</a>
                             </ul>
                         </li>
