@@ -35,6 +35,12 @@
                         <p>User Profile</p>
                     </a>
                 </li>
+                <li >
+                    <a class="nav-link" href="/books?action=shop">
+                        <i class="nc-icon nc-notes"></i>
+                        <p>Shop</p>
+                    </a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/accounts">
                         <i class="nc-icon nc-notes"></i>
@@ -54,7 +60,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/authors">
                         <i class="nc-icon nc-album-2"></i>
                         <p>Author</p>
                     </a>

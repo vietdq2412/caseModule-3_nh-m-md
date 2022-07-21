@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class AuthorService implements IAuthorService {
     private final String AUTHOR_TABLE = "author";
     private DatabaseHandler<Author> authorDBHandler = DatabaseHandler.getInstance();
+    private DatabaseHandler<Author> boDatabaseHandler = DatabaseHandler.getInstance();
     private static AuthorService instance;
 
     public AuthorService() {
@@ -73,6 +74,8 @@ public class AuthorService implements IAuthorService {
     @Override
     public boolean delete(int id) {
         String sql = "delete from " + AUTHOR_TABLE + " where id = " + id;
+        String sqlBook = "delete from book where author_id = "+ id ;
+        boDatabaseHandler.deleteData(sqlBook);
         return authorDBHandler.deleteData(sql);
     }
 }

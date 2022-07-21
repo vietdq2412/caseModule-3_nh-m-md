@@ -33,6 +33,13 @@ public class Author {
         this.nation = nation;
         this.image = image;
     }
+    public Author(String name, int numberOfArts, String nation, String image) {
+        this.name = name;
+        this.dateOfBirth = Date.valueOf("2001-07-01");
+        this.numberOfArts = numberOfArts;
+        this.nation = nation;
+        this.image = image;
+    }
 
     public int getId() {
         return id;
