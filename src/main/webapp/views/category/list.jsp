@@ -215,7 +215,11 @@
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel2">Do you want to delete now?</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel2">
+                                                                        Do you want to delete now?<br>
+                                                                        <p style="color: red;">This will delete all books with this category</p>
+                                                                    </h5>
+
                                                                     <button type="button" class="close" data-dismiss="modal"
                                                                             aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
