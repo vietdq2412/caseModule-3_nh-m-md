@@ -58,8 +58,8 @@ CREATE TABLE `CaseModule3_BookStore`.`book` (
 drop table if exists `order` cascade;
 CREATE TABLE `CaseModule3_BookStore`.`order` (
                                         `id` INT NOT NULL AUTO_INCREMENT,
-                                        `create_time` DATE NOT NULL,
-                                        `total_price` DOUBLE NOT NULL,
+                                        `create_time` DATE,
+                                        `total_price` DOUBLE,
                                         `account_id` INT(10) NOT NULL,
                                         `order_status_id` INT(10) NOT NULL,
                                         PRIMARY KEY (`id`));
@@ -68,7 +68,7 @@ CREATE TABLE `CaseModule3_BookStore`.`order_detail` (
                                                `id` INT(10) NOT NULL AUTO_INCREMENT,
                                                `quantity` INT(10) NOT NULL,
                                                `order_id` INT(10) NOT NULL,
-                                               `total_price` DOUBLE NOT NULL,
+                                               `total_price` DOUBLE,
                                                `book_id` INT(10) NOT NULL,
                                                PRIMARY KEY (`id`));
 
@@ -91,6 +91,22 @@ ALTER TABLE `CaseModule3_BookStore`.`order_detail` ADD CONSTRAINT orderdetail_or
 ALTER TABLE `CaseModule3_BookStore`.`order_detail` ADD CONSTRAINT orderdetail_book FOREIGN KEY (book_id)
     REFERENCES `CaseModule3_BookStore`.`book`(id);
 
+alter table `order`
+    add constraint order_account_id_fk
+        foreign key (account_id) references account (id);
+
+alter table `order`
+    add constraint order_order_status_id_fk
+        foreign key (order_status_id) references order_status (id);
+
+alter table order_detail
+    add constraint order_detail_book_id_fk
+        foreign key (book_id) references book (id);
+
+alter table order_detail
+    add constraint order_detail_order_id_fk
+        foreign key (order_id) references `order` (id);
+
 
 -- end--------------------
 -- Insert data---
@@ -101,3 +117,10 @@ insert into category(name) values ('classics');
 insert into category(name) values ('children');
 insert into category(name) values ('poetry-drama');
 insert into category(name) values ('books-into-movies');
+
+-- Insert data---
+-- category---
+insert into order_status(name) values ('IN-CART');
+insert into order_status(name) values ('Pending');
+insert into order_status(name) values ('Deliver');
+insert into order_status(name) values ('Done');

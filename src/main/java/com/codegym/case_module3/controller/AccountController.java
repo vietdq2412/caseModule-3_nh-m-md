@@ -205,20 +205,13 @@ public class AccountController extends HttpServlet {
 
         Account account = accountService.findByEmailAndPass(email, password);
         if(account != null){
-            session.setAttribute("userId", account.getId());
-            session.setAttribute("username", account.getUsername());
-            session.setAttribute("password", account.getPassword());
-            session.setAttribute("phone", account.getPhoneNumber());
-            session.setAttribute("name" , account.getFullName());
-            session.setAttribute("roleId", account.getRoleId());
-            session.setAttribute("email", account.getEmail());
+            session.setAttribute("user", account);
             if(account.getRoleId().getId() == 1){
                 response.sendRedirect("/accounts?action=edit&id="+account.getId());
             }
             else {
                 response.sendRedirect("/books?action=shop");
             }
-
         }
         else {
             RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("index.jsp");

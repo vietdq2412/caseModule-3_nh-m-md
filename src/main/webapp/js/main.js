@@ -6,7 +6,6 @@ Author URI: https://colorlib.com/
 Version: 1.0
 Created: Colorib
 ---------------------------------------------------------  */
-
 'use strict';
 
 (function ($) {
@@ -233,3 +232,4 @@ Created: Colorib
     });
 
 })(jQuery);
+

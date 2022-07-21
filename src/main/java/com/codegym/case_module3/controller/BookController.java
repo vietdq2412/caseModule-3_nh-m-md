@@ -1,5 +1,6 @@
 package com.codegym.case_module3.controller;
 
+import com.codegym.case_module3.model.Account;
 import com.codegym.case_module3.model.Author;
 import com.codegym.case_module3.model.Book;
 import com.codegym.case_module3.model.Category;
@@ -80,8 +81,21 @@ public class BookController extends HttpServlet {
         RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("views/book/list.jsp");
         resRequestDispatcher.forward(request, response);
     }
-
-    private void getTop4ByCategory(HttpServletRequest request, HttpServletResponse response) {}
+    private void getTop4ByCategory(HttpServletRequest request, HttpServletResponse response) {
+        String catId = request.getParameter("catId");
+        HashMap<Integer, Book> bookHashMap = bookService.findTop4ByCategory(Integer.parseInt(catId));
+        String bookData = gson.toJson(bookHashMap.values());
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        out.print(bookData);
+        out.flush();
+    }
 
     private void getBookByCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -165,7 +179,11 @@ public class BookController extends HttpServlet {
     }
 
     private void showAllBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HashMap<Integer, Book> books = bookService.find("");
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("user");
+        System.out.println(account);
+
+        HashMap<Integer, Book> books = bookService.find(" limit 0,20");
         HashMap<Integer, Category> categories = categoryService.find("");
         HashMap<Integer, Author> authors = authorService.find("");
         request.setAttribute("categories", categories.values());

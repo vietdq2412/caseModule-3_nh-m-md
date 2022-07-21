@@ -1,12 +1,13 @@
 package com.codegym.case_module3.service.order;
 
+import com.codegym.case_module3.model.Book;
 import com.codegym.case_module3.model.OrderDetail;
 import com.codegym.case_module3.service.DatabaseHandler;
+import com.codegym.case_module3.service.book.BookService;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.*;
 
 public class OrderDetailService implements IOrderDetailService {
     private final String ORDER_DETAIL_TABLE = "order_detail";
@@ -41,7 +42,8 @@ public class OrderDetailService implements IOrderDetailService {
                 int orderId = rs.getInt("order_id");
                 double totalPrice = rs.getDouble("total_price");
                 int bookId = rs.getInt("book_id");
-                OrderDetail orderDetail = new OrderDetail(id, quantity, orderId, totalPrice, bookId);
+                Book book = BookService.getInstance().findById(bookId);
+                OrderDetail orderDetail = new OrderDetail(id, quantity, orderId, totalPrice, book);
                 orderDetailHashMap.put(id, orderDetail);
             }
         } catch (SQLException e) {
@@ -71,22 +73,10 @@ public class OrderDetailService implements IOrderDetailService {
         return orderDetailDBHandler.deleteData(sql);
     }
 
-    public List<OrderDetail> findByOrderId(int orderId) {
-        List<OrderDetail> orderDetailList = new ArrayList<>();
-        String sql = "where order_id = " + orderId;
-        ResultSet rs = orderDetailDBHandler.findAllByCondition(ORDER_DETAIL_TABLE,sql);
-        try {
-            while (rs.next()){
-                int id = rs.getInt("id");
-                int quantity = rs.getInt("quantity");
-                double totalPrice = rs.getDouble("total_price");
-                int bookId = rs.getInt("book_id");
-                OrderDetail orderDetail = new OrderDetail(id, quantity, orderId, totalPrice, bookId);
-                orderDetailList.add(orderDetail);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public HashMap<Integer, OrderDetail> findByOrderId(int orderId) {
+        HashMap<Integer, OrderDetail> orderDetailList;
+        String condition = "where order_id = " + orderId;
+        orderDetailList = find(condition);
         return orderDetailList;
     }
 }

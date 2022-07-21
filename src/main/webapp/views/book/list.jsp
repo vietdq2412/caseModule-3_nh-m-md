@@ -86,6 +86,11 @@
                     </a>
                 </li>
                 <li >
+                    <a class="nav-link" href="/books?action=shop">
+                        <i class="nc-icon nc-notes"></i>
+                        <p>Shop</p>
+                    </a>
+                </li><li >
                     <a class="nav-link" href="/accounts">
                         <i class="nc-icon nc-notes"></i>
                         <p>Accounts</p>
