@@ -124,7 +124,7 @@
                     <ul>
                         <li>Total <span id="totalPrice">$ 0</span></li>
                     </ul>
-                    <a href="/checkouts" class="primary-btn">Proceed to checkout</a>
+                    <a href="/shop-carts?action=checkout" class="primary-btn">Proceed to checkout</a>
                 </div>
             </div>
         </div>
@@ -252,7 +252,10 @@
             <div class="col-lg-12">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 <div class="footer__copyright__text">
-                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                    <p>Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script>
+                        All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
+                        by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
                 </div>
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </div>
@@ -270,6 +273,9 @@
         </form>
     </div>
 </div>
+<input type="text" value="${currentUser.id}" id="userId" >
+<input type="text" value="${currentUser.fullName}" id="userName" >
+<input type="text" value="${currentUser.role.name}" id="userRole" >
 <!-- Search End -->
 <script src="../js/header.js"></script>
 <script>
@@ -293,13 +299,13 @@
         });
     }
 
-    function printItemsData(data){
+    function printItemsData(data) {
         console.log(data)
         let content = ``
-        for (let i = 0; i < data.length; i++){
+        for (let i = 0; i < data.length; i++) {
             content += `<tr>
                                 <td class="cart__product__item">
-                                    <img src="`+ data[i].book.image+`" alt="" width="70px" height="70px">
+                                    <img src="` + data[i].book.image + `" alt="" width="70px" height="70px">
                                     <div class="cart__product__item__title">
                                         <h6></h6>
                                         <div class="rating">
@@ -311,13 +317,13 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="cart__price">`+ data[i].book.price+`VND</td>
+                                <td class="cart__price">` + data[i].book.price + `VND</td>
                                 <td class="cart__quantity">
                                     <div class="pro-qty">
-                                        <input type="text" value="`+ data[i].quantity+`">
+                                        <input type="text" value="` + data[i].quantity + `">
                                     </div>
                                 </td>
-                                <td class="cart__total price">$</td>
+                                <td class="cart__total price">` + data[i].quantity * data[i].book.price + `VND</td>
                                 <td class="cart__close"><span class="icon_close"></span></td>
                             </tr>`
         }

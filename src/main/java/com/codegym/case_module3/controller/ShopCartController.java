@@ -28,11 +28,14 @@ public class ShopCartController extends HttpServlet {
     private AccountService accountService = new AccountService();
     private HttpSession session;
     private Gson gson = new Gson();
+    private Account curUser;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         session = request.getSession();
+        curUser = (Account) session.getAttribute("user");
+        request.setAttribute("currentUser", curUser);
         String action = "";
         action = request.getParameter("action");
 
@@ -44,8 +47,26 @@ public class ShopCartController extends HttpServlet {
             case "getCartData":
                 getCartData(request, response);
                 break;
+            case "checkout":
+                showCheckoutPage(request, response);
+                break;
             default:
                 showShopCart(request, response, session);
+        }
+    }
+
+    private void showCheckoutPage(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ashion-master/checkout.jsp");
+        try {
+            if (session.getAttribute("user") != null) {
+                requestDispatcher.forward(request, response);
+            }else {
+                response.sendRedirect("/");
+            }
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -81,11 +102,11 @@ public class ShopCartController extends HttpServlet {
 
     private void showShopCart(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ashion-master/shop-cart.jsp");
-        if (session.getAttribute("userId") != null) {
-            int userId = (int) session.getAttribute("userId");
+        if (session.getAttribute("user") != null) {
+            requestDispatcher.forward(request, response);
+        }else {
+            response.sendRedirect("/");
         }
-
-        requestDispatcher.forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

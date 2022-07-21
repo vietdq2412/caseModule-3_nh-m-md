@@ -192,7 +192,7 @@
                                             <td><c:out value="${account.fullName}"/></td>
                                             <td><c:out value="${account.username}"/></td>
                                             <td><c:out value="${account.password}"/></td>
-                                            <td><c:out value="${account.roleId.name}"/></td>
+                                            <td><c:out value="${account.role.name}"/></td>
                                         <td>
                                             <div style="margin: 20px;">
                                                 <a type="button" class="close" href="/accounts?action=edit&id=${account.id}"><span style="color: #0059B3;" aria-hidden="true"><i class="fa fa-eye"></i></span></a>
@@ -257,13 +257,13 @@
                                                                 <div class="form-group">
                                                                             <label for="role">Role</label>
 <%--                                                                            <input type="text" id="role" name="role" class="form-control"--%>
-<%--                                                                                   value="<c:out value='${account.roleId.id}'/>">--%>
+<%--                                                                                   value="<c:out value='${account.role.id}'/>">--%>
                                                                                 <select name="role" id="role" style="height: 40px; width: 350px;">
-                                                                                    <c:if test="${account.roleId.id == 1}">
+                                                                                    <c:if test="${account.role.id == 1}">
                                                                                         <option value="1">ROLE_ADMIN</option>
                                                                                         <option value="2">ROLE_USER</option>
                                                                                     </c:if>
-                                                                                    <c:if test="${account.roleId.id == 2}">
+                                                                                    <c:if test="${account.role.id == 2}">
                                                                                         <option value="2">ROLE_USER</option>
                                                                                         <option value="1">ROLE_ADMIN</option>
                                                                                     </c:if>

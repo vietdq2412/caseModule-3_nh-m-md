@@ -154,11 +154,11 @@
                                             <div class="form-group">
                                                 <label>Role</label>
                                                 <select name="role" id="role" style="height: 40px; width: 350px;">
-                                                    <c:if test="${accountEdit.roleId.id == 1}">
+                                                    <c:if test="${accountEdit.role.id == 1}">
                                                         <option value="1">ROLE_ADMIN</option>
                                                         <option value="2">ROLE_USER</option>
                                                     </c:if>
-                                                    <c:if test="${accountEdit.roleId.id == 2}">
+                                                    <c:if test="${accountEdit.role.id == 2}">
                                                         <option value="2">ROLE_USER</option>
                                                         <option value="1">ROLE_ADMIN</option>
                                                     </c:if>
