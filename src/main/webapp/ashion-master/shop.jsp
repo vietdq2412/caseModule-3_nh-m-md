@@ -323,9 +323,7 @@
 </div>
 <!-- Search End -->
 <script src="../js/header.js"></script>
-<script>
-    setHeader();
-</script>
+
 <script>
     setHeader();
     $(document).ready(function () {

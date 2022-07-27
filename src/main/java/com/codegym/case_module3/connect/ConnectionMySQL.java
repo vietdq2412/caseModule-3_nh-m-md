@@ -27,13 +27,14 @@ public class ConnectionMySQL {
     }
 
     public Connection getConnection() {
-        Connection connection = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = null;
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
+            return connection;
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return connection;
+        return null;
     }
 }

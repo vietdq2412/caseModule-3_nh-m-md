@@ -13,7 +13,7 @@ public class DatabaseHandler<T> {
     Connection connection = getConnection();
     private static DatabaseHandler instance;
     private DatabaseHandler() {
-        connection = getConnection();
+
     }
     public static DatabaseHandler getInstance() {
         if (instance == null) {
@@ -25,11 +25,14 @@ public class DatabaseHandler<T> {
     public Connection getConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = ConnectionMySQL.getInstance().getConnection();
+            connection = DriverManager.getConnection(DB_URL, jdbc_USERNAME, jdbc_PASSWORD);
+            return connection;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return connection;
+        return null;
     }
 
     public boolean insertData(String table, T objectToInsert, String insertColumns) {
@@ -78,6 +81,7 @@ public class DatabaseHandler<T> {
     }
 
     public boolean deleteData(String sql) {
+        connection = getConnection();
         System.out.println(sql);
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
