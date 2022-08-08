@@ -125,8 +125,8 @@
                     <ul>
                         <li>Total <span id="totalPrice">$ 0</span></li>
                     </ul>
-                    <%--                    <a href="/shop-carts?action=checkout" class="primary-btn">Checkout</a>--%>
-                    <a data-toggle="modal" data-target="#exampleModal" class="primary-btn">Checkout</a>
+                                        <a href="/shop-carts?action=sentOrder" class="primary-btn">Checkout</a>
+<%--                    <a data-toggle="modal" data-target="#exampleModal" class="primary-btn">Checkout</a>--%>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         Launch demo modal
@@ -310,7 +310,7 @@
     let role =document.getElementById("userRole");
     let username = document.getElementById("username");
 
-    console.log("sdsdsd",role, username)
+    console.log("cart view: ",role, username)
     setHeader(role, username);
     $(document).ready(function () {
         let getItemsUrl = 'http://localhost:8080/shop-carts?action=getCartData';
