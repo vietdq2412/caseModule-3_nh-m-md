@@ -1,7 +1,7 @@
-function setHeader(user){
+function setHeader(userRole, username){
     let headerDiv = document.getElementById("header");
     let linkAdmin = "";
-    if (user){
+    if (userRole){
         linkAdmin = `<li><a href="/books">Admin</a></li>`
     }
     let headerContent = `<div class="col-xl-3 col-lg-2">

@@ -125,8 +125,8 @@
                     <ul>
                         <li>Total <span id="totalPrice">$ 0</span></li>
                     </ul>
-<%--                    <a href="/shop-carts?action=checkout" class="primary-btn">Checkout</a>--%>
-                    <a  data-toggle="modal" data-target="#exampleModal" class="primary-btn">Checkout</a>
+                    <%--                    <a href="/shop-carts?action=checkout" class="primary-btn">Checkout</a>--%>
+                    <a data-toggle="modal" data-target="#exampleModal" class="primary-btn">Checkout</a>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         Launch demo modal
@@ -140,7 +140,8 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -300,13 +301,17 @@
         </form>
     </div>
 </div>
-<input type="text" value="${currentUser.id}" id="userId" >
-<input type="text" value="${currentUser.fullName}" id="userName" >
-<input type="text" value="${currentUser.role.name}" id="userRole" >
+<input type="text" value="${currentUser.id}" id="userId">
+<input type="text" value="${currentUser.fullName}" id="userName">
+<input type="text" value="${currentUser.role.name}" id="userRole">
 <!-- Search End -->
 <script src="../js/header.js"></script>
 <script>
-    setHeader();
+    let role =document.getElementById("userRole");
+    let username = document.getElementById("username");
+
+    console.log("sdsdsd",role, username)
+    setHeader(role, username);
     $(document).ready(function () {
         let getItemsUrl = 'http://localhost:8080/shop-carts?action=getCartData';
         getItemsDataAPI(getItemsUrl);
