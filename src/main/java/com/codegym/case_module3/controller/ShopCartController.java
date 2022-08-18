@@ -1,6 +1,7 @@
 package com.codegym.case_module3.controller;
 
 import com.codegym.case_module3.model.Account;
+import com.codegym.case_module3.model.Book;
 import com.codegym.case_module3.model.Order;
 import com.codegym.case_module3.model.OrderDetail;
 import com.codegym.case_module3.service.account.AccountService;
@@ -27,11 +28,14 @@ public class ShopCartController extends HttpServlet {
     private AccountService accountService = new AccountService();
     private HttpSession session;
     private Gson gson = new Gson();
+    private Account curUser;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         session = request.getSession();
+        curUser = (Account) session.getAttribute("user");
+        request.setAttribute("currentUser", curUser);
         String action = "";
         action = request.getParameter("action");
 
@@ -43,8 +47,50 @@ public class ShopCartController extends HttpServlet {
             case "getCartData":
                 getCartData(request, response);
                 break;
+            case "checkout":
+                showCheckoutPage(request, response);
+                break;
+            case "sentOrder":
+                sentOrder(request,response);
+                break;
             default:
                 showShopCart(request, response, session);
+        }
+    }
+
+    private void sentOrder(HttpServletRequest request, HttpServletResponse response) {
+        session = request.getSession();
+        Account account = (Account) session.getAttribute("user");
+        if (account==null){
+            try {
+                response.sendRedirect("/");
+                return;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        orderService.sentOrder(account.getId());
+        session.setAttribute("message", "sent order success!");
+        try {
+            response.sendRedirect("shop-carts");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void showCheckoutPage(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ashion-master/checkout.jsp");
+
+        try {
+            if (session.getAttribute("user") != null) {
+                requestDispatcher.forward(request, response);
+            }else {
+                response.sendRedirect("/");
+            }
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -80,11 +126,12 @@ public class ShopCartController extends HttpServlet {
 
     private void showShopCart(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ashion-master/shop-cart.jsp");
-        if (session.getAttribute("userId") != null) {
-            int userId = (int) session.getAttribute("userId");
+        if (session.getAttribute("user") != null) {
+            request.setAttribute("message", session.getAttribute("message"));
+            requestDispatcher.forward(request, response);
+        }else {
+            response.sendRedirect("/");
         }
-
-        requestDispatcher.forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -107,14 +154,23 @@ public class ShopCartController extends HttpServlet {
 
     private void addBookToCart(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        if (session.getAttribute("userId") != null) {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/ashion-master/shop-cart.jsp");
-            int userId = (int) session.getAttribute("userId");
-            int orderId = orderService.findAllByUserId(userId);
+        if (session.getAttribute("user") != null) {
+            Account user = (Account) session.getAttribute("user");
+            Order cart = orderService.findOrderInCart(user.getId());
+            HashMap<Integer,OrderDetail> orderDetailHashMap = orderDetailService.findByOrderId(cart.getId());
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            int bookId = Integer.parseInt(request.getParameter("bookId"));
+            if (orderDetailHashMap.containsKey(bookId)){
+                int preQuantity = orderDetailHashMap.get(bookId).getQuantity();
+                OrderDetail existedItem = orderDetailHashMap.get(bookId);
+                existedItem.setQuantity(preQuantity+quantity);
+                orderDetailService.update(existedItem);
+            }else {
+                OrderDetail orderDetail = new OrderDetail(quantity, cart.getId(), 0,new Book(bookId));
+                orderDetailService.create(orderDetail);
+            }
             try {
-                requestDispatcher.forward(request, response);
-            } catch (ServletException e) {
-                throw new RuntimeException(e);
+                response.sendRedirect("shop-carts");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

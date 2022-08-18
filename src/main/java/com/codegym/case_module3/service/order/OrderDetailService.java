@@ -52,6 +52,25 @@ public class OrderDetailService implements IOrderDetailService {
         return orderDetailHashMap;
     }
 
+    public HashMap<Integer, OrderDetail> findItemsInCart(String condition){
+        ResultSet rs = orderDetailDBHandler.findAllByCondition(ORDER_DETAIL_TABLE,condition);
+        HashMap<Integer, OrderDetail> orderDetailHashMap = new HashMap<>();
+        try {
+            while (rs.next()){
+                int id = rs.getInt("id");
+                int quantity = rs.getInt("quantity");
+                int orderId = rs.getInt("order_id");
+                double totalPrice = rs.getDouble("total_price");
+                int bookId = rs.getInt("book_id");
+                Book book = BookService.getInstance().findById(bookId);
+                OrderDetail orderDetail = new OrderDetail(id, quantity, orderId, totalPrice, book);
+                orderDetailHashMap.put(bookId, orderDetail);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orderDetailHashMap;
+    }
     @Override
     public OrderDetail findById(int id) {
         String condition = "Where id = " + id;
@@ -60,10 +79,11 @@ public class OrderDetailService implements IOrderDetailService {
 
     @Override
     public boolean update(OrderDetail orderDetail) {
-        String sql = "update " + ORDER_DETAIL_TABLE + " set  = quantity'" + orderDetail.getQuantity() +
-                "', order_id = '" + orderDetail.getOrderId() +
+        String sql = "update " + ORDER_DETAIL_TABLE + " set quantity =" + orderDetail.getQuantity() +
+                ", order_id = '" + orderDetail.getOrderId() +
                 "', total_price = " + orderDetail.getTotalPrice() +
-                ", book_id = '" + orderDetail.getTotalPrice() + ";";
+                ", book_id = " + orderDetail.getBook().getId() +
+                " WHERE id= "+orderDetail.getId();
         return orderDetailDBHandler.updateData(sql);
     }
 
@@ -76,7 +96,7 @@ public class OrderDetailService implements IOrderDetailService {
     public HashMap<Integer, OrderDetail> findByOrderId(int orderId) {
         HashMap<Integer, OrderDetail> orderDetailList;
         String condition = "where order_id = " + orderId;
-        orderDetailList = find(condition);
+        orderDetailList = findItemsInCart(condition);
         return orderDetailList;
     }
 }

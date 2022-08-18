@@ -10,6 +10,7 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
+
     public OrderDetail(int id, int quantity, int orderId, double totalPrice, Book book) {
         this.id = id;
         this.quantity = quantity;
@@ -71,6 +72,6 @@ public class OrderDetail {
     }
 
     public String getColumns() {
-        return "quantity, orderId, totalPrice, bookId";
+        return "quantity, order_id, total_price, book_id";
     }
 }

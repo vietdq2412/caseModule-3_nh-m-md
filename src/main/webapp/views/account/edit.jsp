@@ -38,7 +38,7 @@
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="accounts?action=edit&id=1">
+                    <a class="nav-link" href="/accounts?action=edit&id=1">
                         <i class="nc-icon nc-circle-09"></i>
                         <p>User Profile</p>
                     </a>
@@ -68,7 +68,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/authors">
                         <i class="nc-icon nc-album-2"></i>
                         <p>Author</p>
                     </a>
@@ -160,11 +160,11 @@
                                             <div class="form-group">
                                                 <label>Role</label>
                                                 <select name="role" id="role" style="height: 40px; width: 350px;">
-                                                    <c:if test="${accountEdit.roleId.id == 1}">
+                                                    <c:if test="${accountEdit.role.id == 1}">
                                                         <option value="1">ROLE_ADMIN</option>
                                                         <option value="2">ROLE_USER</option>
                                                     </c:if>
-                                                    <c:if test="${accountEdit.roleId.id == 2}">
+                                                    <c:if test="${accountEdit.role.id == 2}">
                                                         <option value="2">ROLE_USER</option>
                                                         <option value="1">ROLE_ADMIN</option>
                                                     </c:if>

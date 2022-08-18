@@ -1,5 +1,9 @@
-function setHeader(){
+function setHeader(user){
     let headerDiv = document.getElementById("header");
+    let linkAdmin = "";
+    if (user){
+        linkAdmin = `<li><a href="/books">Admin</a></li>`
+    }
     let headerContent = `<div class="col-xl-3 col-lg-2">
                 <div class="header__logo">
                     <a href="./index.html"><img src="img/logo.png" alt=""></a>
@@ -12,14 +16,12 @@ function setHeader(){
                         <li class="active"><a href="/books?action=shop">Shop</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="dropdown">
-                                <li><a href="./product-details.html">Product Details</a></li>
                                 <li><a href="/shop-carts">Shop Cart</a></li>
-                                <li><a href="./checkout.html">Checkout</a></li>
-                                <li><a href="./blog-details.html">Blog Details</a></li>
+                                <li><a href="shop-carts?action=checkout">Checkout</a></li>
                             </ul>
                         </li>
-                        <li><a href="./blog.html">Blog</a></li>
                         <li><a href="./contact.html">Contact</a></li>
+                        `+linkAdmin+`
                     </ul>
                 </nav>
             </div>

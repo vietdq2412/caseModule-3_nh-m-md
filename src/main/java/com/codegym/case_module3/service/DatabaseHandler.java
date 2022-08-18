@@ -9,11 +9,10 @@ public class DatabaseHandler<T> {
     final String jdbc_USERNAME = "root";
     final String jdbc_PASSWORD = "123456";
 
-//    ConnectionMySQL connectionMySQL = new ConnectionMySQL();
-    Connection connection = null;
+    Connection connection = getConnection();
     private static DatabaseHandler instance;
     private DatabaseHandler() {
-
+        connection = getConnection();
     }
     public static DatabaseHandler getInstance() {
         if (instance == null) {
@@ -36,7 +35,7 @@ public class DatabaseHandler<T> {
     }
 
     public boolean insertData(String table, T objectToInsert, String insertColumns) {
-
+        connection = getConnection();
         String sql = "insert into " + table + "(" + insertColumns + ") values(" + objectToInsert.toString() + ")";
         System.out.println(sql);
         try (Connection connection = getConnection();){

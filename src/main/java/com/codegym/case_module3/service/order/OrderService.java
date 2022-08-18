@@ -56,9 +56,19 @@ public class OrderService implements IOrderService{
         Order order;
         String condition = "where account_id = "+accountId+" and order_status_id = 1";
         HashMap<Integer, Order> orderHashMap = find(condition);
+        if (orderHashMap.size() == 0){
+            create(new Order(accountId, 1));
+            orderHashMap = find(condition);
+        }
         int id = (int) orderHashMap.keySet().toArray()[0];
         order = orderHashMap.get(id);
         return order;
+    }
+
+    public void sentOrder(int accountId){
+        Order order = findOrderInCart(accountId);
+        order.setOrderStatusId(2);
+        update(order);
     }
 
     @Override
@@ -69,10 +79,11 @@ public class OrderService implements IOrderService{
 
     @Override
     public boolean update(Order order) {
-        String sql = "update " + ORDER_TABLE + " set create_time = '" + order.getCreateTime() +
-                "', total_price = '" + order.getTotalPrice() +
-                "', account_id = " + order.getAccountId() +
-                ", order_status_id = '" + order.getOrderStatusId() + ";";
+        String sql = "update " + ORDER_TABLE + " set create_time = " + order.getCreateTime() +
+                ", total_price = " + order.getTotalPrice() +
+                ", account_id = " + order.getAccountId() +
+                ", order_status_id = " + order.getOrderStatusId() + "" +
+                " where id = "+order.getId();
         return orderDBHandler.updateData(sql);
     }
 

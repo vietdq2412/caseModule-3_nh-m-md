@@ -5,9 +5,7 @@ import com.codegym.case_module3.model.Account;
 import com.codegym.case_module3.model.Role;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class AccountService implements IAccountService {
 
@@ -20,7 +18,7 @@ public class AccountService implements IAccountService {
         pre.setString(4, account.getAddress());
         pre.setString(5, account.getEmail());
         pre.setString(6, account.getPhoneNumber());
-        pre.setInt(7, account.getRoleId().getId());
+        pre.setInt(7, account.getRole().getId());
 
         return pre;
     }

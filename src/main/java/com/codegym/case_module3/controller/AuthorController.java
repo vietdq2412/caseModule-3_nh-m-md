@@ -43,7 +43,7 @@ public class AuthorController extends HttpServlet {
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/author/list.jsp");
-        request.setAttribute("authorList", authorService.find("").values());
+        request.setAttribute("authorList", authorService.find("limit 0,40").values());
         requestDispatcher.forward(request, response);
     }
 
@@ -78,28 +78,31 @@ public class AuthorController extends HttpServlet {
             case "edit":
                 editAuthor(request, response);
                 break;
+            case "delete":
+                doDeleteAuthor(request, response);
+                break;
             default:
-                request.getRequestDispatcher("views/test.jsp").forward(request, response);
+                request.getRequestDispatcher("views/author/list.jsp").forward(request, response);
         }
     }
 
     private void createAuthor(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("name");
-        Date date_of_birth = Date.valueOf(request.getParameter("date_of_birth"));
-        int number_of_arts = Integer.parseInt(request.getParameter("number_of_arts"));
+//        String date_of_birth = request.getParameter("dateOfBirth");
+        int number_of_arts = Integer.parseInt(request.getParameter("numberOfArts"));
         String nation = request.getParameter("nation");
         String image = request.getParameter("image");
-        authorService.create(new Author(name, date_of_birth, number_of_arts, nation, image));
+        authorService.create(new Author(name, number_of_arts, nation, image));
         response.sendRedirect("/authors");
     }
 
     private void editAuthor(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        String name = request.getParameter("name");
-        Date date_of_birth = Date.valueOf(request.getParameter("date_of_birth"));
-        int number_of_arts = Integer.parseInt(request.getParameter("number_of_arts"));
-        String nation = request.getParameter("nation");
-        String image = request.getParameter("image");
+        String name = request.getParameter("nameEdit");
+        Date date_of_birth = Date.valueOf(request.getParameter("dateOfBirthEdit"));
+        int number_of_arts = Integer.parseInt(request.getParameter("numberOfArtsEdit"));
+        String nation = request.getParameter("nationEdit");
+        String image = request.getParameter("imageEdit");
         authorService.update(new Author(id, name, date_of_birth, number_of_arts, nation, image));
         response.sendRedirect("/authors");
     }

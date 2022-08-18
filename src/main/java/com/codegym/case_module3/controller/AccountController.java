@@ -10,7 +10,6 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 
 @WebServlet(name = "AccountServlet", urlPatterns = "/accounts")
 public class AccountController extends HttpServlet {
@@ -157,7 +156,7 @@ public class AccountController extends HttpServlet {
             role = new Role(2, "ROLE_USER");
         }
         account.setId(id);
-        account.setRoleId(role);
+        account.setRole(role);
         System.out.println(account);
         accountService.update(account);
         response.sendRedirect("/accounts");
@@ -175,7 +174,7 @@ public class AccountController extends HttpServlet {
             role = new Role(2, "ROLE_USER");
         }
         account.setId(id);
-        account.setRoleId(role);
+        account.setRole(role);
         System.out.println(account);
         accountService.update(account);
         response.sendRedirect("/accounts?action=edit&id="+account.getId());
@@ -205,8 +204,9 @@ public class AccountController extends HttpServlet {
 
         Account account = accountService.findByEmailAndPass(email, password);
         if(account != null){
+            account.setPassword("");
             session.setAttribute("user", account);
-            if(account.getRoleId().getId() == 1){
+            if(account.getRole().getId() == 1){
                 response.sendRedirect("/accounts?action=edit&id="+account.getId());
             }
             else {

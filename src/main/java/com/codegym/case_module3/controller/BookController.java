@@ -70,7 +70,14 @@ public class BookController extends HttpServlet {
     }
 
     private void searchByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = "%" + request.getParameter("searchBook") + "%";
+        String name = request.getParameter("searchBook");
+        if(name == null){
+            name = "%%";
+        }
+        else {
+            name = "%" + name+ "%";
+        }
+
         System.out.println("--------------------------------------"+name);
         HashMap<Integer, Book> books = bookService.findNameBook(name);
         HashMap<Integer, Category> categories = categoryService.find("");
@@ -190,7 +197,6 @@ public class BookController extends HttpServlet {
         request.setAttribute("listBook", books.values());
         RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("views/book/list.jsp");
         resRequestDispatcher.forward(request, response);
-
     }
 
     @Override
