@@ -54,9 +54,9 @@
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/category">
+                    <a class="nav-link" href="/order">
                         <i class="nc-icon nc-atom"></i>
-                        <p>Category</p>
+                        <p>order</p>
                     </a>
                 </li>
                 <li>
@@ -102,8 +102,8 @@
                             <div class="card-header ">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h4 class="card-title">List Category</h4>
-                                        <p class="card-category">You can create, update, delete</p></div>
+                                        <h4 class="card-title">List order</h4>
+                                        <p class="card-order">You can create, update, delete</p></div>
                                     <div class="col-md-6">
                                         <div>
                                             <!-- Button trigger modal -->
@@ -119,7 +119,7 @@
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">CREATE CATEGORY</h5>
+                                                            <h5 class="modal-title" id="exampleModalLabel">CREATE order</h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
@@ -128,9 +128,9 @@
                                                         <div class="modal-body">
 
 
-                                                            <form action="/category?action=create" method="POST">
+                                                            <form action="/order?action=create" method="POST">
                                                                 <div class="form-group">
-                                                                    <label for="name">Name Category</label>
+                                                                    <label for="name">Name order</label>
                                                                     <input type="text" id="name" name="name" class="form-control">
                                                                 </div>
 
@@ -159,27 +159,29 @@
                                     <th>Action</th>
                                     </thead>
                                     <tbody>
-                                    <c:forEach var="category"  items="${categories}">
+                                    <c:forEach var="order"  items="${orders}">
                                         <tr>
-                                            <td><c:out value="${category.id}"/></td>
-                                            <td><c:out value="${category.name}"/></td>
-                                            <td><c:out value="${quantity.get(category.id)}"/></td>
+                                            <td><c:out value="${order.id}"/></td>
+                                            <td><c:out value="${order.createTime}"/></td>
+                                            <td><c:out value="${order.totalPrice}"/></td>
+                                            <td><c:out value="${order.accountId}"/></td>
+                                            <td><c:out value="${order.orderStatusId}"/></td>
                                             <td>
 
                                                 <div style="margin: 20px;">
                                                     <!-- Button trigger modal -->
                                                     <a type="button" class="close" data-toggle="modal"
-                                                       data-target="#${category.id}">
+                                                       data-target="#${order.id}">
                                                         <span style="color: #0059B3; " aria-hidden="true"><i class="fa fa-edit"></i></span>
                                                     </a>
 
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="${category.id}" tabindex="-1" role="dialog"
+                                                    <div class="modal fade" id="${order.id}" tabindex="-1" role="dialog"
                                                          aria-labelledby="exampleModalLabel1" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel1">EDIT CATEGORY</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel1">EDIT order</h5>
                                                                     <button type="button" class="close" data-dismiss="modal"
                                                                             aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
@@ -187,14 +189,14 @@
                                                                 </div>
                                                                 <div class="modal-body">
 
-                                                                    <form action="/category?action=edit&id=${category.id}" method="POST">
-                                                                        <c:if test="${category != null}">
-                                                                            <input type="hidden" name="id" value="<c:out value='${category.id}' />"/>
+                                                                    <form action="/orders?action=edit&id=${order.id}" method="POST">
+                                                                        <c:if test="${order != null}">
+                                                                            <input type="hidden" name="id" value="<c:out value='${order.id}' />"/>
                                                                         </c:if>
                                                                         <div class="form-group">
-                                                                            <label for="nameEdit">Name Category</label>
+                                                                            <label for="nameEdit">Name order</label>
                                                                             <input type="text" id="nameEdit" name="nameEdit" class="form-control"
-                                                                                   value="<c:out value='${category.name}'/>">
+                                                                                   value="<c:out value='${order.name}'/>">
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -211,19 +213,19 @@
 
                                                 <div style="margin: 20px;">
                                                     <a type="button" class="close" data-toggle="modal"
-                                                       data-target="#delete-${category.id}">
+                                                       data-target="#delete-${order.id}">
                                                         <span style="color: #0059B3;" aria-hidden="true"><i class="fa fa-close"></i></span>
                                                     </a>
 
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="delete-${category.id}" tabindex="-1" role="dialog"
+                                                    <div class="modal fade" id="delete-${order.id}" tabindex="-1" role="dialog"
                                                          aria-labelledby="exampleModalLabel2" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="exampleModalLabel2">
                                                                         Do you want to delete now?<br>
-                                                                        <p style="color: red;">This will delete all books with this category</p>
+                                                                        <p style="color: red;">This will delete all books with this order</p>
                                                                     </h5>
 
                                                                     <button type="button" class="close" data-dismiss="modal"
@@ -233,7 +235,7 @@
                                                                 </div>
                                                                 <div class="modal-body">
 
-                                                                    <form action="/category?action=delete&id=${category.id}" method="post">
+                                                                    <form action="/order?action=delete&id=${order.id}" method="post">
                                                                         <div class="form-group">
                                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
                                                                             <button type="submit" class="btn btn-primary">DELETE</button>

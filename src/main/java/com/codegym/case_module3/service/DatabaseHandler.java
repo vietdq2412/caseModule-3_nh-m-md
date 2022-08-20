@@ -12,7 +12,7 @@ public class DatabaseHandler<T> {
     Connection connection = getConnection();
     private static DatabaseHandler instance;
     private DatabaseHandler() {
-        connection = getConnection();
+
     }
     public static DatabaseHandler getInstance() {
         if (instance == null) {
@@ -26,35 +26,40 @@ public class DatabaseHandler<T> {
         try {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = ConnectionMySQL.getInstance().getConnection();
-
+            connection = DriverManager.getConnection(DB_URL, jdbc_USERNAME, jdbc_PASSWORD);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return connection;
     }
 
     public boolean insertData(String table, T objectToInsert, String insertColumns) {
-        connection = getConnection();
+        //connection = getConnection();
         String sql = "insert into " + table + "(" + insertColumns + ") values(" + objectToInsert.toString() + ")";
-        System.out.println(sql);
-        try (Connection connection = getConnection();){
-            Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+//        try (Connection connection = getConnection()){
+        Statement statement = null;
+        try {
+            statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
             statement.execute(sql);
-        } catch (SQLIntegrityConstraintViolationException e) {
-            String messenger = new RuntimeException(e).toString();
-            return false;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+//        } catch (SQLIntegrityConstraintViolationException e) {
+//            String messenger = new RuntimeException(e).toString();
+//            return false;
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
         return true;
     }
 
     public ResultSet findAllByCondition(String table, String condition) {
-        connection = getConnection();
+        //connection = getConnection();
         String sql = "select * from " + table + " " + condition;
         System.out.println(sql);
-        try (Connection connection = getConnection();){
+        try {
             Statement statement = connection.createStatement();
             return statement.executeQuery(sql);
         } catch (SQLException e) {
@@ -65,9 +70,9 @@ public class DatabaseHandler<T> {
 
 
     public boolean updateData(String sql) {
-        connection = getConnection();
+        //connection = getConnection();
         System.out.println(sql);
-        try (Connection connection = getConnection();){
+        try {
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
             statement.execute(sql);
         } catch (SQLIntegrityConstraintViolationException e) {
@@ -80,9 +85,9 @@ public class DatabaseHandler<T> {
     }
 
     public boolean deleteData(String sql) {
-        connection = getConnection();
+      //  connection = getConnection();
         System.out.println(sql);
-        try (Connection connection = getConnection()){
+        try {
             Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
             statement.execute(sql);
         } catch (SQLIntegrityConstraintViolationException e) {

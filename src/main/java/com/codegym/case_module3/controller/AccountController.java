@@ -76,7 +76,15 @@ public class AccountController extends HttpServlet {
     }
 
     private void showFormEdit(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id;
+        if(request.getParameter("id") != null){
+          id = Integer.parseInt(request.getParameter("id"));
+        }
+        else{
+            HttpSession session = request.getSession();
+            id = (int) session.getAttribute("id");
+        }
+
         Account u = accountService.findById(id);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/account/edit.jsp");
         request.setAttribute("accountEdit", u);

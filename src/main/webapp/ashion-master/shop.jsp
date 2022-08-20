@@ -323,11 +323,14 @@
 </div>
 <!-- Search End -->
 <script src="../js/header.js"></script>
+
+<input type="text" value="${currentUser.id}" id="userId">
+<input type="text" value="${currentUser.fullName}" id="userName">
+<input type="text" value="${currentUser.role.name}" id="userRole">
 <script>
-    setHeader();
-</script>
-<script>
-    setHeader();
+    let role =document.getElementById("userRole");
+    let username = document.getElementById("username");
+    setHeader(role, username);
     $(document).ready(function () {
         let getBooksUrl = 'http://localhost:8082/books?action=get_books_API&page=';
         getBooksDataAPI(getBooksUrl, 1);

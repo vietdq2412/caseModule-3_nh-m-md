@@ -15,7 +15,7 @@ build/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-!**/src/main/java/com/codegym/case_module3/service/DatabaseHandler.java
+
 
 ### Eclipse ###
 .apt_generated

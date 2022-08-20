@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
 
 
-
     <!-- Animation library for notifications   -->
     <link href="assets/css/animate.min.css" rel="stylesheet"/>
 
@@ -43,13 +42,13 @@
                         <p>User Profile</p>
                     </a>
                 </li>
-                <li >
+                <li>
                     <a class="nav-link" href="/books?action=shop">
                         <i class="nc-icon nc-notes"></i>
                         <p>Shop</p>
                     </a>
                 </li>
-                <li >
+                <li>
                     <a class="nav-link" href="/accounts">
                         <i class="nc-icon nc-notes"></i>
                         <p>Accounts</p>
@@ -82,149 +81,283 @@
             </ul>
         </div>
     </div>
-    <div class="main-panel">
-        <!-- Navbar -->
-        <!-- End Navbar -->
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Edit Profile</h4>
-                            </div>
-                            <div class="content">
-                                <form method="post" action="/accounts?action=profile&id=${accountEdit.id}">
-                                    <c:if test="${accountEdit != null}">
-                                        <input type="hidden" name="id" value="<c:out value='${accountEdit.id}' />"/>
-                                    </c:if>
-                                    <div class="row">
-                                       <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Username</label>
-                                                <input type="text" class="form-control" placeholder="Username" name="editusername"
-                                                       value="<c:out value="${accountEdit.username}"/>">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <input type="email" class="form-control" placeholder="Email" name="editemail"
-                                                       value="<c:out value="${accountEdit.email}"/>">
-                                            </div>
-                                        </div>
-                                    </div>
+<%--    <div class="main-panel">--%>
+<%--        <!-- Navbar -->--%>
+<%--        <!-- End Navbar -->--%>
+<%--        <div class="content">--%>
+<%--            <div class="container-fluid">--%>
+<%--                <div class="row">--%>
+<%--                    <div class="col-md-8">--%>
+<%--                        <div class="card">--%>
+<%--                            <div class="header">--%>
+<%--                                <h4 class="title">Edit Profile</h4>--%>
+<%--                            </div>--%>
+<%--                            <div class="content">--%>
+<%--                                <form method="post" action="/accounts?action=profile&id=${accountEdit.id}">--%>
+<%--                                    <c:if test="${accountEdit != null}">--%>
+<%--                                        <input type="hidden" name="id" value="<c:out value='${accountEdit.id}' />"/>--%>
+<%--                                    </c:if>--%>
+<%--                                    <div class="row">--%>
+<%--                                        <div class="col-md-6 pr-1">--%>
+<%--                                            <div class="form-group">--%>
+<%--                                                <label>Username</label>--%>
+<%--                                                <input type="text" class="form-control" placeholder="Username"--%>
+<%--                                                       name="editusername"--%>
+<%--                                                       value="<c:out value="${accountEdit.username}"/>">--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                        <div class="col-md-6 pr-1">--%>
+<%--                                            <div class="form-group">--%>
+<%--                                                <label>Email</label>--%>
+<%--                                                <input type="email" class="form-control" placeholder="Email"--%>
+<%--                                                       name="editemail"--%>
+<%--                                                       value="<c:out value="${accountEdit.email}"/>">--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
 
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label>Full Name</label>
-                                                <input type="text" class="form-control" placeholder="Full Name" name="editfullName"
-                                                       value="<c:out value="${accountEdit.fullName}"/>">
-                                            </div>
-                                        </div>
-                                    </div>
+<%--                                    <div class="row">--%>
+<%--                                        <div class="col-md-8 pr-1">--%>
+<%--                                            <div class="form-group">--%>
+<%--                                                <label>Full Name</label>--%>
+<%--                                                <input type="text" class="form-control" placeholder="Full Name"--%>
+<%--                                                       name="editfullName"--%>
+<%--                                                       value="<c:out value="${accountEdit.fullName}"/>">--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
 
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label>Password</label>
-                                                <input type="text" class="form-control" placeholder="Password" name="editpassword"
-                                                       value="<c:out value="${accountEdit.password}"/>">
-                                            </div>
-                                        </div>
-                                    </div>
+<%--                                    <div class="row">--%>
+<%--                                        <div class="col-md-8">--%>
+<%--                                            <div class="form-group">--%>
+<%--                                                <label>Password</label>--%>
+<%--                                                <input type="text" class="form-control" placeholder="Password"--%>
+<%--                                                       name="editpassword"--%>
+<%--                                                       value="<c:out value="${accountEdit.password}"/>">--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
 
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Address</label>
-                                                <input type="text" class="form-control" placeholder="Address" name="editaddress"
-                                                       value="<c:out value="${accountEdit.address}"/>">
-                                            </div>
-                                        </div>
-                                    </div>
+<%--                                    <div class="row">--%>
+<%--                                        <div class="col-md-12">--%>
+<%--                                            <div class="form-group">--%>
+<%--                                                <label>Address</label>--%>
+<%--                                                <input type="text" class="form-control" placeholder="Address"--%>
+<%--                                                       name="editaddress"--%>
+<%--                                                       value="<c:out value="${accountEdit.address}"/>">--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
 
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label>Phone Number</label>
-                                                <input type="text" class="form-control" placeholder="Phone Number" name="editphoneNumber"
-                                                       value="<c:out value="${accountEdit.phoneNumber}"/>">
-                                            </div>
-                                        </div>
-                                    </div>
+<%--                                    <div class="row">--%>
+<%--                                        <div class="col-md-8">--%>
+<%--                                            <div class="form-group">--%>
+<%--                                                <label>Phone Number</label>--%>
+<%--                                                <input type="text" class="form-control" placeholder="Phone Number"--%>
+<%--                                                       name="editphoneNumber"--%>
+<%--                                                       value="<c:out value="${accountEdit.phoneNumber}"/>">--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
 
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label>Role</label>
-                                                <select name="role" id="role" style="height: 40px; width: 350px;">
-                                                    <c:if test="${accountEdit.role.id == 1}">
-                                                        <option value="1">ROLE_ADMIN</option>
-                                                        <option value="2">ROLE_USER</option>
-                                                    </c:if>
-                                                    <c:if test="${accountEdit.role.id == 2}">
-                                                        <option value="2">ROLE_USER</option>
-                                                        <option value="1">ROLE_ADMIN</option>
-                                                    </c:if>
+<%--                                    <div class="row">--%>
+<%--                                        <div class="col-md-8">--%>
+<%--                                            <div class="form-group">--%>
+<%--                                                <label>Role</label>--%>
+<%--                                                <select name="role" id="role" style="height: 40px; width: 350px;">--%>
+<%--                                                    <c:if test="${accountEdit.role.id == 1}">--%>
+<%--                                                        <option value="1">ROLE_ADMIN</option>--%>
+<%--                                                        <option value="2">ROLE_USER</option>--%>
+<%--                                                    </c:if>--%>
+<%--                                                    <c:if test="${accountEdit.role.id == 2}">--%>
+<%--                                                        <option value="2">ROLE_USER</option>--%>
+<%--                                                        <option value="1">ROLE_ADMIN</option>--%>
+<%--                                                    </c:if>--%>
 
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
+<%--                                                </select>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
 
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
-                                    <div class="clearfix"></div>
-                                </form>
-                            </div>
+<%--                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile--%>
+<%--                                    </button>--%>
+<%--                                    <div class="clearfix"></div>--%>
+<%--                                </form>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <div class="col-md-4">--%>
+<%--                        <div class="card card-user">--%>
+<%--                            <div class="image">--%>
+<%--                                <img style="width: 290px;"--%>
+<%--                                     src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400"--%>
+<%--                                     alt="..."/>--%>
+<%--                            </div>--%>
+<%--                            <div class="content">--%>
+<%--                                <div class="author">--%>
+<%--                                    <a href="#">--%>
+<%--                                        <img class="avatar border-gray" src="views/assets/img/faces/face-3.jpg"--%>
+<%--                                             alt="..."/>--%>
+
+<%--                                        <h4 class="title"><c:out value="${accountEdit.fullName}"/><br/>--%>
+<%--                                            <small><c:out value="${accountEdit.username}"/></small>--%>
+<%--                                        </h4>--%>
+<%--                                    </a>--%>
+<%--                                </div>--%>
+<%--                                <p class="description text-center"><c:out value="${accountEdit.address}"/>--%>
+<%--                                </p>--%>
+<%--                            </div>--%>
+<%--                            <hr>--%>
+<%--                            <div class="text-center">--%>
+<%--                                <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>--%>
+<%--                                <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>--%>
+<%--                                <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i>--%>
+<%--                                </button>--%>
+
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <footer class="footer">--%>
+<%--            <div class="container-fluid">--%>
+<%--                <nav>--%>
+<%--                    <p class="copyright text-center">--%>
+<%--                        ©--%>
+<%--                        <script>--%>
+<%--                            document.write(new Date().getFullYear())--%>
+<%--                        </script>--%>
+<%--                        <a href="http://www.creative-tim.com">TEAM CODEGYM</a>--%>
+<%--                    </p>--%>
+<%--                </nav>--%>
+<%--            </div>--%>
+<%--        </footer>--%>
+<%--    </div>--%>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">Edit Profile</h4>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card card-user">
-                            <div class="image">
-                                <img style="width: 290px;"
-                                        src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
-                            </div>
-                            <div class="content">
-                                <div class="author">
-                                    <a href="#">
-                                        <img class="avatar border-gray" src="views/assets/img/faces/face-3.jpg" alt="..."/>
-
-                                        <h4 class="title"><c:out value="${accountEdit.fullName}"/><br />
-                                            <small><c:out value="${accountEdit.username}"/></small>
-                                        </h4>
-                                    </a>
+                        <div class="content">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>Company (disabled)</label>
+                                            <input type="text" class="form-control" disabled placeholder="Company" value="Creative Code Inc.">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            <input type="text" class="form-control" placeholder="Username" value="michael23">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Email address</label>
+                                            <input type="email" class="form-control" placeholder="Email">
+                                        </div>
+                                    </div>
                                 </div>
-                                <p class="description text-center"> <c:out value="${accountEdit.address}"/>
-                                </p>
-                            </div>
-                            <hr>
-                            <div class="text-center">
-                                <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-                                <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-                                <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
 
-                            </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input type="text" class="form-control" placeholder="Company" value="Mike">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Last Name</label>
+                                            <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <input type="text" class="form-control" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input type="text" class="form-control" placeholder="City" value="Mike">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Country</label>
+                                            <input type="text" class="form-control" placeholder="Country" value="Andrew">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Postal Code</label>
+                                            <input type="number" class="form-control" placeholder="ZIP Code">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>About Me</label>
+                                            <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                                <div class="clearfix"></div>
+                            </form>
                         </div>
                     </div>
-
                 </div>
+                <div class="col-md-4">
+                    <div class="card card-user">
+                        <div class="image">
+                            <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
+                        </div>
+                        <div class="content">
+                            <div class="author">
+                                <a href="#">
+                                    <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
+
+                                    <h4 class="title">Mike Andrew<br />
+                                        <small>michael24</small>
+                                    </h4>
+                                </a>
+                            </div>
+                            <p class="description text-center"> "Lamborghini Mercy <br>
+                                Your chick she so thirsty <br>
+                                I'm in that two seat Lambo"
+                            </p>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
+                            <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
+                            <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <footer class="footer">
-            <div class="container-fluid">
-                <nav>
-                    <p class="copyright text-center">
-                        ©
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                        <a href="http://www.creative-tim.com">TEAM CODEGYM</a>
-                    </p>
-                </nav>
-            </div>
-        </footer>
     </div>
 </div>
 </body>
