@@ -71,14 +71,13 @@ public class BookController extends HttpServlet {
 
     private void searchByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("searchBook");
+
         if(name == null){
             name = "%%";
         }
         else {
             name = "%" + name+ "%";
         }
-
-        System.out.println("--------------------------------------"+name);
         HashMap<Integer, Book> books = bookService.findNameBook(name);
         HashMap<Integer, Category> categories = categoryService.find("");
         HashMap<Integer, Author> authors = authorService.find("");
@@ -163,7 +162,7 @@ public class BookController extends HttpServlet {
     private void deleteBooks(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         bookService.delete(id);
-        response.sendRedirect("/books");
+        response.sendRedirect("/books?page=1");
 
     }
 
@@ -185,16 +184,17 @@ public class BookController extends HttpServlet {
     }
 
     private void showAllBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("user");
-        System.out.println(account);
+        int page = Integer.parseInt(request.getParameter("page"));
+        String condition = " LIMIT " + (page * 6) + ", " + 6;
 
-        HashMap<Integer, Book> books = bookService.find(" limit 0,20");
+        HashMap<Integer, Book> books = bookService.find(condition);
+        HashMap<Integer, Book> size = bookService.find("");
         HashMap<Integer, Category> categories = categoryService.find("");
         HashMap<Integer, Author> authors = authorService.find("");
         request.setAttribute("categories", categories.values());
         request.setAttribute("authors", authors.values());
         request.setAttribute("listBook", books.values());
+        request.setAttribute("size", size.values().size());
         RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("views/book/list.jsp");
         resRequestDispatcher.forward(request, response);
     }
@@ -247,13 +247,13 @@ public class BookController extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         book.setId(id);
         bookService.update(book);
-        response.sendRedirect("/books");
+        response.sendRedirect("/books?page=1");
     }
 
     private void createBook(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         Book book = getAllBook(request, response,"");
         bookService.create(book);
-        response.sendRedirect("/books");
+        response.sendRedirect("/books?page=1");
 
     }
 }
