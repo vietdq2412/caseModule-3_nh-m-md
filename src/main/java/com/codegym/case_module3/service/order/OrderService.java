@@ -10,10 +10,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.*;
 
-public class OrderService implements IOrderService{
+public class OrderService implements IOrderService {
     private final String ORDER_TABLE = "`order`";
     private DatabaseHandler<Order> orderDBHandler = DatabaseHandler.getInstance();
     private static OrderService instance;
+    private OrderDetailService orderDetailService = new OrderDetailService();
 
     public OrderService() {
 
@@ -32,12 +33,16 @@ public class OrderService implements IOrderService{
         return orderDBHandler.insertData(ORDER_TABLE, order, order.getColumns());
     }
 
+    /**
+     * @param condition = query
+     * @return HashMap<Integer, Order> a map order or empty if no order match the condition.
+     */
     @Override
     public HashMap<Integer, Order> find(String condition) {
-        ResultSet rs = orderDBHandler.findAllByCondition(ORDER_TABLE,condition);
+        ResultSet rs = orderDBHandler.findAllByCondition(ORDER_TABLE, condition);
         HashMap<Integer, Order> orderHashMap = new HashMap<>();
         try {
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 Date createTime = rs.getDate("create_time");
                 double totalPrice = rs.getDouble("total_price");
@@ -52,11 +57,16 @@ public class OrderService implements IOrderService{
         return orderHashMap;
     }
 
+    /**
+     * @param accountId
+     * @return order of current user which has status = "incart" (order_status_id = 1)
+     * null if cart is empty
+     */
     public Order findOrderInCart(int accountId) {
         Order order;
-        String condition = "where account_id = "+accountId+" and order_status_id = 1";
+        String condition = "where account_id = " + accountId + " and order_status_id = 1";
         HashMap<Integer, Order> orderHashMap = find(condition);
-        if (orderHashMap.size() == 0){
+        if (orderHashMap.size() == 0) {
             create(new Order(accountId, 1));
             orderHashMap = find(condition);
         }
@@ -65,10 +75,18 @@ public class OrderService implements IOrderService{
         return order;
     }
 
-    public void sentOrder(int accountId){
+    public boolean checkEmptyCard(int accountID) {
+        int orderId = findOrderInCart(accountID).getId();
+        return orderDetailService.checkEmptyCard(orderId);
+    }
+
+    public boolean sentOrder(int accountId) {
         Order order = findOrderInCart(accountId);
+        if (orderDetailService.checkEmptyCard(order.getId())) {
+            return false;
+        }
         order.setOrderStatusId(2);
-        update(order);
+        return update(order);
     }
 
     @Override
@@ -83,7 +101,7 @@ public class OrderService implements IOrderService{
                 ", total_price = " + order.getTotalPrice() +
                 ", account_id = " + order.getAccountId() +
                 ", order_status_id = " + order.getOrderStatusId() + "" +
-                " where id = "+order.getId();
+                " where id = " + order.getId();
         return orderDBHandler.updateData(sql);
     }
 

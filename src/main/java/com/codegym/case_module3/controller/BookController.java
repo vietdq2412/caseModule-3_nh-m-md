@@ -23,6 +23,8 @@ public class BookController extends HttpServlet {
     CategoryService categoryService;
     AuthorService authorService;
     private Gson gson = new Gson();
+    private HttpSession session;
+    private Account curUser;
 
     @Override
     public void init() {
@@ -34,6 +36,12 @@ public class BookController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        session = request.getSession();
+        curUser = (Account) session.getAttribute("user");
+        request.setAttribute("currentUser", curUser);
+
         String action = request.getParameter("action");
         if (action == null) {
             action = "";

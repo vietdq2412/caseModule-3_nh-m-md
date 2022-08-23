@@ -302,19 +302,23 @@
     </div>
 </div>
 <input type="text" value="${currentUser.id}" id="userId">
+<input type="text" value="${message}" id="mess">
 <input type="text" value="${currentUser.fullName}" id="userName">
 <input type="text" value="${currentUser.role.name}" id="userRole">
 <!-- Search End -->
 <script src="../js/header.js"></script>
 <script>
-    let role =document.getElementById("userRole");
-    let username = document.getElementById("username");
-
+    let role =document.getElementById("userRole").value;
+    let username = document.getElementById("userName").value;
+    let mess = document.getElementById("mess").value;
+    console.log("mess: ",mess)
     console.log("cart view: ",role, username)
     setHeader(role, username);
+
     $(document).ready(function () {
         let getItemsUrl = 'http://localhost:8080/shop-carts?action=getCartData';
         getItemsDataAPI(getItemsUrl);
+
     })
 
     function getItemsDataAPI(url) {
@@ -323,6 +327,8 @@
             contentType: 'application/json; charset=utf-8',
             method: 'GET',
             success: function (data) {
+                let a = '<request.getSession().getAttribute("results")>'
+                alert("al: ",a)
                 printItemsData(data)
             },
             error: function () {

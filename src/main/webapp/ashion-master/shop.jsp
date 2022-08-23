@@ -328,8 +328,8 @@
 <input type="text" value="${currentUser.fullName}" id="userName">
 <input type="text" value="${currentUser.role.name}" id="userRole">
 <script>
-    let role =document.getElementById("userRole");
-    let username = document.getElementById("username");
+    let role =document.getElementById("userRole").value;
+    let username = document.getElementById("userName").value;
     setHeader(role, username);
     $(document).ready(function () {
         let getBooksUrl = 'http://localhost:8080/books?action=get_books_API&page=';

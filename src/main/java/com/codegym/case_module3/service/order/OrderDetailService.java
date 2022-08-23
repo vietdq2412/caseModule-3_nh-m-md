@@ -93,10 +93,19 @@ public class OrderDetailService implements IOrderDetailService {
         return orderDetailDBHandler.deleteData(sql);
     }
 
+    /**
+     *
+     * @param orderId
+     * @return empty hashmap if there is no item in cart
+     */
     public HashMap<Integer, OrderDetail> findByOrderId(int orderId) {
         HashMap<Integer, OrderDetail> orderDetailList;
         String condition = "where order_id = " + orderId;
         orderDetailList = findItemsInCart(condition);
         return orderDetailList;
+    }
+
+    public boolean checkEmptyCard(int orderId){
+        return findByOrderId(orderId).size() <= 0;
     }
 }
