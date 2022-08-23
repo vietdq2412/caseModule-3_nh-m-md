@@ -75,6 +75,25 @@ public class AccountService implements IAccountService {
         return accounts;
     }
 
+    @Override
+    public HashMap<Integer, Account> findByName(String name) {
+        String selectByName = "select * from account where (full_name like ?) or (username like ?)" ;
+        HashMap<Integer, Account> accounts = new HashMap<>();
+        try (Connection connection = connectionMySQL.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(selectByName)) {
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, name);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Account account = getAllAccount(rs);
+                accounts.put(account.getId(),account);
+            }
+        } catch (SQLException e) {
+        }
+        return accounts;
+    }
+
     private Account getAllAccount(ResultSet rs) throws SQLException {
         Account account = null;
         int id = rs.getInt("id");
@@ -120,7 +139,7 @@ public class AccountService implements IAccountService {
 
     @Override
     public HashMap<Integer, Account> find(String condition) {
-        String selectAll = "select * from account order by id asc;";
+        String selectAll = "select * from account order by id asc "+condition;
         HashMap<Integer, Account> accounts = new HashMap<>();
         try (Connection connection = connectionMySQL.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(selectAll)) {

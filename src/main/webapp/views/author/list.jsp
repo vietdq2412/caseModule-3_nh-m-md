@@ -7,6 +7,7 @@
 
 <head>
     <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="apple-touch-icon" sizes="76x76" href="views/assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="views/assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -14,14 +15,17 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     <!--     Fonts and icons     -->
+    <link href="views/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
+
     <!-- CSS Files -->
     <link href="views/assets/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="views/assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet"/>
+    <link href="views/assets/css/light-bootstrap-dashboard.css?v=1.4.0 " rel="stylesheet"/>
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="views/assets/css/demo.css" rel="stylesheet"/>
     <link href="views/assets/css/style.css" rel="stylesheet"/>
+
 </head>
 
 <body>
@@ -42,13 +46,13 @@
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="/accounts">
+                    <a class="nav-link" href="/accounts?page=1">
                         <i class="nc-icon nc-notes"></i>
                         <p>Accounts</p>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="/books">
+                    <a class="nav-link" href="/books?page=1">
                         <i class="nc-icon nc-paper-2"></i>
                         <p>Books</p>
                     </a>
@@ -167,7 +171,7 @@
                                 </div>
                             </div>
                             <!--                            bảng-->
-                            <div class="card-body table-full-width table-responsive">
+                            <div class="card-body table-full-width table-responsive" style="margin: 0px">
                                 <table class="table table-hover table-striped">
                                     <thead>
                                     <th>Name</th>
@@ -250,7 +254,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                            </td>
+                                            <td style="display: revert !important;">
                                                 <div style="margin: 20px;">
                                                     <a type="button" class="close" data-toggle="modal"
                                                        data-target="#delete-${author.id}">
@@ -325,8 +330,22 @@
 <!--  Notifications Plugin    -->
 <script src="views/assets/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
-<script src="views/assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
+<script src="views/assets/js/light-bootstrap-dashboard.js?v=1.4.0 " type="text/javascript"></script>
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 <script src="views/assets/js/demo.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<style>
+    .modal-backdrop {
+        /* bug fix - no overlay */
+        display: none;
+    }
 
+</style>
+<script>
+    $(document).ready(() => {
+        $('#nav-mobile-menu').remove();
+    })
+</script>
 </html>

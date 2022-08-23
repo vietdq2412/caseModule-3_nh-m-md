@@ -108,7 +108,7 @@ public class BookService implements IBookService {
         String title = rs.getString("title");
         int category_id = Integer.parseInt(rs.getString("category_id"));
         int author_id = Integer.parseInt(rs.getString("author_id"));
-        int publish_year = Integer.parseInt(rs.getString("publish_year"));
+        int publish_year = rs.getInt("publish_year");
         String description = rs.getString("description");
         String image = rs.getString("image");
         int views = rs.getInt("views");

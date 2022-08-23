@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="apple-touch-icon" sizes="76x76" href="views/assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="views/assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -14,17 +14,14 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     <!--     Fonts and icons     -->
-    <link href="views/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
-
     <!-- CSS Files -->
     <link href="views/assets/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="views/assets/css/light-bootstrap-dashboard.css?v=1.4.0 " rel="stylesheet"/>
+    <link href="views/assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet"/>
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="views/assets/css/demo.css" rel="stylesheet"/>
     <link href="views/assets/css/style.css" rel="stylesheet"/>
-
 </head>
 
 <body>
@@ -38,28 +35,28 @@
                         <p>User Profile</p>
                     </a>
                 </li>
-                <li>
+                <li >
                     <a class="nav-link" href="/books?action=shop">
                         <i class="nc-icon nc-notes"></i>
                         <p>Shop</p>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="/accounts?page=1">
+                    <a class="nav-link" href="/accounts">
                         <i class="nc-icon nc-notes"></i>
                         <p>Accounts</p>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="/books?page=1">
+                    <a class="nav-link" href="/books">
                         <i class="nc-icon nc-paper-2"></i>
                         <p>Books</p>
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/category">
+                    <a class="nav-link" href="/order">
                         <i class="nc-icon nc-atom"></i>
-                        <p>Category</p>
+                        <p>order</p>
                     </a>
                 </li>
                 <li>
@@ -105,8 +102,8 @@
                             <div class="card-header ">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h4 class="card-title">List Category</h4>
-                                        <p class="card-category">You can create, update, delete</p></div>
+                                        <h4 class="card-title">List order</h4>
+                                        <p class="card-order">You can create, update, delete</p></div>
                                     <div class="col-md-6">
                                         <div>
                                             <!-- Button trigger modal -->
@@ -122,8 +119,7 @@
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">CREATE
-                                                                CATEGORY</h5>
+                                                            <h5 class="modal-title" id="exampleModalLabel">CREATE order</h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
@@ -132,19 +128,15 @@
                                                         <div class="modal-body">
 
 
-                                                            <form action="/category?action=create" method="POST">
+                                                            <form action="/order?action=create" method="POST">
                                                                 <div class="form-group">
-                                                                    <label for="name">Name Category</label>
-                                                                    <input type="text" id="name" name="name"
-                                                                           class="form-control">
+                                                                    <label for="name">Name order</label>
+                                                                    <input type="text" id="name" name="name" class="form-control">
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                            data-dismiss="modal">Close
-                                                                    </button>
-                                                                    <button type="submit" class="btn btn-primary">Save
-                                                                    </button>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Save</button>
                                                                 </div>
                                                             </form>
 
@@ -158,67 +150,57 @@
                                 </div>
                             </div>
                             <!--                            bảng-->
-                            <div class="card-body table-full-width table-responsive" style="margin: 0px">
+                            <div class="card-body table-full-width table-responsive">
                                 <table class="table table-hover table-striped">
                                     <thead>
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Quantity</th>
-                                    <th></th>
                                     <th>Action</th>
                                     </thead>
                                     <tbody>
-                                    <c:forEach var="category" items="${categories}">
+                                    <c:forEach var="order"  items="${orders}">
                                         <tr>
-                                            <td><c:out value="${category.id}"/></td>
-                                            <td><c:out value="${category.name}"/></td>
-                                            <td><c:out value="${quantity.get(category.id)}"/></td>
+                                            <td><c:out value="${order.id}"/></td>
+                                            <td><c:out value="${order.createTime}"/></td>
+                                            <td><c:out value="${order.totalPrice}"/></td>
+                                            <td><c:out value="${order.accountId}"/></td>
+                                            <td><c:out value="${order.orderStatusId}"/></td>
                                             <td>
 
+                                                <div style="margin: 20px;">
                                                     <!-- Button trigger modal -->
                                                     <a type="button" class="close" data-toggle="modal"
-                                                       data-target="#${category.id}">
-                                                        <span style="color: #0059B3; " aria-hidden="true"><i
-                                                                class="fa fa-edit"></i></span>
+                                                       data-target="#${order.id}">
+                                                        <span style="color: #0059B3; " aria-hidden="true"><i class="fa fa-edit"></i></span>
                                                     </a>
 
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="${category.id}" tabindex="-1"
-                                                         role="dialog"
+                                                    <div class="modal fade" id="${order.id}" tabindex="-1" role="dialog"
                                                          aria-labelledby="exampleModalLabel1" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel1">EDIT
-                                                                        CATEGORY</h5>
-                                                                    <button type="button" class="close"
-                                                                            data-dismiss="modal"
+                                                                    <h5 class="modal-title" id="exampleModalLabel1">EDIT order</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal"
                                                                             aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
 
-                                                                    <form action="/category?action=edit&id=${category.id}"
-                                                                          method="POST">
-                                                                        <c:if test="${category != null}">
-                                                                            <input type="hidden" name="id"
-                                                                                   value="<c:out value='${category.id}' />"/>
+                                                                    <form action="/orders?action=edit&id=${order.id}" method="POST">
+                                                                        <c:if test="${order != null}">
+                                                                            <input type="hidden" name="id" value="<c:out value='${order.id}' />"/>
                                                                         </c:if>
                                                                         <div class="form-group">
-                                                                            <label for="nameEdit">Name Category</label>
-                                                                            <input type="text" id="nameEdit"
-                                                                                   name="nameEdit" class="form-control"
-                                                                                   value="<c:out value='${category.name}'/>">
+                                                                            <label for="nameEdit">Name order</label>
+                                                                            <input type="text" id="nameEdit" name="nameEdit" class="form-control"
+                                                                                   value="<c:out value='${order.name}'/>">
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-secondary"
-                                                                                    data-dismiss="modal">Close
-                                                                            </button>
-                                                                            <button type="submit"
-                                                                                    class="btn btn-primary">Save
-                                                                            </button>
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                            <button type="submit" class="btn btn-primary">Save</button>
                                                                         </div>
                                                                     </form>
 
@@ -227,47 +209,36 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
-                                            </td>
-                                            <td style="display: revert !important;">
-
+                                                <div style="margin: 20px;">
                                                     <a type="button" class="close" data-toggle="modal"
-                                                       data-target="#delete-${category.id}">
-                                                        <span style="color: #0059B3;" aria-hidden="true"><i
-                                                                class="fa fa-close"></i></span>
+                                                       data-target="#delete-${order.id}">
+                                                        <span style="color: #0059B3;" aria-hidden="true"><i class="fa fa-close"></i></span>
                                                     </a>
 
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="delete-${category.id}" tabindex="-1"
-                                                         role="dialog"
+                                                    <div class="modal fade" id="delete-${order.id}" tabindex="-1" role="dialog"
                                                          aria-labelledby="exampleModalLabel2" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="exampleModalLabel2">
                                                                         Do you want to delete now?<br>
-                                                                        <p style="color: red;">This will delete all
-                                                                            books with this category</p>
+                                                                        <p style="color: red;">This will delete all books with this order</p>
                                                                     </h5>
 
-                                                                    <button type="button" class="close"
-                                                                            data-dismiss="modal"
+                                                                    <button type="button" class="close" data-dismiss="modal"
                                                                             aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
 
-                                                                    <form action="/category?action=delete&id=${category.id}"
-                                                                          method="post">
+                                                                    <form action="/order?action=delete&id=${order.id}" method="post">
                                                                         <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-secondary"
-                                                                                    data-dismiss="modal">NO
-                                                                            </button>
-                                                                            <button type="submit"
-                                                                                    class="btn btn-primary">DELETE
-                                                                            </button>
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                                                                            <button type="submit" class="btn btn-primary">DELETE</button>
                                                                         </div>
                                                                     </form>
 
@@ -276,7 +247,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                </div>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -318,22 +289,8 @@
 <!--  Notifications Plugin    -->
 <script src="views/assets/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
-<script src="views/assets/js/light-bootstrap-dashboard.js?v=1.4.0 " type="text/javascript"></script>
+<script src="views/assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 <script src="views/assets/js/demo.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<style>
-    .modal-backdrop {
-        /* bug fix - no overlay */
-        display: none;
-    }
 
-</style>
-<script>
-    $(document).ready(() => {
-        $('#nav-mobile-menu').remove();
-    })
-</script>
 </html>

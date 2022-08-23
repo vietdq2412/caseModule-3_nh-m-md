@@ -7,6 +7,8 @@
 
 <head>
     <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="apple-touch-icon" sizes="76x76" href="views/assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="views/assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -14,14 +16,17 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     <!--     Fonts and icons     -->
+    <link href="views/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
+
     <!-- CSS Files -->
     <link href="views/assets/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="views/assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet"/>
+    <link href="views/assets/css/light-bootstrap-dashboard.css?v=1.4.0 " rel="stylesheet"/>
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="views/assets/css/demo.css" rel="stylesheet"/>
     <link href="views/assets/css/style.css" rel="stylesheet"/>
+
 </head>
 
 <body>
@@ -30,25 +35,25 @@
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li>
-                    <a class="nav-link" href="/accounts?action=edit&id=1">
+                    <a class="nav-link" href="/accounts?action=edit">
                         <i class="nc-icon nc-circle-09"></i>
                         <p>User Profile</p>
                     </a>
                 </li>
-                <li >
+                <li>
                     <a class="nav-link" href="/books?action=shop">
                         <i class="nc-icon nc-notes"></i>
                         <p>Shop</p>
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/accounts">
+                    <a class="nav-link" href="/accounts?page=1">
                         <i class="nc-icon nc-notes"></i>
                         <p>Accounts</p>
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="/books">
+                    <a class="nav-link" href="/books?page=1">
                         <i class="nc-icon nc-paper-2"></i>
                         <p>Books</p>
                     </a>
@@ -82,25 +87,57 @@
 
                 <div class="collapse navbar-collapse justify-content-end" id="navigation">
                     <ul class="nav navbar-nav mr-auto">
-
                         <li class="dropdown nav-item">
-                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <a type="button" class="dropdown-toggle nav-link" data-toggle="dropdown">
                                 <i class="nc-icon nc-planet"></i>
                                 <span class="notification">3</span>
-                                <span class="d-lg-none">Notification</span>
+                                <%--                                <span class="d-lg-none">Notification</span>--%>
                             </a>
                             <ul class="dropdown-menu">
                                 <a class="dropdown-item" href="/accounts?action=admin">Admin</a>
                                 <a class="dropdown-item" href="/accounts?action=user">User</a>
-                                <a class="dropdown-item" href="/accounts">All</a>
+                                <a class="dropdown-item" href="/accounts?page=1">All</a>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a type="button" data-toggle="modal" class="nav-link" data-target="#search-account">
                                 <i class="nc-icon nc-zoom-split"></i>
                                 <span class="d-lg-block">&nbsp;Search</span>
                             </a>
+                            <div class="modal fade" id="search-account" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel3" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5></h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <form action="/accounts?action=search" method="post">
+                                                <div class="form-group">
+                                                    <input type="text" id="searchAccount" name="searchAccount"
+                                                           class="form-control"
+                                                           placeholder="Search name account .....">
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">CANCEL
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">SEARCH</button>
+                                                </div>
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </li>
+
                     </ul>
                 </div>
             </div>
@@ -131,7 +168,8 @@
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">CREATE ACCOUNT</h5>
+                                                            <h5 class="modal-title" id="exampleModalLabel">CREATE
+                                                                ACCOUNT</h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
@@ -143,33 +181,42 @@
                                                             <form action="/accounts?action=create" method="POST">
                                                                 <div class="form-group">
                                                                     <label for="fullName">Full Name</label>
-                                                                    <input type="text" id="fullName" name="fullName" class="form-control">
+                                                                    <input type="text" id="fullName" name="fullName"
+                                                                           class="form-control">
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <label for="username">User Name</label>
-                                                                    <input type="text" id="username" name="username" class="form-control">
+                                                                    <input type="text" id="username" name="username"
+                                                                           class="form-control">
                                                                 </div>
                                                                 <div class="form-group">
 
                                                                     <label for="password">Password</label>
-                                                                    <input type="text" id="password" name="password" class="form-control">
+                                                                    <input type="text" id="password" name="password"
+                                                                           class="form-control">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="address">Address</label>
-                                                                    <input type="text" id="address" name="address" class="form-control">
+                                                                    <input type="text" id="address" name="address"
+                                                                           class="form-control">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="email">Email</label>
-                                                                    <input type="text" id="email" name="email" class="form-control">
+                                                                    <input type="text" id="email" name="email"
+                                                                           class="form-control">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="phoneNumber">Phone Number</label>
-                                                                    <input type="text" id="phoneNumber" name="phoneNumber" class="form-control">
+                                                                    <input type="text" id="phoneNumber"
+                                                                           name="phoneNumber" class="form-control">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Close
+                                                                    </button>
+                                                                    <button type="submit" class="btn btn-primary">Save
+                                                                    </button>
                                                                 </div>
                                                             </form>
 
@@ -183,14 +230,16 @@
                                 </div>
                             </div>
                             <!--                            bảng-->
-                            <div class="card-body table-full-width table-responsive">
+                            <div class="card-body table-full-width table-responsive" style="margin: 0px">
                                 <table class="table table-hover table-striped">
                                     <thead>
                                     <th>Full Name</th>
                                     <th>Username</th>
                                     <th>Password</th>
                                     <th>Role</th>
+                                    <th></th>
                                     <th>Action</th>
+                                    <th></th>
                                     </thead>
                                     <tbody>
                                     <c:forEach var="account" items="${listAccount}">
@@ -199,134 +248,181 @@
                                             <td><c:out value="${account.username}"/></td>
                                             <td><c:out value="${account.password}"/></td>
                                             <td><c:out value="${account.role.name}"/></td>
-                                        <td>
-                                            <div style="margin: 20px;">
-                                                <a type="button" class="close" href="/accounts?action=edit&id=${account.id}"><span style="color: #0059B3;" aria-hidden="true"><i class="fa fa-eye"></i></span></a>
-                                            </div>
+                                            <td>
+                                                <div style="margin: 20px;">
+                                                    <a type="button" class="close"
+                                                       href="/accounts?action=edit&id=${account.id}"><span
+                                                            style="color: #0059B3;" aria-hidden="true"><i
+                                                            class="fa fa-eye"></i></span></a>
+                                                </div>
 
-                                            <div style="margin: 20px;">
-                                            <!-- Button trigger modal -->
-                                            <a type="button" class="close" data-toggle="modal"
-                                               data-target="#${account.id}">
-                                                <span style="color: #0059B3; " aria-hidden="true"><i class="fa fa-edit"></i></span>
-                                            </a>
 
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="${account.id}" tabindex="-1" role="dialog"
-                                                 aria-labelledby="exampleModalLabel1" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel1">CREATE ACCOUNT</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
+                                            </td>
+                                            <td>
+                                                <div style="margin: 20px;">
+                                                    <!-- Button trigger modal -->
+                                                    <a type="button" class="close" data-toggle="modal"
+                                                       data-target="#${account.id}">
+                                                        <span style="color: #0059B3; " aria-hidden="true"><i
+                                                                class="fa fa-edit"></i></span>
+                                                    </a>
 
-                                                            <form action="/accounts?action=edit&id=${account.id}" method="POST">
-                                                                <c:if test="${account != null}">
-                                                                    <input type="hidden" name="id" value="<c:out value='${account.id}' />"/>
-                                                                </c:if>
-                                                                <div class="form-group">
-                                                                    <label for="editfullName">Full Name</label>
-                                                                    <input type="text" id="editfullName" name="editfullName" class="form-control"
-                                                                           value="<c:out value='${account.fullName}'/>">
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="${account.id}" tabindex="-1"
+                                                         role="dialog"
+                                                         aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel1">
+                                                                        CREATE ACCOUNT</h5>
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal"
+                                                                            aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
                                                                 </div>
+                                                                <div class="modal-body">
 
-                                                                <div class="form-group">
-                                                                    <label for="editusername">User Name</label>
-                                                                    <input type="text" id="editusername" name="editusername" class="form-control"
-                                                                           value="<c:out value='${account.username}'/>" >
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="editpassword">Password</label>
-                                                                    <input type="text" id="editpassword" name="editpassword" class="form-control"
-                                                                           value="<c:out value='${account.password}'/>">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="editaddress">Address</label>
-                                                                    <input type="text" id="editaddress" name="editaddress" class="form-control"
-                                                                           value="<c:out value='${account.address}'/>" >
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="editemail">Email</label>
-                                                                    <input type="text" id="editemail" name="editemail" class="form-control"
-                                                                           value="<c:out value='${account.email}'/>">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="editphoneNumber">Phone Number</label>
-                                                                    <input type="text" id="editphoneNumber" name="editphoneNumber" class="form-control"
-                                                                           value="<c:out value='${account.phoneNumber}'/>">
-                                                                </div>
-                                                                <div class="form-group">
+                                                                    <form action="/accounts?action=edit&id=${account.id}"
+                                                                          method="POST">
+                                                                        <c:if test="${account != null}">
+                                                                            <input type="hidden" name="id"
+                                                                                   value="<c:out value='${account.id}' />"/>
+                                                                        </c:if>
+                                                                        <div class="form-group">
+                                                                            <label for="editfullName">Full Name</label>
+                                                                            <input type="text" id="editfullName"
+                                                                                   name="editfullName"
+                                                                                   class="form-control"
+                                                                                   value="<c:out value='${account.fullName}'/>">
+                                                                        </div>
+
+                                                                        <div class="form-group">
+                                                                            <label for="editusername">User Name</label>
+                                                                            <input type="text" id="editusername"
+                                                                                   name="editusername"
+                                                                                   class="form-control"
+                                                                                   value="<c:out value='${account.username}'/>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="editpassword">Password</label>
+                                                                            <input type="text" id="editpassword"
+                                                                                   name="editpassword"
+                                                                                   class="form-control"
+                                                                                   value="<c:out value='${account.password}'/>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="editaddress">Address</label>
+                                                                            <input type="text" id="editaddress"
+                                                                                   name="editaddress"
+                                                                                   class="form-control"
+                                                                                   value="<c:out value='${account.address}'/>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="editemail">Email</label>
+                                                                            <input type="text" id="editemail"
+                                                                                   name="editemail" class="form-control"
+                                                                                   value="<c:out value='${account.email}'/>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="editphoneNumber">Phone
+                                                                                Number</label>
+                                                                            <input type="text" id="editphoneNumber"
+                                                                                   name="editphoneNumber"
+                                                                                   class="form-control"
+                                                                                   value="<c:out value='${account.phoneNumber}'/>">
+                                                                        </div>
+                                                                        <div class="form-group">
                                                                             <label for="role">Role</label>
-<%--                                                                            <input type="text" id="role" name="role" class="form-control"--%>
-<%--                                                                                   value="<c:out value='${account.role.id}'/>">--%>
-                                                                                <select name="role" id="role" style="height: 40px; width: 350px;">
-                                                                                    <c:if test="${account.role.id == 1}">
-                                                                                        <option value="1">ROLE_ADMIN</option>
-                                                                                        <option value="2">ROLE_USER</option>
-                                                                                    </c:if>
-                                                                                    <c:if test="${account.role.id == 2}">
-                                                                                        <option value="2">ROLE_USER</option>
-                                                                                        <option value="1">ROLE_ADMIN</option>
-                                                                                    </c:if>
+                                                                            <select name="role" id="role"
+                                                                                    style="height: 25px; width: 350px;">
+                                                                                <c:if test="${account.role.id == 1}">
+                                                                                    <option value="1">ROLE_ADMIN
+                                                                                    </option>
+                                                                                    <option value="2">ROLE_USER</option>
+                                                                                </c:if>
+                                                                                <c:if test="${account.role.id == 2}">
+                                                                                    <option value="2">ROLE_USER</option>
+                                                                                    <option value="1">ROLE_ADMIN
+                                                                                    </option>
+                                                                                </c:if>
 
-                                                                                </select>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <button type="button"
+                                                                                    class="btn btn-secondary"
+                                                                                    data-dismiss="modal">Close
+                                                                            </button>
+                                                                            <button type="submit"
+                                                                                    class="btn btn-primary">Save
+                                                                            </button>
+                                                                        </div>
+                                                                    </form>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Save</button>
-                                                                </div>
-                                                            </form>
-
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                            <div style="margin: 20px;">
-                                                <a type="button" class="close" data-toggle="modal"
-                                                   data-target="#delete-${account.id}">
-                                                    <span style="color: #0059B3;" aria-hidden="true"><i class="fa fa-close"></i></span>
-                                                </a>
-
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="delete-${account.id}" tabindex="-1" role="dialog"
-                                                     aria-labelledby="exampleModalLabel2" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel2">Do you want to delete now?</h5>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
                                                             </div>
-                                                            <div class="modal-body">
-
-                                                                <form action="/accounts?action=delete&id=${account.id}" method="post">
-                                                                    <div class="form-group">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                                                                        <button type="submit" class="btn btn-primary">DELETE</button>
-                                                                    </div>
-                                                                </form>
-
-                                                            </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+
+                                            </td>
+                                            <td style="display: revert !important;">
+                                                <div style="margin: 20px;">
+                                                    <a type="button" class="close" data-toggle="modal"
+                                                       data-target="#delete-${account.id}">
+                                                        <span style="color: #0059B3;" aria-hidden="true"><i
+                                                                class="fa fa-close"></i></span>
+                                                    </a>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="delete-${account.id}" tabindex="-1"
+                                                         role="dialog"
+                                                         aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel2">Do
+                                                                        you want to delete now?</h5>
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal"
+                                                                            aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+
+                                                                    <form action="/accounts?action=delete&id=${account.id}"
+                                                                          method="post">
+                                                                        <div class="form-group">
+                                                                            <button type="button"
+                                                                                    class="btn btn-secondary"
+                                                                                    data-dismiss="modal">NO
+                                                                            </button>
+                                                                            <button type="submit"
+                                                                                    class="btn btn-primary">DELETE
+                                                                            </button>
+                                                                        </div>
+                                                                    </form>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
                                 </table>
+                                <div class="col-lg-12 text-center">
+                                    <div class="pagination__option">
+                                        <c:forEach begin="1" end="${size/6+1}" var="i">
+                                            <a href="/accounts?page=${i}">${i}</a>
+                                        </c:forEach>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -340,9 +436,8 @@
                     <p class="copyright text-center">
                         ©
                         <script>
-                            document.write(new Date().getFullYear())
                         </script>
-                        <a href="http://www.creative-tim.com">TEAM CODEGYM</a>
+                        <a href="#">TEAM CODEGYM</a>
                     </p>
                 </nav>
             </div>
@@ -363,8 +458,28 @@
 <!--  Notifications Plugin    -->
 <script src="views/assets/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
-<script src="views/assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
+<script src="views/assets/js/light-bootstrap-dashboard.js?v=1.4.0 " type="text/javascript"></script>
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 <script src="views/assets/js/demo.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<style>
+    .modal-backdrop {
+        /* bug fix - no overlay */
+        display: none;
+    }
 
+</style>
+<script>
+    $(document).ready(() => {
+        $('#nav-mobile-menu').remove();
+    })
+</script>
 </html>

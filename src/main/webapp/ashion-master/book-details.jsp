@@ -268,7 +268,7 @@
     setHeader();
     let catId = document.getElementById("catId").value;
     $(document).ready(function () {
-        let getBooksUrl = 'http://localhost:8080/books?action=getTop4ByCategory&catId=' + catId;
+        let getBooksUrl = 'http://localhost:8082/books?action=getTop4ByCategory&catId=' + catId;
         getBooksDataAPI(getBooksUrl);
     })
 
