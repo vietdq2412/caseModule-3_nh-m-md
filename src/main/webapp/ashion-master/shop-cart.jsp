@@ -125,8 +125,8 @@
                     <ul>
                         <li>Total <span id="totalPrice">$ 0</span></li>
                     </ul>
-                    <%--                    <a href="/shop-carts?action=checkout" class="primary-btn">Checkout</a>--%>
-                    <a data-toggle="modal" data-target="#exampleModal" class="primary-btn">Checkout</a>
+                                        <a href="/shop-carts?action=sentOrder" class="primary-btn">Checkout</a>
+<%--                    <a data-toggle="modal" data-target="#exampleModal" class="primary-btn">Checkout</a>--%>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         Launch demo modal
@@ -302,19 +302,23 @@
     </div>
 </div>
 <input type="text" value="${currentUser.id}" id="userId">
+<input type="text" value="${message}" id="mess">
 <input type="text" value="${currentUser.fullName}" id="userName">
 <input type="text" value="${currentUser.role.name}" id="userRole">
 <!-- Search End -->
 <script src="../js/header.js"></script>
 <script>
-    let role =document.getElementById("userRole");
-    let username = document.getElementById("username");
-
-    console.log("sdsdsd",role, username)
+    let role =document.getElementById("userRole").value;
+    let username = document.getElementById("userName").value;
+    let mess = document.getElementById("mess").value;
+    console.log("mess: ",mess)
+    console.log("cart view: ",role, username)
     setHeader(role, username);
+
     $(document).ready(function () {
-        let getItemsUrl = 'http://localhost:8080/shop-carts?action=getCartData';
+        let getItemsUrl = 'http://localhost:8082/shop-carts?action=getCartData';
         getItemsDataAPI(getItemsUrl);
+
     })
 
     function getItemsDataAPI(url) {
@@ -323,6 +327,8 @@
             contentType: 'application/json; charset=utf-8',
             method: 'GET',
             success: function (data) {
+                let a = '<request.getSession().getAttribute("results")>'
+                alert("al: ",a)
                 printItemsData(data)
             },
             error: function () {

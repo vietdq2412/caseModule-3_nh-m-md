@@ -314,7 +314,7 @@ q            </div>
 <script>
     setHeader();
     $(document).ready(function () {
-        let getItemsUrl = 'http://localhost:8080/shop-carts?action=getCartData';
+        let getItemsUrl = 'http://localhost:8082/shop-carts?action=getCartData';
         getItemsDataAPI(getItemsUrl);
     })
 

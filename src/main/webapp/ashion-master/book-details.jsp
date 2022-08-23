@@ -119,7 +119,6 @@
                                 <span>Quantity:</span>
                                 <div class="pro-qty">
                                     <input type="text" value="1" name="quantity">
-                                    <input type="hidden" value="${book.id}" name="bookId">
                                 </div>
                             </div>
                             <button class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</button>
@@ -131,6 +130,7 @@
                     </form>
                 </div>
             </div>
+            <input type="hidden" value="${book.id}" name="bookId">
             <div class="col-lg-12">
                 <div class="product__details__tab">
                     <ul class="nav nav-tabs" role="tablist">
@@ -268,7 +268,7 @@
     setHeader();
     let catId = document.getElementById("catId").value;
     $(document).ready(function () {
-        let getBooksUrl = 'http://localhost:8080/books?action=getTop4ByCategory&catId=' + catId;
+        let getBooksUrl = 'http://localhost:8082/books?action=getTop4ByCategory&catId=' + catId;
         getBooksDataAPI(getBooksUrl);
     })
 

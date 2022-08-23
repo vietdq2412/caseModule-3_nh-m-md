@@ -61,6 +61,7 @@ public class ShopCartController extends HttpServlet {
     private void sentOrder(HttpServletRequest request, HttpServletResponse response) {
         session = request.getSession();
         Account account = (Account) session.getAttribute("user");
+
         if (account==null){
             try {
                 response.sendRedirect("/");
@@ -69,8 +70,13 @@ public class ShopCartController extends HttpServlet {
                 throw new RuntimeException(e);
             }
         }
-        orderService.sentOrder(account.getId());
-        session.setAttribute("message", "sent order success!");
+        if (orderService.checkEmptyCard(account.getId())){
+            request.setAttribute("message", "Your cart is empty!");
+            session.setAttribute("message", "Your cart is empty!");
+        }else {
+            orderService.sentOrder(account.getId());
+            session.setAttribute("message", "sent order success!");
+        }
         try {
             response.sendRedirect("shop-carts");
         } catch (IOException e) {
@@ -106,11 +112,12 @@ public class ShopCartController extends HttpServlet {
             }
         }
         Order orderInCart = orderService.findOrderInCart(account.getId());
-        if (orderInCart == null){
-            orderService.create(new Order(account.getId(), 1));
-            orderInCart = orderService.findOrderInCart(account.getId());
-        }
         HashMap<Integer, OrderDetail> orderDetailHashMap = orderDetailService.findByOrderId(orderInCart.getId());
+        if (orderService.checkEmptyCard(account.getId())){
+            session.setAttribute("message", "Your cart is empty!");
+            request.setAttribute("message", "Your cart is empty!");
+        }
+
         String bookData = gson.toJson(orderDetailHashMap.values());
         PrintWriter out = null;
         try {
@@ -118,6 +125,7 @@ public class ShopCartController extends HttpServlet {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         out.print(bookData);

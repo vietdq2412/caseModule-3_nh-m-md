@@ -20,5 +20,7 @@ public interface IAccountService extends IService<Account> {
     boolean update(Account account);
     Account findByEmailAndPass(String email, String password);
     HashMap<Integer, Account> findByRole(int id);
+    HashMap<Integer, Account> findByName(String name);
+
 
 }

@@ -37,7 +37,7 @@ public class AccountController extends HttpServlet {
                     showFormCreate(request, response);
                     break;
                 case "edit":
-                    showFormEdit(request, response);
+                    showFormEdit(request, response, session);
                     break;
                 case "login":
                     fromLogin(request, response);
@@ -55,6 +55,20 @@ public class AccountController extends HttpServlet {
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void showAllBySearchName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("searchAccount");
+        if(name == null){
+            name = "%%";
+        }
+        else {
+            name = "%" + name+ "%";
+        }
+        HashMap<Integer, Account> accounts = accountService.findByName(name);
+        request.setAttribute("listAccount", accounts.values());
+        RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("views/account/list.jsp");
+        resRequestDispatcher.forward(request, response);
     }
 
     private void showAccountByRole(HttpServletRequest request, HttpServletResponse response, int role) throws ServletException, IOException {
@@ -75,8 +89,16 @@ public class AccountController extends HttpServlet {
         requestDispatcher.forward(request,response);
     }
 
-    private void showFormEdit(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+    private void showFormEdit(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws SQLException, ServletException, IOException {
+        int id;
+        if(request.getParameter("id") != null){
+          id = Integer.parseInt(request.getParameter("id"));
+        }
+        else{
+            Account account = (Account) session.getAttribute("user");
+            id = account.getId();
+        }
+
         Account u = accountService.findById(id);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/account/edit.jsp");
         request.setAttribute("accountEdit", u);
@@ -86,7 +108,7 @@ public class AccountController extends HttpServlet {
     private void deleteAccount(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         accountService.delete(id);
-        response.sendRedirect("/accounts");
+        response.sendRedirect("/accounts?page=1");
     }
 
     private void showFormCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -95,8 +117,12 @@ public class AccountController extends HttpServlet {
     }
 
     private void showAllAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HashMap<Integer, Account> accounts = accountService.find("");
+        int page = Integer.parseInt(request.getParameter("page")) - 1;
+        String condition = " LIMIT " + (page * 6) + ", " + 6;
+        HashMap<Integer, Account> accounts = accountService.find(condition);
+        HashMap<Integer, Account> size = accountService.find("");
         request.setAttribute("listAccount", accounts.values());
+        request.setAttribute("size", size.values().size());
         RequestDispatcher resRequestDispatcher = request.getRequestDispatcher("views/account/list.jsp");
         resRequestDispatcher.forward(request, response);
     }
@@ -130,6 +156,9 @@ public class AccountController extends HttpServlet {
                 case "delete":
                     deleteAccount(request, response);
                     break;
+                case "search":
+                    showAllBySearchName(request, response);
+                    break;
                 default:
             }
         } catch (SQLException e) {
@@ -159,7 +188,7 @@ public class AccountController extends HttpServlet {
         account.setRole(role);
         System.out.println(account);
         accountService.update(account);
-        response.sendRedirect("/accounts");
+        response.sendRedirect("/accounts?page=1");
 
     }
     private void editProfile(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
@@ -184,7 +213,7 @@ public class AccountController extends HttpServlet {
     private void createAccount(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         Account Account = getAccount(request, response,"");
         accountService.create(Account);
-        response.sendRedirect("/accounts");
+        response.sendRedirect("/accounts?page=1");
     }
 
     private Account getAccount(HttpServletRequest request, HttpServletResponse response, String name) {
